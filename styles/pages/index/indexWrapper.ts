@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const IndexWrapper = styled.div`
   .content {
-    padding: 30px 0;
+    padding-top: 30px;
   }
 
   .titleBar {
