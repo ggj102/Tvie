@@ -1,10 +1,21 @@
 :root {
 }
 
+@font-face {
+  font-family: "pretendard";
+  src: url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css")
+    format("woff");
+  font-weight: "normal";
+  font-style: normal;
+}
+
 html,
 body {
   max-width: 100vw;
   overflow-x: hidden;
+  margin: 0;
+
+  font-family: "pretendard";
 }
 
 a {
