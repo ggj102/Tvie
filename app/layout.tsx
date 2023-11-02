@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import StyledComponentsRegistry from "@/lib/styleRegistry";
 import "./globals.css";
-
-const inter = Inter({ subsets: ["latin"] });
+import Navigation from "@/components/navigation";
+import Layout from "@/components/layout";
 
 export const metadata: Metadata = {
   title: "TVie",
@@ -16,7 +17,12 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body>
+        <StyledComponentsRegistry>
+          <Navigation />
+          <Layout>{children}</Layout>
+        </StyledComponentsRegistry>
+      </body>
     </html>
   );
 }
