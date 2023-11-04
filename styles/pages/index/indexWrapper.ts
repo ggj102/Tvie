@@ -60,9 +60,9 @@ export const IndexWrapper = styled.div`
     display: flex;
     height: auto;
     gap: 20px;
-    list-style: none;
+
     padding: 20px 40px;
-    margin: 0;
+
     box-sizing: border-box;
     overflow-x: auto;
 
@@ -72,7 +72,7 @@ export const IndexWrapper = styled.div`
 
     &::-webkit-scrollbar-thumb {
       background: rgb(219, 219, 219);
-      border-radius: 10px;
+      border-radius: 8px;
     }
   }
 
@@ -80,7 +80,7 @@ export const IndexWrapper = styled.div`
     position: relative;
 
     .contentImg {
-      border-radius: 10px;
+      border-radius: 8px;
       position: relative;
       width: 150px;
       height: 225px;
