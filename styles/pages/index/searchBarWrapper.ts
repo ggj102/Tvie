@@ -70,6 +70,7 @@ export const SearchBarWrapper = styled.div`
         font-size: 1em;
         border: none;
         border-radius: 30px;
+        box-sizing: border-box;
         color: #fff;
         font-weight: bold;
 

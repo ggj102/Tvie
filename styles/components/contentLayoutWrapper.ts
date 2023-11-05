@@ -1,11 +1,24 @@
 import styled from "styled-components";
 
 export const ContentLayoutWrapper = styled.div`
+  width: 100%;
   display: flex;
-  flex-direction: column;
-  padding-top: 30px;
-  gap: 20px;
+  justify-content: center;
+
+  & > div {
+    width: 1300px;
+    height: auto;
+
+    & > div {
+      display: flex;
+      flex-direction: column;
+
+      gap: 20px;
+    }
+  }
+
   .categoryTitle {
+    margin-top: 30px;
     font-size: 1.6em;
     font-weight: bold;
   }

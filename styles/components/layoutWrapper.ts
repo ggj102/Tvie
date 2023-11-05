@@ -8,17 +8,6 @@ export const LayoutWrapper = styled.div`
 
   font-family: "pretendard";
 
-  & > div {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-
-    & > div {
-      width: 1300px;
-      height: auto;
-    }
-  }
-
   footer {
     margin-top: 64px;
     width: 100%;
