@@ -1,7 +1,10 @@
-import CategoryButtons from "@/components/categoryButtons";
 import { useState } from "react";
 
+import CategoryButtons from "@/components/categoryButtons";
+import { usePathname } from "next/navigation";
+
 export default function Certification() {
+  const pathname = usePathname();
   const [certificationArr, setCertification] = useState<any>([
     { category: "Exempt", checked: false },
     { category: "ALL", checked: false },
@@ -20,10 +23,12 @@ export default function Certification() {
   return (
     <div className="cardContent">
       <div>Certification</div>
-      <CategoryButtons
-        categoryData={certificationArr}
-        onClickSelect={onClickSelect}
-      />
+      {pathname === "/tv" && (
+        <CategoryButtons
+          categoryData={certificationArr}
+          onClickSelect={onClickSelect}
+        />
+      )}
     </div>
   );
 }

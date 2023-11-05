@@ -4,15 +4,23 @@ import { ReleaseDatesWrapper } from "@/styles/components/sideBar/sideBarCardCont
 import ReactDatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import EventIcon from "@mui/icons-material/Event";
+import { usePathname } from "next/navigation";
 
 export default function ReleaseDates() {
+  const pathname = usePathname();
   const [isAllRelease, setIsAllRelease] = useState<boolean>(false);
   const [isAllCountries, setIsAllCountries] = useState<boolean>(false);
+
+  const [isAllEpisodes, setIsAllEpisodes] = useState<boolean>(false);
 
   const [selectedDate, setSelectedDate] = useState<Date | null>(new Date());
 
   const onChangeAllRelease = (e: any) => {
     setIsAllRelease(e.target.checked);
+  };
+
+  const onChangeAllEpisodes = (e: any) => {
+    setIsAllEpisodes(e.target.checked);
   };
 
   const onChangeCountries = (e: any) => {
@@ -21,29 +29,47 @@ export default function ReleaseDates() {
 
   return (
     <div className="cardContent">
-      <div>Release Dates</div>
+      <div>{pathname === "/tv" ? "방영일자" : "Release Dates"}</div>
       <ReleaseDatesWrapper>
-        <CustomCheckBox
-          text="Search all releases?"
-          onChange={onChangeAllRelease}
-          checked={isAllRelease}
-        />
-        {!isAllRelease && (
-          <div className="hideCheckbox">
+        {pathname === "/tv" ? (
+          <div>
             <CustomCheckBox
-              id="allCountries"
-              text="Search all countries?"
-              onChange={onChangeCountries}
-              checked={isAllCountries}
+              text="Search all episodes?"
+              onChange={onChangeAllEpisodes}
+              checked={isAllEpisodes}
             />
-            {!isAllCountries && <>셀렉트박스</>}
-            <CustomCheckBox text="극장 (제한)" />
-            <CustomCheckBox text="극장" />
-            <CustomCheckBox text="프리미어" />
-            <CustomCheckBox text="물리매체" />
-            <CustomCheckBox text="TV" />
+            {!isAllEpisodes && (
+              <div className="hideCheckbox">
+                <CustomCheckBox text="Search first air date?" />
+              </div>
+            )}
+          </div>
+        ) : (
+          <div>
+            <CustomCheckBox
+              text="Search all releases?"
+              onChange={onChangeAllRelease}
+              checked={isAllRelease}
+            />
+            {!isAllRelease && (
+              <div className="hideCheckbox">
+                <CustomCheckBox
+                  id="allCountries"
+                  text="Search all countries?"
+                  onChange={onChangeCountries}
+                  checked={isAllCountries}
+                />
+                {!isAllCountries && <>셀렉트박스</>}
+                <CustomCheckBox text="극장 (제한)" />
+                <CustomCheckBox text="극장" />
+                <CustomCheckBox text="프리미어" />
+                <CustomCheckBox text="물리매체" />
+                <CustomCheckBox text="TV" />
+              </div>
+            )}
           </div>
         )}
+
         <div className="datepickerWrapper">
           <div>
             <span>from</span>

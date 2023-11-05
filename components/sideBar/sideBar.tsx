@@ -1,19 +1,17 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import SideBarCard from "./sideBarCard";
 import { SideBarWrapper } from "@/styles/components/sideBar/sideBarWrapper";
 import Availabilities from "./sideBarCardContents/availabilities";
 import Genre from "./sideBarCardContents/genre";
 import CustomSlider from "../customSlider";
-import CustomSelect from "../customSelect";
 import ReleaseDates from "./sideBarCardContents/releaseDates";
 import Certification from "./sideBarCardContents/certification";
+import { usePathname } from "next/navigation";
 
 export default function SideBar() {
-  const [rangeVal, setRangeVal] = useState<number>(0);
-  const [rangeVal2, setRangeVal2] = useState<number>(0);
-
+  const pathname = usePathname();
   const [scoreValue, setScoreValue] = useState<number[]>([0, 10]);
   const [votesValue, setVotesValue] = useState<number>(0);
   const [runtimeValue, setRuntimeValue] = useState<number[]>([0, 400]);
@@ -62,6 +60,12 @@ export default function SideBar() {
         <ReleaseDates />
         <Genre />
         <Certification />
+        {pathname === "/tv" && (
+          <div className="cardContent">
+            <div>방송사</div>
+            <input />
+          </div>
+        )}
         <div className="cardContent">
           <div>언어</div>
         </div>
