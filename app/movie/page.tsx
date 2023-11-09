@@ -1,29 +1,22 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import ContentLayout from "@/components/contentLayout";
-import SideBar from "@/components/sideBar/sideBar";
 import Link from "next/link";
 import Image from "next/image";
 
+import ContentLayout from "@/components/contentLayout";
+import SideBar from "@/components/sideBar/sideBar";
+
+import { apiClient } from "@/api/httpClient";
+import { dateFormater } from "@/utils/dateFormater";
+
 export default function MoviePage() {
-  const [dummyData, setDummyData] = useState<any>([]);
+  const [listData, setListData] = useState<any>([]);
 
   useEffect(() => {
-    const dummy = {
-      title: "프레디의 피자가게",
-      release: "10월 27, 2023",
-      image: "/images/testContentImg.jpg",
-      score: "84%",
-    };
-
-    const arr = [];
-
-    for (let i = 0; i < 20; i++) {
-      arr.push(dummy);
-    }
-
-    setDummyData(arr);
+    apiClient.get("movie/popular?language=ko&page=1").then((res) => {
+      setListData(res.data.results);
+    });
   }, []);
 
   return (
@@ -33,21 +26,34 @@ export default function MoviePage() {
         <SideBar />
         <div className="contentList">
           <ul>
-            {dummyData.map((val: any, idx: number) => {
-              const { title, release, image, score } = val;
+            {listData.map((val: any, idx: number) => {
+              const { id, title, release_date, poster_path, vote_average } =
+                val;
+              const vote = `${Math.floor(vote_average * 10)}%`;
+              const date = dateFormater(release_date);
 
               return (
                 <li key={`${title}${idx}`}>
-                  <Link href="">
+                  <Link href={`/contentDetail?type=movie&id=${id}`}>
                     <div className="contentImg">
-                      <Image src={image} fill alt="contentImg" />
-                    </div>
-                    <div className="score">{score}</div>
-                    <div className="titleRelease">
-                      <div className="title">{title}</div>
-                      <div className="release">{release}</div>
+                      <Image
+                        src={`https://image.tmdb.org/t/p/w220_and_h330_face/${poster_path}`}
+                        fill
+                        sizes="1x"
+                        alt="contentImg"
+                      />
                     </div>
                   </Link>
+                  <div className="score">{vote}</div>
+                  <div className="titleRelease">
+                    <Link
+                      href={`/contentDetail?type=movie&id=${id}`}
+                      className="title"
+                    >
+                      {title}
+                    </Link>
+                    <div className="release">{date}</div>
+                  </div>
                 </li>
               );
             })}
