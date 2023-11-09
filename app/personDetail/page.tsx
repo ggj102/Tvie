@@ -1,25 +1,42 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useSearchParams } from "next/navigation";
 import Image from "next/image";
+
 import { PersonDetailWrapper } from "@/styles/pages/personDetailWrapper";
+import { personDetailApi } from "@/api/httpClient";
 
 export default function PersonDetailPage() {
-  const [dummyData, setDummyData] = useState<any>([]);
+  const [personDetailData, setPersonDetailData] = useState<any>({
+    profile_path: "",
+    also_known_as: [],
+    birthday: "",
+  });
+  const [biography, setBiography] = useState<any>([]);
+  const [famous, setFamous] = useState<any>([]);
+  const [acting, setActing] = useState<any>([]);
+
+  const params = useSearchParams();
+  const gender = ["-", "여성", "남성"];
+  const yearsCalc = (birth: string) => {
+    if (!birth) return;
+
+    const date = new Date();
+    const extractedStr = birth.substring(0, 4);
+
+    return ` (${date.getFullYear() - Number(extractedStr)} years old)`;
+  };
 
   useEffect(() => {
-    const dummy = {
-      title: "스파이더맨: 파 프롬 홈",
-      image: "/images/testContentImg6.jpg",
-    };
+    const personId = params.get("id");
 
-    const arr = [];
-
-    for (let i = 0; i < 20; i++) {
-      arr.push(dummy);
-    }
-
-    setDummyData(arr);
+    personDetailApi(personId).then((res: any) => {
+      setPersonDetailData(res.koData.data);
+      setBiography(res.biography);
+      setFamous(res.famous);
+      setActing(res.acting);
+    });
   }, []);
 
   return (
@@ -27,63 +44,90 @@ export default function PersonDetailPage() {
       <div>
         <div className="personInfo">
           <div className="personImg">
-            <Image src="/images/testContentImg5.jpg" fill alt="personImg" />
+            <Image
+              src={`https://image.tmdb.org/t/p/w300_and_h450_bestv2/${personDetailData.profile_path}`}
+              fill
+              sizes="1x"
+              alt="personImg"
+            />
           </div>
           <div className="info">
             <div>인물 정보</div>
             <div className="intro">
               <div>
                 <p>유명 분야</p>
-                <div>연기</div>
+                <div>{personDetailData.known_for_department}</div>
               </div>
               <div>
                 <p>참여 작품 수</p>
-                <div>301</div>
+                <div>{acting.length}</div>
               </div>
               <div>
                 <p>성별</p>
-                <div>남성</div>
+                <div>{gender[personDetailData.gender]}</div>
               </div>
               <div>
                 <p>생일</p>
-                <div>1948-12-21 (74 years old)</div>
+                <div>
+                  {personDetailData.birthday || "-"}
+                  {!personDetailData.deathday
+                    ? yearsCalc(personDetailData.birthday)
+                    : ""}
+                </div>
               </div>
+              {personDetailData.deathday && (
+                <div>
+                  <p>사망일</p>
+                  <div>
+                    {personDetailData.deathday}
+                    {yearsCalc(personDetailData.birthday)}
+                  </div>
+                </div>
+              )}
               <div>
                 <p>출생지</p>
-                <div>Washington, District of Columbia, USA</div>
+                <div>{personDetailData.place_of_birth || "-"}</div>
               </div>
               <div>
                 <p>다른 명칭</p>
                 <ul>
-                  <li>사무엘 L. 잭슨</li>
-                  <li>Sam Jackson</li>
-                  <li>Samuel Jackson</li>
-                  <li>森姆·積遜</li>
-                  <li>サミュエル・L・ジャクソン</li>
+                  {personDetailData.also_known_as.length > 0
+                    ? personDetailData.also_known_as.map((val: string) => {
+                        return <li key={val}>{val}</li>;
+                      })
+                    : "-"}
                 </ul>
               </div>
             </div>
           </div>
         </div>
         <div className="detailInfo">
-          <div className="personName">Samuel L. Jackson</div>
+          <div className="personName">{personDetailData.name}</div>
           <div className="history">
             <div className="detailInfoTitle">약력</div>
             <div className="historyText">
-              <div>{`Samuel Leroy Jackson (born December 21, 1948) is an American actor and producer. One of the most widely recognized actors of his generation, the films in which he has appeared have collectively grossed over $27 billion worldwide, making him the second highest-grossing actor of all time. The Academy of Motion Picture Arts and Sciences gave him an Academy Honorary Award in 2022 as "A cultural icon whose dynamic work has resonated across genres and generations and audiences worldwide".`}</div>
-              <div>{`Jackson started his career on stage making his professional theatre debut in Mother Courage and her Children in 1980 at The Public Theatre. From 1981 to 1983 he originated the role of Private Louis Henderson in A Soldier's Play Off-Broadway. He also originated the role of Boy Willie in August Wilson's The Piano Lesson in 1987 at the Yale Repertory Theatre. He returned to the play in the 2022 Broadway revival playing Doaker Charles. Jackson early film roles include Coming to America (1988), Goodfellas (1990), Patriot Games (1992), Juice (1992), True Romance (1993), and Jurassic Park (1993), Menace II Society (1993), and Fresh (1994). His collaborations with Spike Lee led to greater prominence with films such as School Daze (1988), Do the Right Thing (1989), Mo' Better Blues (1990), Jungle Fever (1991), Oldboy (2013), and Chi-Raq (2015).`}</div>
+              {biography.length > 0
+                ? biography.map((val: string, idx: number) => {
+                    return <div key={`${biography}${idx}`}>{val}</div>;
+                  })
+                : `${personDetailData.name}의 약력 란이 비어있습니다.`}
             </div>
           </div>
           <div className="famous">
             <div className="detailInfoTitle">유명 작품</div>
             <div className="famousList">
               <ul>
-                {dummyData.map((val: any, idx: number) => {
-                  const { title, image } = val;
+                {famous.map((val: any, idx: number) => {
+                  const title = val.title || val.name;
                   return (
                     <li key={`${title}${idx}`}>
                       <div className="famousImg">
-                        <Image src={image} fill alt="famousImg" />
+                        <Image
+                          src={`https://image.tmdb.org/t/p/w150_and_h225_bestv2/${val.poster_path}`}
+                          fill
+                          sizes="1x"
+                          alt="famousImg"
+                        />
                       </div>
                       <div className="famousTitle">{title}</div>
                     </li>
@@ -94,156 +138,38 @@ export default function PersonDetailPage() {
           </div>
           <div className="career">
             <div className="detailInfoTitle">연기</div>
-            <div className="careerList">
-              <ul>
-                <li>
-                  <div>
-                    <div className="careerYear">2024</div>
+            <ul className="careerList">
+              {acting.map((val: any, idx: number) => {
+                const title = val.title || val.name;
+                const date: string = val.first_air_date || val.release_date;
+                const year = date ? date.substring(0, 4) : "—";
+
+                return (
+                  <li
+                    key={`${title}${idx}`}
+                    className={val.topLine ? "topLine" : ""}
+                  >
+                    <div className="careerYear">{year}</div>
                     <div className="dot">
                       <div></div>
                     </div>
                     <div className="casting">
-                      <div>Unholy Trinity</div>
-                      <div>St. Christopher 역</div>
+                      <div>{title}</div>
+                      <div className="castingInfo">
+                        {val.episode_count && (
+                          <div className="episode">
+                            ({val.episode_count} 화)
+                          </div>
+                        )}
+                        {val.character && (
+                          <div className="character">{val.character} 역</div>
+                        )}
+                      </div>
                     </div>
-                  </div>
-                  <div>
-                    <div className="careerYear">2024</div>
-                    <div className="dot">
-                      <div></div>
-                    </div>
-                    <div className="casting">
-                      <div>Unholy Trinity</div>
-                      <div>St. Christopher 역</div>
-                    </div>
-                  </div>
-                  <div>
-                    <div className="careerYear">2024</div>
-                    <div className="dot">
-                      <div></div>
-                    </div>
-                    <div className="casting">
-                      <div>Unholy Trinity</div>
-                      <div>St. Christopher 역</div>
-                    </div>
-                  </div>
-                </li>
-                <li>
-                  <div>
-                    <div className="careerYear">2024</div>
-                    <div className="dot">
-                      <div></div>
-                    </div>
-                    <div className="casting">
-                      <div>Unholy Trinity</div>
-                      <div>St. Christopher 역</div>
-                    </div>
-                  </div>
-                </li>
-              </ul>
-            </div>
-          </div>
-          <div className="career">
-            <div className="detailInfoTitle">제작</div>
-            <div className="careerList">
-              <ul>
-                <li>
-                  <div>
-                    <div className="careerYear">2024</div>
-                    <div className="dot">
-                      <div></div>
-                    </div>
-                    <div className="casting">
-                      <div>Unholy Trinity</div>
-                      <div>St. Christopher 역</div>
-                    </div>
-                  </div>
-                  <div>
-                    <div className="careerYear">2024</div>
-                    <div className="dot">
-                      <div></div>
-                    </div>
-                    <div className="casting">
-                      <div>Unholy Trinity</div>
-                      <div>St. Christopher 역</div>
-                    </div>
-                  </div>
-                  <div>
-                    <div className="careerYear">2024</div>
-                    <div className="dot">
-                      <div></div>
-                    </div>
-                    <div className="casting">
-                      <div>Unholy Trinity</div>
-                      <div>St. Christopher 역</div>
-                    </div>
-                  </div>
-                </li>
-                <li>
-                  <div>
-                    <div className="careerYear">2024</div>
-                    <div className="dot">
-                      <div></div>
-                    </div>
-                    <div className="casting">
-                      <div>Unholy Trinity</div>
-                      <div>St. Christopher 역</div>
-                    </div>
-                  </div>
-                </li>
-              </ul>
-            </div>
-          </div>
-          <div className="career">
-            <div className="detailInfoTitle">창작자</div>
-            <div className="careerList">
-              <ul>
-                <li>
-                  <div>
-                    <div className="careerYear">2024</div>
-                    <div className="dot">
-                      <div></div>
-                    </div>
-                    <div className="casting">
-                      <div>Unholy Trinity</div>
-                      <div>St. Christopher 역</div>
-                    </div>
-                  </div>
-                  <div>
-                    <div className="careerYear">2024</div>
-                    <div className="dot">
-                      <div></div>
-                    </div>
-                    <div className="casting">
-                      <div>Unholy Trinity</div>
-                      <div>St. Christopher 역</div>
-                    </div>
-                  </div>
-                  <div>
-                    <div className="careerYear">2024</div>
-                    <div className="dot">
-                      <div></div>
-                    </div>
-                    <div className="casting">
-                      <div>Unholy Trinity</div>
-                      <div>St. Christopher 역</div>
-                    </div>
-                  </div>
-                </li>
-                <li>
-                  <div>
-                    <div className="careerYear">2024</div>
-                    <div className="dot">
-                      <div></div>
-                    </div>
-                    <div className="casting">
-                      <div>Unholy Trinity</div>
-                      <div>St. Christopher 역</div>
-                    </div>
-                  </div>
-                </li>
-              </ul>
-            </div>
+                  </li>
+                );
+              })}
+            </ul>
           </div>
         </div>
       </div>

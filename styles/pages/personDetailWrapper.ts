@@ -139,6 +139,7 @@ export const PersonDetailWrapper = styled.div`
           }
 
           .famousTitle {
+            width: 100%;
             display: inline-block;
             text-align: center;
             color: #000;
@@ -168,23 +169,29 @@ export const PersonDetailWrapper = styled.div`
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
       border: 1px solid rgba(227, 227, 227, 1);
       background-color: #fff;
+      padding: 10px 0;
+
+      .topLine {
+        border-top: 1px solid #dedede;
+        margin-top: 10px;
+        padding-top: 18px;
+      }
+
+      .bottomLine {
+        border-bottom: 1px solid #dedede;
+        margin-bottom: 10px;
+        padding-bottom: 18px;
+      }
 
       li {
-        border-bottom: 1px solid #dedede;
-        padding: 10px 0;
-
-        & > div {
-          display: flex;
-
-          padding: 8px 16px;
-          gap: 16px;
-        }
+        padding: 8px 16px;
+        gap: 16px;
+        display: flex;
       }
 
       .careerYear {
-        width: 32px;
+        width: 44px;
         font-weight: 400;
-        vertical-align: top;
         text-align: center;
       }
 
@@ -199,12 +206,16 @@ export const PersonDetailWrapper = styled.div`
       }
 
       .casting {
+        width: 100%;
         & > div:first-of-type {
           font-weight: 600;
         }
 
-        & > div:last-of-type {
+        .castingInfo {
           padding-left: 14px;
+
+          display: flex;
+          gap: 1px;
           color: rgba(0, 0, 0, 0.5);
           font-weight: 400;
         }
