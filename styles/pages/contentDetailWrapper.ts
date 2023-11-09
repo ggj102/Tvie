@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const ContentDetailWrapper = styled.div`
+export const ContentDetailWrapper = styled("div")<{ bgUrl: string }>`
   .mainInfo {
     width: 100%;
 
@@ -8,7 +8,10 @@ export const ContentDetailWrapper = styled.div`
     background-position: left calc((50vw - 170px) - 340px) top;
     background-size: cover;
     background-repeat: no-repeat;
-    background-image: url("	https://www.themoviedb.org/t/p/w1920_and_h800_multi_faces/7RyHsO4yDXtBv1zUU3mTpHeQ0d5.jpg");
+    background-image: ${(props) =>
+      props.bgUrl
+        ? `url("https://image.tmdb.org/t/p/w1920_and_h800_multi_faces/${props.bgUrl}")`
+        : ""};
 
     & > div {
       background-image: linear-gradient(
@@ -83,6 +86,8 @@ export const ContentDetailWrapper = styled.div`
       }
 
       .release {
+        padding-right: 20px;
+        position: relative;
       }
       .genre {
       }
@@ -92,6 +97,18 @@ export const ContentDetailWrapper = styled.div`
       .dot {
         padding-left: 20px;
         position: relative;
+      }
+
+      .release::after {
+        font-size: 1.1em;
+        line-height: 1;
+        content: "•";
+        position: absolute;
+        top: 0;
+        right: 7px;
+        display: inline-flex;
+        align-content: center;
+        align-items: center;
       }
 
       .dot:before {
