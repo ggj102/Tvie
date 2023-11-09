@@ -78,6 +78,10 @@ export const ContentLayoutWrapper = styled.div`
 
             .title {
               font-weight: bold;
+
+              &:hover {
+                color: rgb(1, 180, 228);
+              }
             }
             .release {
               margin-top: 4px;

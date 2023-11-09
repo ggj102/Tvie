@@ -1,15 +1,8 @@
-import { useEffect, useState } from "react";
-
-export default function HomeFilterBar({ filter }: any) {
-  const [currentTab, setCurrentTab] = useState<string>();
-
-  const onClickTab = (val: string) => {
-    setCurrentTab(val);
+export default function HomeFilterBar({ filter, currentTab, onClick }: any) {
+  const tabConnect: any = {
+    day: "오늘",
+    week: "이번 주",
   };
-
-  useEffect(() => {
-    setCurrentTab(filter[0]);
-  }, [filter]);
 
   return (
     <div className="homeFilterBar">
@@ -19,9 +12,9 @@ export default function HomeFilterBar({ filter }: any) {
             <button
               key={`${val}${idx}`}
               className={currentTab === val ? "currentTab" : ""}
-              onClick={() => onClickTab(val)}
+              onClick={() => onClick(val)}
             >
-              <div> {val}</div>
+              <div>{tabConnect[val]}</div>
             </button>
           );
         })}

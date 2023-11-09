@@ -11,7 +11,7 @@ export default function Navigation() {
         <div className="navBar flex">
           <Link href="/">
             <div className="logo">
-              <Image src="/images/tvieLogo.png" fill alt="logo" />
+              <Image src="/images/tvieLogo.png" fill sizes="1x" alt="logo" />
             </div>
           </Link>
 

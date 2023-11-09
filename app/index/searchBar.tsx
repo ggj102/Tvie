@@ -1,6 +1,16 @@
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+
 import { SearchBarWrapper } from "@/styles/pages/index/searchBarWrapper";
 
 export default function SearchBar() {
+  const router = useRouter();
+  const [inputValue, setInputValue] = useState<string>("");
+
+  const onClickSearch = () => {
+    router.push(`/searchResults?search=${inputValue}`);
+  };
+
   return (
     <SearchBarWrapper>
       <div>
@@ -11,8 +21,11 @@ export default function SearchBar() {
           </div>
         </div>
         <div className="searchInput">
-          <input />
-          <button>Search</button>
+          <input
+            value={inputValue}
+            onChange={(e) => setInputValue(e.target.value)}
+          />
+          <button onClick={onClickSearch}>Search</button>
         </div>
       </div>
     </SearchBarWrapper>

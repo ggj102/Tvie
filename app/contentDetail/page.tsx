@@ -1,71 +1,139 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useSearchParams } from "next/navigation";
+import Link from "next/link";
+import Image from "next/image";
+
+import { contentDetailApi } from "@/api/httpClient";
 import {
   ContentDetailWrapper,
   DetailInfoWrapper,
 } from "@/styles/pages/contentDetailWrapper";
-import Image from "next/image";
 
 export default function ContentDetailPage() {
-  const [dummyData, setDummyData] = useState<any>([]);
-  const dummyKeywordData = [
-    "space travel",
-    "time travel",
-    "time machine",
-    "sequel",
-    "superhero",
-    "ased on comic",
-    "alien invasion",
-    "superhero team",
-    "marvel cinematic universe (mcu)",
-    "alternate timeline",
-    "father daughter relationship",
-    "sister sister relationship",
-  ];
+  const params = useSearchParams();
+  const [isTypeTV, setIsTypeTV] = useState<boolean>(false);
+  const [contentData, setContentData] = useState<any>({
+    backdrop_path: "",
+    poster_path: "",
+    genres: [],
+    created_by: [],
+  });
+  const [keywordData, setKeywordData] = useState<any>({
+    keywords: [],
+    results: [{ id: -1, name: "" }],
+  });
+  const [creditsData, setCreditsData] = useState<any>([]);
+  const [date, setDate] = useState<any>({
+    year: "",
+    month: "",
+    day: "",
+  });
 
-  useEffect(() => {
-    const dummy = {
-      name: "Robert Downey Jr.",
-      casting: "Tony Stark / Iron Man",
-      image: "/images/testContentImg8.jpg",
-    };
-
+  const dollarFormatter = (dollar: number) => {
+    const strDollar = `${dollar}`;
     const arr = [];
-
-    for (let i = 0; i < 20; i++) {
-      arr.push(dummy);
+    for (let i = strDollar.length - 1; i >= 0; i--) {
+      arr.unshift(`${strDollar[i]}`);
+      if (i % 3 === 0 && i !== 0) arr.unshift(",");
     }
 
-    setDummyData(arr);
+    const format = arr.join("");
+
+    return `$${format}.00`;
+  };
+
+  const runtimeFormatter = (runtime: number) => {
+    if (runtime < 60) return `${runtime}m`;
+    if (runtime % 60 === 0) return `${runtime / 60}h`;
+
+    const minute = runtime % 60;
+    const hour = (runtime - minute) / 60;
+
+    return `${hour}h ${minute}m`;
+  };
+
+  useEffect(() => {
+    const contentType = params.get("type");
+    const contentId = params.get("id");
+
+    setIsTypeTV(contentType === "tv");
+
+    contentDetailApi(contentId, contentType).then((res: any) => {
+      const [contents, credits, keywords] = res;
+      const contentDate =
+        contentType === "tv"
+          ? contents.data.first_air_date
+          : contents.data.release_date;
+      const dateSplit = contentDate.split("-");
+      const slice = credits.data.cast.slice(0, 9);
+
+      setContentData(contents.data);
+      setCreditsData(slice);
+      setKeywordData(keywords.data);
+
+      setDate({
+        ...date,
+        year: dateSplit[0],
+        month: dateSplit[1],
+        day: dateSplit[2],
+      });
+    });
   }, []);
 
   return (
-    <ContentDetailWrapper>
+    <ContentDetailWrapper bgUrl={contentData.backdrop_path}>
       <div className="mainInfo">
         <div>
           <div>
             <div className="poster">
               <div className="posterImg">
-                <Image src="/images/testContentImg7.jpg" fill alt="posterImg" />
+                <Image
+                  src={`https://image.tmdb.org/t/p/w300_and_h450_bestv2/${contentData.poster_path}`}
+                  fill
+                  sizes="1x"
+                  alt="posterImg"
+                />
               </div>
               <div className="ottOffer"></div>
             </div>
             <div className="contentInfo">
               <div className="titleWrapper">
                 <div className="title">
-                  <span>어벤져스: 엔드게임</span> <span>(2019)</span>
+                  <span>{isTypeTV ? contentData.name : contentData.title}</span>{" "}
+                  <span>({date.year})</span>
                 </div>
                 <div>
                   <span className="age">12</span>
-                  <span className="release">2019/04/24</span> <span>(KR)</span>
-                  <span className="genre dot">모험,SF,액션</span>
-                  <span className="runtime dot">3h 1m</span>
+                  {!isTypeTV && (
+                    <span className="release">
+                      <span>{`${date.year}/${date.month}/${date.day}`}</span>{" "}
+                      <span>(KR)</span>
+                    </span>
+                  )}
+                  <span className="genre">
+                    {contentData.genres.map(
+                      (val: any, idx: number, arr: any) => {
+                        return (
+                          <Link key={`${val.name}${idx}`} href="">
+                            {val.name}
+                            {idx !== arr.length - 1 ? ", " : ""}
+                          </Link>
+                        );
+                      }
+                    )}
+                  </span>
+                  {!isTypeTV && (
+                    <span className="runtime dot">
+                      {runtimeFormatter(contentData.runtime)}
+                    </span>
+                  )}
                 </div>
               </div>
               <div className="score">
                 <div className="scoreGauge">
-                  <div>83%</div>
+                  <div>{`${Math.floor(contentData.vote_average * 10)}%`}</div>
                 </div>
                 <div>
                   회원
@@ -79,44 +147,23 @@ export default function ContentDetailPage() {
                 </button>
               </div>
               <div className="summary">
-                <div className="tagline">
-                  운명을 바꿀 최후의 전쟁이 펼쳐진다
-                </div>
+                <div className="tagline">{contentData.tagline}</div>
                 <div>개요</div>
-                <div>
-                  어벤져스의 패배 이후 지구는 초토화됐고 남은 절반의 사람들은
-                  정신적 고통을 호소하며 하루하루를 근근이 버텨나간다.
-                  와칸다에서 싸우다 생존한 히어로들과 우주의 타이탄 행성에서
-                  싸우다 생존한 히어로들이 뿔뿔이 흩어졌는데, 아이언맨과
-                  네뷸라는 우주를 떠돌고 있고 지구에 남아 있는 어벤져스 멤버들은
-                  닉 퓨리가 마지막에 신호를 보내다 만 송신기만 들여다보며 혹시
-                  모를 우주의 응답을 기다리는 중이다. 애초 히어로의 삶을 잠시
-                  내려놓고 가족과 시간을 보내던 호크아이 역시 헤아릴 수 없는
-                  마음의 상처를 입은 채 사라지고 마는데...
-                </div>
+                <div>{contentData.overview}</div>
               </div>
               <div className="producer">
                 <ul>
-                  <li>
-                    <div>Larry Lieber</div>
-                    <div>Characters</div>
-                  </li>
-                  <li>
-                    <div>Larry Lieber</div>
-                    <div>Characters</div>
-                  </li>
-                  <li>
-                    <div>Larry Lieber</div>
-                    <div>Characters</div>
-                  </li>
-                  <li>
-                    <div>Larry Lieber</div>
-                    <div>Characters</div>
-                  </li>
-                  <li>
-                    <div>Larry Lieber</div>
-                    <div>Characters</div>
-                  </li>
+                  {isTypeTV &&
+                    contentData.created_by.map((val: any, idx: number) => {
+                      return (
+                        <li key={`${val.name}${idx}`}>
+                          <div>
+                            <Link href="">{val.name}</Link>
+                          </div>
+                          <div>창작자</div>
+                        </li>
+                      );
+                    })}
                 </ul>
               </div>
             </div>
@@ -130,16 +177,23 @@ export default function ContentDetailPage() {
               <div className="infoTitle">주요 출연진</div>
               <div className="castList">
                 <ul>
-                  {dummyData.map((val: any) => {
-                    const { name, casting, image } = val;
+                  {creditsData.map((val: any, idx: number) => {
+                    const { name, roles, profile_path, character } = val;
                     return (
-                      <li key={`${name}${casting}`}>
+                      <li key={`${name}${idx}`}>
                         <div className="castImg">
-                          <Image src={image} fill alt="castImg" />
+                          <Image
+                            src={`https://image.tmdb.org/t/p/w138_and_h175_face/${profile_path}`}
+                            fill
+                            sizes="1x"
+                            alt="castImg"
+                          />
                         </div>
                         <div className="castName">
                           <div className="name">{name}</div>
-                          <div className="casting">{casting}</div>
+                          <div className="casting">
+                            {isTypeTV ? roles[0].character : character}
+                          </div>
                         </div>
                       </li>
                     );
@@ -151,30 +205,51 @@ export default function ContentDetailPage() {
           <div className="sideInfo">
             <div>
               <strong>원제</strong>
-              <div>Avengers: Endgame</div>
+              <div>
+                {isTypeTV
+                  ? contentData.original_name
+                  : contentData.original_title}
+              </div>
             </div>
             <div>
               <strong>상태</strong>
-              <div>개봉됨</div>
+              <div>{contentData.status}</div>
             </div>
             <div>
               <strong>원어</strong>
-              <div>영어</div>
+              <div>{contentData.original_language}</div>
             </div>
-            <div>
-              <strong>제작비</strong>
-              <div>$356,000,000.00</div>
-            </div>
-            <div>
-              <strong>수익</strong>
-              <div>$2,800,000,000.00</div>
-            </div>
+            {!isTypeTV && (
+              <>
+                <div>
+                  <strong>제작비</strong>
+                  <div>{dollarFormatter(contentData.budget)}</div>
+                </div>
+                <div>
+                  <strong>수익</strong>
+                  <div>{dollarFormatter(contentData.revenue)}</div>
+                </div>
+              </>
+            )}
+
             <div>
               <h4>키워드</h4>
               <ul>
-                {dummyKeywordData.map((val: string, idx: number) => {
-                  return <li key={`${val}${idx}`}>{val}</li>;
-                })}
+                {isTypeTV
+                  ? keywordData.results.map((val: any, idx: number) => {
+                      return (
+                        <li key={`${val.name}${idx}`}>
+                          <Link href="">{val.name}</Link>
+                        </li>
+                      );
+                    })
+                  : keywordData.keywords.map((val: any, idx: number) => {
+                      return (
+                        <li key={`${val.name}${idx}`}>
+                          <Link href="">{val.name}</Link>
+                        </li>
+                      );
+                    })}
               </ul>
             </div>
           </div>

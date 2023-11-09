@@ -75,16 +75,18 @@ export const SearchResultsWrapper = styled.div`
       padding: 8px 0;
 
       li {
-        display: inline-flex;
-        justify-content: space-between;
-        align-items: center;
+        button {
+          display: inline-flex;
+          justify-content: space-between;
+          align-items: center;
 
-        width: 100%;
-        font-size: 1em;
-        line-height: 1.4em;
-        margin: 0;
+          width: 100%;
+          font-size: 1em;
+          line-height: 1.4em;
+          margin: 0;
+        }
 
-        a {
+        .category {
           color: #000;
           width: 100%;
           height: 100%;
@@ -93,7 +95,7 @@ export const SearchResultsWrapper = styled.div`
           align-items: center;
         }
 
-        span {
+        .total {
           color: #000;
           display: inline-flex;
           align-items: center;
@@ -108,12 +110,22 @@ export const SearchResultsWrapper = styled.div`
 
         &:hover {
           background-color: rgba(0, 0, 0, 0.08);
-          a {
+          .category {
             font-weight: 600;
           }
-          span {
+          .total {
             background-color: #fff;
           }
+        }
+      }
+
+      .currentTab {
+        background-color: rgba(0, 0, 0, 0.08);
+        .category {
+          font-weight: 600;
+        }
+        .total {
+          background-color: #fff;
         }
       }
     }
@@ -121,13 +133,13 @@ export const SearchResultsWrapper = styled.div`
 
   .searchResultsList {
     flex: 1;
-    ul {
+    .searchResultsList {
       display: flex;
       flex-direction: column;
       gap: 20px;
     }
 
-    li {
+    .contentCard {
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
       border: 1px solid rgba(227, 227, 227, 1);
       background-color: #fff;
@@ -137,49 +149,49 @@ export const SearchResultsWrapper = styled.div`
 
       border-radius: 8px;
       overflow: hidden;
-    }
 
-    .contentImage {
-      position: relative;
-      min-width: 94px;
-      width: 94px;
-      height: 141px;
-    }
-
-    .contentInfo {
-      width: 100%;
-      padding: 10px 15px;
-      box-sizing: border-box;
-      display: flex;
-      flex-wrap: wrap;
-      align-content: center;
-      align-items: center;
-
-      a {
-        font-weight: 600;
-        font-size: 1.2em;
-        line-height: 1.2em;
-        margin-bottom: 0;
-        -webkit-line-clamp: 1;
-        -webkit-box-orient: vertical;
-        text-overflow: ellipsis;
-        overflow: hidden;
+      .contentImage {
+        position: relative;
+        min-width: 94px;
+        width: 94px;
+        height: 141px;
       }
 
-      & > div:first-of-type {
+      .contentInfo {
         width: 100%;
-        white-space: nowrap;
-        color: #999;
-      }
+        padding: 10px 15px;
+        box-sizing: border-box;
+        display: flex;
+        flex-wrap: wrap;
+        align-content: center;
+        align-items: center;
 
-      & > div:last-of-type {
-        margin-top: 20px;
-        font-size: 1em;
-        display: -webkit-box;
-        -webkit-line-clamp: 2;
-        -webkit-box-orient: vertical;
-        text-overflow: ellipsis;
-        overflow: hidden;
+        a {
+          font-weight: 600;
+          font-size: 1.2em;
+          line-height: 1.2em;
+          margin-bottom: 0;
+          -webkit-line-clamp: 1;
+          -webkit-box-orient: vertical;
+          text-overflow: ellipsis;
+          overflow: hidden;
+        }
+
+        .contentDate {
+          width: 100%;
+          white-space: nowrap;
+          color: #999;
+        }
+
+        .contentOverview {
+          margin-top: 20px;
+          font-size: 1em;
+          display: -webkit-box;
+          -webkit-line-clamp: 2;
+          -webkit-box-orient: vertical;
+          text-overflow: ellipsis;
+          overflow: hidden;
+        }
       }
     }
   }
