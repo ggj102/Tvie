@@ -5,7 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 
 import { apiClient } from "@/api/httpClient";
-import { dateFormater } from "@/utils/dateFormater";
+import { dateFormatter } from "@/utils/dateFormatter";
 
 import ContentLayout from "@/components/contentLayout";
 import SideBar from "@/components/sideBar/sideBar";
@@ -30,7 +30,7 @@ export default function TVPage() {
               const { id, name, first_air_date, poster_path, vote_average } =
                 val;
               const vote = `${Math.floor(vote_average * 10)}%`;
-              const date = dateFormater(first_air_date);
+              const date = dateFormatter(first_air_date);
 
               return (
                 <li key={`${name}${idx}`}>

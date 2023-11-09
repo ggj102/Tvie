@@ -31,7 +31,7 @@ export default function ContentDetailPage() {
     day: "",
   });
 
-  const dollarFormater = (dollar: number) => {
+  const dollarFormatter = (dollar: number) => {
     const strDollar = `${dollar}`;
     const arr = [];
     for (let i = strDollar.length - 1; i >= 0; i--) {
@@ -44,7 +44,7 @@ export default function ContentDetailPage() {
     return `$${format}.00`;
   };
 
-  const runtimeFormater = (runtime: number) => {
+  const runtimeFormatter = (runtime: number) => {
     if (runtime < 60) return `${runtime}m`;
     if (runtime % 60 === 0) return `${runtime / 60}h`;
 
@@ -126,7 +126,7 @@ export default function ContentDetailPage() {
                   </span>
                   {!isTypeTV && (
                     <span className="runtime dot">
-                      {runtimeFormater(contentData.runtime)}
+                      {runtimeFormatter(contentData.runtime)}
                     </span>
                   )}
                 </div>
@@ -223,11 +223,11 @@ export default function ContentDetailPage() {
               <>
                 <div>
                   <strong>제작비</strong>
-                  <div>{dollarFormater(contentData.budget)}</div>
+                  <div>{dollarFormatter(contentData.budget)}</div>
                 </div>
                 <div>
                   <strong>수익</strong>
-                  <div>{dollarFormater(contentData.revenue)}</div>
+                  <div>{dollarFormatter(contentData.revenue)}</div>
                 </div>
               </>
             )}

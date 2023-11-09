@@ -8,7 +8,7 @@ import Link from "next/link";
 import HomeFilterBar from "./index/homeFilterBar";
 import ContentLayout from "@/components/contentLayout";
 import { apiClient } from "@/api/httpClient";
-import { dateFormater } from "@/utils/dateFormater";
+import { dateFormatter } from "@/utils/dateFormatter";
 
 export default function Home() {
   const [data, setData] = useState<any>();
@@ -90,7 +90,7 @@ export default function Home() {
                           <div className="score">{vote}</div>
                           <div className="titleRelease">
                             <div className="title">{val.name || val.title}</div>
-                            <div className="release">{dateFormater(date)}</div>
+                            <div className="release">{dateFormatter(date)}</div>
                           </div>
                         </Link>
                       </li>

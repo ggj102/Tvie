@@ -3,7 +3,7 @@ import PersonList from "./personList";
 import CompanyList from "./companyList";
 import KeywordList from "./keywordList";
 
-import { dateFormater } from "@/utils/dateFormater";
+import { dateFormatter } from "@/utils/dateFormatter";
 
 export default function SearchResultsList({ list }: any) {
   switch (list.type) {
@@ -36,7 +36,7 @@ export default function SearchResultsList({ list }: any) {
                   <div>
                     <a>{title}</a>
                     {list.type !== "컬렉션" && (
-                      <div className="contentDate">{dateFormater(date)}</div>
+                      <div className="contentDate">{dateFormatter(date)}</div>
                     )}
                     <div className="contentOverview">{overview}</div>
                   </div>

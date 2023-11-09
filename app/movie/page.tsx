@@ -8,7 +8,7 @@ import ContentLayout from "@/components/contentLayout";
 import SideBar from "@/components/sideBar/sideBar";
 
 import { apiClient } from "@/api/httpClient";
-import { dateFormater } from "@/utils/dateFormater";
+import { dateFormatter } from "@/utils/dateFormatter";
 
 export default function MoviePage() {
   const [listData, setListData] = useState<any>([]);
@@ -30,7 +30,7 @@ export default function MoviePage() {
               const { id, title, release_date, poster_path, vote_average } =
                 val;
               const vote = `${Math.floor(vote_average * 10)}%`;
-              const date = dateFormater(release_date);
+              const date = dateFormatter(release_date);
 
               return (
                 <li key={`${title}${idx}`}>
