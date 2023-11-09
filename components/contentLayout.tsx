@@ -4,7 +4,7 @@ export default function ContentLayout({ children }: any) {
   return (
     <ContentLayoutWrapper>
       <div>
-        <div>{children}</div>;
+        <div>{children}</div>
       </div>
     </ContentLayoutWrapper>
   );
