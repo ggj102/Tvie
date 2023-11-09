@@ -49,6 +49,7 @@ export const SearchBarWrapper = styled.div`
       position: relative;
 
       input {
+        width: 92%;
         box-sizing: border-box;
         font-size: 1.1em;
         color: rgba(0, 0, 0, 0.5);

@@ -1,57 +1,56 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import SearchBar from "./index/searchBar";
 import { IndexWrapper } from "@/styles/pages/index/indexWrapper";
 import Link from "next/link";
 import HomeFilterBar from "./index/homeFilterBar";
-import axios from "axios";
 import ContentLayout from "@/components/contentLayout";
+import { apiClient } from "@/api/httpClient";
+import { dateFormater } from "@/utils/dateFormater";
 
 export default function Home() {
+  const [data, setData] = useState<any>();
+  const [currentTrendingTab, setCurrentTrendingTab] = useState<string>("day");
   const contentsArr = [
     {
       category: "인기 급상승",
       className: "trending",
-      data: [],
-      filter: ["오늘", "이번 주"],
+      data,
+      filter: ["day", "week"],
     },
-    {
-      category: "최신 예고편",
-      className: "latestNotice",
-      data: [],
-      filter: ["인기", "스트리밍", "TV", "대여", "극장"],
-    },
-    {
-      category: "인기",
-      className: "popular",
-      data: [],
-      filter: ["스트리밍", "TV", "대여", "극장"],
-    },
-    {
-      category: "무료시청",
-      className: "free",
-      data: [],
-      filter: ["영화", "TV"],
-    },
+    // {
+    //   category: "최신 예고편",
+    //   className: "latestNotice",
+    //   data: [],
+    //   filter: ["인기", "스트리밍", "TV", "대여", "극장"],
+    // },
+    // {
+    //   category: "인기",
+    //   className: "popular",
+    //   data: [],
+    //   filter: ["스트리밍", "TV", "대여", "극장"],
+    // },
+    // {
+    //   category: "무료시청",
+    //   className: "free",
+    //   data: [],
+    //   filter: ["영화", "TV"],
+    // },
   ];
 
-  const headers = {
-    Authorization: `Bearer ${process.env.NEXT_PUBLIC_TMDB_ACCESS_TOKEN}`,
-    accept: "application/json",
+  const onClickTrendingTab = (value: string) => {
+    setCurrentTrendingTab(value);
   };
 
-  // useEffect(() => {
-  //   axios
-  //     .get("https://api.themoviedb.org/3/tv/popular?language=ko&page=1", {
-  //       headers,
-  //     })
-  //     .then((res) => {
-  //       // const data = response.data.json();
-  //       console.log(res.data, "TMDB 데이터");
-  //     });
-  // }, []);
+  useEffect(() => {
+    apiClient
+      .get(`trending/all/${currentTrendingTab}?language=ko`)
+      .then((res) => {
+        setData(res.data.results);
+      });
+  }, [currentTrendingTab]);
 
   return (
     <ContentLayout>
@@ -60,40 +59,38 @@ export default function Home() {
         {contentsArr.map((val, idx) => {
           const { category, className, filter } = val;
 
-          //임시 데이터 복사 로직
-          const dummyData = [];
-
-          for (let i = 0; i < 30; i++) {
-            dummyData.push({
-              title: "베니스 유령 살인 사건",
-              image: "/images/testContentImg.jpg",
-              release: "9월 13, 2023",
-              score: "68%",
-            });
-          }
-          // 임시 데이터 복사 로직
-
           return (
             <div className={`content ${className}`} key={`${category}${idx}`}>
               <div className="titleBar">
                 <h2>{category}</h2>
-                <HomeFilterBar filter={filter} />
+                <HomeFilterBar
+                  filter={filter}
+                  currentTab={currentTrendingTab}
+                  onClick={onClickTrendingTab}
+                />
               </div>
               <ul className="contentList">
-                {dummyData &&
-                  dummyData.map((val, idx) => {
-                    const { title, image, release, score } = val;
+                {data &&
+                  data.map((val: any, idx: number) => {
+                    const { poster_path, vote_average } = val;
+                    const vote = `${Math.floor(vote_average * 10)}%`;
+                    const date = val.first_air_date || val.release_date;
 
                     return (
-                      <li key={`${title}${idx}`}>
+                      <li key={`trending${idx}`}>
                         <Link href="">
                           <div className="contentImg">
-                            <Image src={image} fill alt="contentImg" />
+                            <Image
+                              src={`https://image.tmdb.org/t/p/w220_and_h330_face/${poster_path}`}
+                              fill
+                              sizes="1x"
+                              alt="contentImg"
+                            />
                           </div>
-                          <div className="score">{score}</div>
+                          <div className="score">{vote}</div>
                           <div className="titleRelease">
-                            <div className="title">{title}</div>
-                            <div className="release">{release}</div>
+                            <div className="title">{val.name || val.title}</div>
+                            <div className="release">{dateFormater(date)}</div>
                           </div>
                         </Link>
                       </li>
