@@ -1,11 +1,12 @@
 import styled from "styled-components";
 
 export const CustomCheckboxWrapper = styled.div`
+  display: flex;
+  align-items: center;
+
   label {
     margin: 0;
-    display: flex;
     gap: 4px;
-    align-items: center;
   }
 
   label > span {

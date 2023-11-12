@@ -1,10 +1,16 @@
 import styled from "styled-components";
 
 export const SideBarWrapper = styled.div`
-  width: 260px;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
+  form {
+    width: 260px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  select {
+    cursor: pointer;
+  }
 
   .card {
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
