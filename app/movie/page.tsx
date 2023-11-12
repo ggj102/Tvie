@@ -9,9 +9,54 @@ import SideBar from "@/components/sideBar/sideBar";
 
 import { apiClient } from "@/api/httpClient";
 import { dateFormatter } from "@/utils/dateFormatter";
+import { discoverQuery } from "@/datahandling/discoverQuery";
 
 export default function MoviePage() {
+  const currentDate = new Date();
+  const addMonthDate = currentDate.setMonth(currentDate.getMonth() + 6);
+  const setDate = new Date(addMonthDate);
+
   const [listData, setListData] = useState<any>([]);
+  const defaultDiscoverData = {
+    sort_by: "popularity.desc",
+    availabilities: {
+      all_availabilities: true,
+      stream: true,
+      free: true,
+      ads: true,
+      rent: true,
+      buy: true,
+    },
+    release: {
+      all_releases: true,
+      // all_countries: true,
+      theater_limited: true,
+      theater: true,
+      premier: true,
+      digital: true,
+      physical_media: true,
+      tv: true,
+      release_date_g: "",
+      release_date_l: setDate,
+    },
+    genre: [],
+    vote_average: [0, 10],
+    vote_count: 0,
+    runtime: [0, 400],
+  };
+
+  const onSubmitDiscover = (data: any) => {
+    if (data.type === "click") return;
+    const query = discoverQuery("movie", data);
+
+    apiClient
+      .get(
+        `https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=ko&page=1${query}`
+      )
+      .then((res) => {
+        setListData(res.data.results);
+      });
+  };
 
   useEffect(() => {
     apiClient.get("movie/popular?language=ko&page=1").then((res) => {
@@ -23,7 +68,10 @@ export default function MoviePage() {
     <ContentLayout>
       <div className="categoryTitle">인기 영화</div>
       <div className="contentArea">
-        <SideBar />
+        <SideBar
+          defaultData={defaultDiscoverData}
+          onSubmit={onSubmitDiscover}
+        />
         <div className="contentList">
           <ul>
             {listData.map((val: any, idx: number) => {
