@@ -2,10 +2,6 @@ import { useEffect, useState } from "react";
 import Slider from "@mui/material/Slider";
 import { CustomSliderWrapper } from "@/styles/components/customSliderWrapper";
 
-function valuetext(value: number) {
-  return `${value}°C`;
-}
-
 export default function CustomSlider({
   max,
   step,
@@ -53,7 +49,6 @@ export default function CustomSlider({
         step={step}
         onChange={onChange}
         valueLabelDisplay="auto"
-        getAriaValueText={valuetext}
       />
     </CustomSliderWrapper>
   );
