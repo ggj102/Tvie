@@ -1,61 +1,47 @@
 import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import CategoryButtons from "@/components/categoryButtons";
+import { apiClient } from "@/api/httpClient";
 
-export default function Genre() {
+export default function Genre({ setValue }: any) {
   const pathname = usePathname();
   const [genreArr, setGenreArr] = useState<any>([]);
-  const genreMovieArr = [
-    { category: "SF", checked: false },
-    { category: "TV 영화", checked: false },
-    { category: "가족", checked: false },
-    { category: "공포", checked: false },
-    { category: "다큐멘터리", checked: false },
-    { category: "드라마", checked: false },
-    { category: "로맨스", checked: false },
-    { category: "모험", checked: false },
-    { category: "미스터리", checked: false },
-    { category: "범죄", checked: false },
-    { category: "서부", checked: false },
-    { category: "스릴러", checked: false },
-    { category: "애니메이션", checked: false },
-    { category: "액션", checked: false },
-    { category: "역사", checked: false },
-    { category: "음악", checked: false },
-    { category: "전쟁", checked: false },
-    { category: "코미디", checked: false },
-    { category: "판타지", checked: false },
-  ];
 
-  const genreTVArr = [
-    { category: "Action & Adventure", checked: false },
-    { category: "Kids", checked: false },
-    { category: "News", checked: false },
-    { category: "Reality", checked: false },
-    { category: "Sci-Fi & Fantasy", checked: false },
-    { category: "Soap", checked: false },
-    { category: "Talk", checked: false },
-    { category: "War & Politics", checked: false },
-    { category: "가족", checked: false },
-    { category: "다큐멘터리", checked: false },
-    { category: "드라마", checked: false },
-    { category: "미스터리", checked: false },
-    { category: "범죄", checked: false },
-    { category: "서부", checked: false },
-    { category: "애니메이션", checked: false },
-    { category: "코미디", checked: false },
-  ];
+  useEffect(() => {
+    apiClient
+      .get(`https://api.themoviedb.org/3/genre${pathname}/list?language=ko`)
+      .then((res) => {
+        const alphabeticalSort = (a: any, b: any) => {
+          const aIsAlphabet = /^[a-zA-Z]/.test(a.name);
+          const bIsAlphabet = /^[a-zA-Z]/.test(b.name);
+
+          if (aIsAlphabet && !bIsAlphabet) {
+            return -1; // a는 알파벳이고 b는 한글이므로 a를 먼저 놓음
+          } else if (!aIsAlphabet && bIsAlphabet) {
+            return 1; // a는 한글이고 b는 알파벳이므로 b를 먼저 놓음
+          } else {
+            // 둘 다 알파벳이나 둘 다 한글인 경우 또는 둘 다 다른 문자일 경우
+            return a.name.localeCompare(b.name);
+          }
+        };
+
+        const sortedStrings = res.data.genres.sort(alphabeticalSort);
+        const checkedMap = sortedStrings.map((val: any) => {
+          return { ...val, checked: false };
+        });
+
+        setValue("genre", checkedMap);
+        setGenreArr(checkedMap);
+      });
+  }, []);
 
   const onClickSelect = (idx: number, checked: boolean) => {
     const copy = [...genreArr];
     copy[idx].checked = !checked;
+
+    setValue("genre", copy);
     setGenreArr(copy);
   };
-
-  useEffect(() => {
-    if (pathname === "/movie") setGenreArr(genreMovieArr);
-    else setGenreArr(genreTVArr);
-  }, [pathname]);
 
   return (
     <div className="cardContent">

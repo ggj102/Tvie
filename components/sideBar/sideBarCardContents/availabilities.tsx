@@ -1,27 +1,70 @@
+import { Controller, useWatch } from "react-hook-form";
+
 import CustomCheckBox from "@/components/customCheckBox";
 import { AvailabilitiesWrapper } from "@/styles/components/sideBar/sideBarCardContents/availabilitiesWrapper";
-import { useState } from "react";
 
-export default function Availabilities() {
-  const [isAllAvailabilities, setIsAllAvailabilities] =
-    useState<Boolean>(false);
+export default function Availabilities({ control }: any) {
+  const isAllAvailabilities = useWatch({
+    control,
+    name: "availabilities.all_availabilities",
+  });
 
   return (
     <div className="cardContent">
       <div>Availabilities</div>
       <AvailabilitiesWrapper>
-        <CustomCheckBox
-          text="Search all availabilities?"
-          checked={isAllAvailabilities}
-          onChange={(e: any) => setIsAllAvailabilities(e.target.checked)}
+        <Controller
+          name="availabilities.all_availabilities"
+          control={control}
+          render={({ field }: any) => (
+            <CustomCheckBox
+              text="Search all availabilities?"
+              checked={field.value}
+              {...field}
+            />
+          )}
         />
-        {isAllAvailabilities && (
+        {!isAllAvailabilities && (
           <div className="hideOption">
-            <CustomCheckBox text="Stream" />
-            <CustomCheckBox text="Free" />
-            <CustomCheckBox text="Ads" />
-            <CustomCheckBox text="Rent" />
-            <CustomCheckBox text="Buy" />
+            <Controller
+              name="availabilities.stream"
+              control={control}
+              render={({ field }: any) => (
+                <CustomCheckBox
+                  text="Stream"
+                  checked={field.value}
+                  {...field}
+                />
+              )}
+            />
+            <Controller
+              name="availabilities.free"
+              control={control}
+              render={({ field }: any) => (
+                <CustomCheckBox text="Free" checked={field.value} {...field} />
+              )}
+            />
+            <Controller
+              name="availabilities.ads"
+              control={control}
+              render={({ field }: any) => (
+                <CustomCheckBox text="Ads" checked={field.value} {...field} />
+              )}
+            />
+            <Controller
+              name="availabilities.rent"
+              control={control}
+              render={({ field }: any) => (
+                <CustomCheckBox text="Rent" checked={field.value} {...field} />
+              )}
+            />
+            <Controller
+              name="availabilities.buy"
+              control={control}
+              render={({ field }: any) => (
+                <CustomCheckBox text="Buy" checked={field.value} {...field} />
+              )}
+            />
           </div>
         )}
       </AvailabilitiesWrapper>
