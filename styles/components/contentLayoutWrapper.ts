@@ -108,6 +108,10 @@ export const ContentLayoutWrapper = styled.div`
         color: #fff;
         font-size: 1.5em;
         font-weight: bold;
+
+        &:hover {
+          color: #000;
+        }
       }
     }
   }

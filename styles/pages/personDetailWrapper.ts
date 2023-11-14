@@ -144,6 +144,10 @@ export const PersonDetailWrapper = styled.div`
             text-align: center;
             color: #000;
             font-size: 0.9em;
+
+            a:hover {
+              color: rgb(1, 180, 228);
+            }
           }
         }
       }
@@ -196,10 +200,12 @@ export const PersonDetailWrapper = styled.div`
       }
 
       .dot {
+        padding-top: 6px;
         & > div {
           color: #ccc;
-          width: 24px;
-          height: 24px;
+          width: 10px;
+          height: 10px;
+
           background-color: #000;
           border-radius: 100%;
         }
@@ -209,6 +215,10 @@ export const PersonDetailWrapper = styled.div`
         width: 100%;
         & > div:first-of-type {
           font-weight: 600;
+        }
+
+        a:hover {
+          color: rgb(1, 180, 228);
         }
 
         .castingInfo {
