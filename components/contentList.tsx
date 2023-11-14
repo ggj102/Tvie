@@ -89,7 +89,6 @@ export default function ContentList({ contentType }: any) {
 
   const onClickAddList = () => {
     apiClient.get(`${currentQuery}${pageCount + 1}`).then((res) => {
-      console.log(res);
       const copy = [...listData];
       const concat = copy.concat(res.data.results);
 
