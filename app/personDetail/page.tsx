@@ -6,6 +6,7 @@ import Image from "next/image";
 
 import { PersonDetailWrapper } from "@/styles/pages/personDetailWrapper";
 import { personDetailApi } from "@/api/httpClient";
+import Link from "next/link";
 
 export default function PersonDetailPage() {
   const [personDetailData, setPersonDetailData] = useState<any>({
@@ -118,18 +119,27 @@ export default function PersonDetailPage() {
             <div className="famousList">
               <ul>
                 {famous.map((val: any, idx: number) => {
+                  const { id, media_type } = val;
                   const title = val.title || val.name;
                   return (
-                    <li key={`${title}${idx}`}>
-                      <div className="famousImg">
-                        <Image
-                          src={`https://image.tmdb.org/t/p/w150_and_h225_bestv2/${val.poster_path}`}
-                          fill
-                          sizes="1x"
-                          alt="famousImg"
-                        />
+                    <li key={id}>
+                      <Link href={`/contentDetail?type=${media_type}&id=${id}`}>
+                        <div className="famousImg">
+                          <Image
+                            src={`https://image.tmdb.org/t/p/w150_and_h225_bestv2/${val.poster_path}`}
+                            fill
+                            sizes="1x"
+                            alt="famousImg"
+                          />
+                        </div>
+                      </Link>
+                      <div className="famousTitle">
+                        <Link
+                          href={`/contentDetail?type=${media_type}&id=${id}`}
+                        >
+                          {title}
+                        </Link>
                       </div>
-                      <div className="famousTitle">{title}</div>
                     </li>
                   );
                 })}
@@ -139,22 +149,26 @@ export default function PersonDetailPage() {
           <div className="career">
             <div className="detailInfoTitle">연기</div>
             <ul className="careerList">
-              {acting.map((val: any, idx: number) => {
+              {acting.map((val: any) => {
+                const { id, media_type } = val;
                 const title = val.title || val.name;
                 const date: string = val.first_air_date || val.release_date;
                 const year = date ? date.substring(0, 4) : "—";
 
                 return (
-                  <li
-                    key={`${title}${idx}`}
-                    className={val.topLine ? "topLine" : ""}
-                  >
+                  <li key={id} className={val.topLine ? "topLine" : ""}>
                     <div className="careerYear">{year}</div>
                     <div className="dot">
                       <div></div>
                     </div>
                     <div className="casting">
-                      <div>{title}</div>
+                      <div>
+                        <Link
+                          href={`/contentDetail?type=${media_type}&id=${id}`}
+                        >
+                          {title}
+                        </Link>
+                      </div>
                       <div className="castingInfo">
                         {val.episode_count && (
                           <div className="episode">
