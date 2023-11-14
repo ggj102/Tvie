@@ -6,14 +6,11 @@ export default function CustomSlider({
   max,
   step,
   pointNum,
-  sliderValue,
-  onChange,
+  ...props
 }: {
   max: number;
   step: number;
   pointNum: number;
-  sliderValue: number | number[];
-  onChange: any;
 }) {
   const [graduationArr, setGraduationArr] = useState<number[]>([]);
 
@@ -43,12 +40,11 @@ export default function CustomSlider({
         })}
       </div>
       <Slider
-        value={sliderValue}
         min={0}
         max={max}
         step={step}
-        onChange={onChange}
         valueLabelDisplay="auto"
+        {...props}
       />
     </CustomSliderWrapper>
   );

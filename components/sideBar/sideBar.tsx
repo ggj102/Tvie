@@ -1,6 +1,6 @@
 "use client";
 
-import { usePathname } from "next/navigation";
+import { useEffect } from "react";
 import { Controller, useForm } from "react-hook-form";
 
 import SideBarCard from "./sideBarCard";
@@ -13,11 +13,19 @@ import ReleaseDates from "./sideBarCardContents/releaseDates";
 import { SideBarWrapper } from "@/styles/components/sideBar/sideBarWrapper";
 
 export default function SideBar({ defaultData, onSubmit }: any) {
-  const pathname = usePathname();
-
-  const { control, setValue, handleSubmit, reset } = useForm<any>({
+  const {
+    control,
+    setValue,
+    handleSubmit,
+    reset,
+    formState: { isDirty },
+  } = useForm<any>({
     defaultValues: { ...defaultData },
   });
+
+  useEffect(() => {
+    reset(defaultData);
+  }, [defaultData, reset]);
 
   return (
     <SideBarWrapper>
@@ -78,13 +86,7 @@ export default function SideBar({ defaultData, onSubmit }: any) {
                 name="vote_average"
                 control={control}
                 render={({ field }) => (
-                  <CustomSlider
-                    max={10}
-                    step={1}
-                    pointNum={5}
-                    sliderValue={field.value}
-                    {...field}
-                  />
+                  <CustomSlider max={10} step={1} pointNum={5} {...field} />
                 )}
               />
             </div>
@@ -96,13 +98,7 @@ export default function SideBar({ defaultData, onSubmit }: any) {
                 name="vote_count"
                 control={control}
                 render={({ field }) => (
-                  <CustomSlider
-                    max={500}
-                    step={50}
-                    pointNum={100}
-                    sliderValue={field.value}
-                    {...field}
-                  />
+                  <CustomSlider max={500} step={50} pointNum={100} {...field} />
                 )}
               />
             </div>
@@ -114,13 +110,7 @@ export default function SideBar({ defaultData, onSubmit }: any) {
                 name="runtime"
                 control={control}
                 render={({ field }) => (
-                  <CustomSlider
-                    max={400}
-                    step={15}
-                    pointNum={120}
-                    sliderValue={field.value}
-                    {...field}
-                  />
+                  <CustomSlider max={400} step={15} pointNum={120} {...field} />
                 )}
               />
             </div>
@@ -130,7 +120,11 @@ export default function SideBar({ defaultData, onSubmit }: any) {
             <input className="keywordInput" placeholder="필터할 단어..." />
           </div> */}
         </SideBarCard>
-        <button className="submitBtn" onClick={onSubmit}>
+        <button
+          type="submit"
+          className={`submitBtn ${isDirty ? "readySearch" : ""}`}
+          onClick={isDirty ? onSubmit : () => {}}
+        >
           검색
         </button>
       </form>

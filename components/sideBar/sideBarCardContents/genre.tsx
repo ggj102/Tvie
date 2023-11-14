@@ -39,7 +39,7 @@ export default function Genre({ setValue }: any) {
     const copy = [...genreArr];
     copy[idx].checked = !checked;
 
-    setValue("genre", copy);
+    setValue("genre", copy, { shouldDirty: true });
     setGenreArr(copy);
   };
 
