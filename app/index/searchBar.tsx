@@ -11,6 +11,12 @@ export default function SearchBar() {
     router.push(`/searchResults?search=${inputValue}`);
   };
 
+  const onKeyDownSearch = (e: any) => {
+    if (e.key === "Enter") {
+      router.push(`/searchResults?search=${inputValue}`);
+    }
+  };
+
   return (
     <SearchBarWrapper>
       <div>
@@ -23,7 +29,9 @@ export default function SearchBar() {
         <div className="searchInput">
           <input
             value={inputValue}
+            placeholder="영화, TV 프로그램, 인물 검색..."
             onChange={(e) => setInputValue(e.target.value)}
+            onKeyDown={onKeyDownSearch}
           />
           <button onClick={onClickSearch}>Search</button>
         </div>

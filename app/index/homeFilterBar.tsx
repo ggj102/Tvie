@@ -1,23 +1,19 @@
-export default function HomeFilterBar({ filter, currentTab, onClick }: any) {
-  const tabConnect: any = {
-    day: "오늘",
-    week: "이번 주",
-  };
-
+export default function HomeFilterBar({ tabData, currentTab, onClick }: any) {
   return (
     <div className="homeFilterBar">
-      {filter &&
-        filter.map((val: string, idx: number) => {
-          return (
-            <button
-              key={`${val}${idx}`}
-              className={currentTab === val ? "currentTab" : ""}
-              onClick={() => onClick(val)}
-            >
-              <div>{tabConnect[val]}</div>
-            </button>
-          );
-        })}
+      {tabData.map((val: any) => {
+        const { name, type } = val;
+
+        return (
+          <button
+            key={type}
+            className={currentTab === type ? "currentTab" : ""}
+            onClick={() => onClick(type)}
+          >
+            <div>{name}</div>
+          </button>
+        );
+      })}
     </div>
   );
 }

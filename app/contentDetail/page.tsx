@@ -105,7 +105,7 @@ export default function ContentDetailPage() {
                   <span>({date.year})</span>
                 </div>
                 <div>
-                  <span className="age">12</span>
+                  {/* <span className="age">12</span> */}
                   {!isTypeTV && (
                     <span className="release">
                       <span>{`${date.year}/${date.month}/${date.day}`}</span>{" "}
@@ -141,10 +141,10 @@ export default function ContentDetailPage() {
                   점수
                 </div>
                 {/* <div>로그인 컨텐츠</div> */}
-                <button className="trailBtn">
+                {/* <button className="trailBtn">
                   <div className="arrowImg"></div>
                   <div>트레일러 재생</div>
-                </button>
+                </button> */}
               </div>
               <div className="summary">
                 <div className="tagline">{contentData.tagline}</div>
@@ -177,20 +177,24 @@ export default function ContentDetailPage() {
               <div className="infoTitle">주요 출연진</div>
               <div className="castList">
                 <ul>
-                  {creditsData.map((val: any, idx: number) => {
-                    const { name, roles, profile_path, character } = val;
+                  {creditsData.map((val: any) => {
+                    const { id, name, roles, profile_path, character } = val;
                     return (
-                      <li key={`${name}${idx}`}>
+                      <li key={id}>
                         <div className="castImg">
-                          <Image
-                            src={`https://image.tmdb.org/t/p/w138_and_h175_face/${profile_path}`}
-                            fill
-                            sizes="1x"
-                            alt="castImg"
-                          />
+                          <Link href={`/personDetail?id=${id}`}>
+                            <Image
+                              src={`https://image.tmdb.org/t/p/w138_and_h175_face/${profile_path}`}
+                              fill
+                              sizes="1x"
+                              alt="castImg"
+                            />
+                          </Link>
                         </div>
                         <div className="castName">
-                          <div className="name">{name}</div>
+                          <div className="name">
+                            <Link href={`/personDetail?id=${id}`}>{name}</Link>
+                          </div>
                           <div className="casting">
                             {isTypeTV ? roles[0].character : character}
                           </div>
@@ -239,14 +243,16 @@ export default function ContentDetailPage() {
                   ? keywordData.results.map((val: any, idx: number) => {
                       return (
                         <li key={`${val.name}${idx}`}>
-                          <Link href="">{val.name}</Link>
+                          {/* <Link href="">{val.name}</Link> */}
+                          {val.name}
                         </li>
                       );
                     })
                   : keywordData.keywords.map((val: any, idx: number) => {
                       return (
                         <li key={`${val.name}${idx}`}>
-                          <Link href="">{val.name}</Link>
+                          {/* <Link href="">{val.name}</Link> */}
+                          {val.name}
                         </li>
                       );
                     })}

@@ -8,7 +8,7 @@ export const ReleaseDatesWrapper = styled.div`
 
     & > div:first-of-type {
       padding-top: 6px;
-      padding-bottom: 14px;
+      /* padding-bottom: 14px; */
     }
   }
 
@@ -39,6 +39,7 @@ export const ReleaseDatesWrapper = styled.div`
       }
 
       input {
+        cursor: pointer;
         height: 33px;
         width: 125px;
         border: 1px solid #e4e7eb;

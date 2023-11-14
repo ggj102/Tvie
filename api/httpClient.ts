@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export const apiClient = axios.create({
-  baseURL: "https://api.themoviedb.org/3",
+  baseURL: "https://api.themoviedb.org/3/",
   //   timeout: 10000, // 요청 타임아웃 설정 (10초)
   headers: {
     Authorization: `Bearer ${process.env.NEXT_PUBLIC_TMDB_ACCESS_TOKEN}`,
@@ -9,13 +9,42 @@ export const apiClient = axios.create({
   },
 });
 
-export const mainPageAPI = () => {
-  apiClient.get("trending/all/day?language=ko");
-  apiClient.get("trending/all/day?language=ko");
-  apiClient.get("trending/all/day?language=ko");
-  apiClient.get("trending/all/day?language=ko");
+export const popularListApi = (type: any) => {
+  const commonQuery =
+    "language=ko&watch_region=KR&sort_by=popularity.desc&vote_average.gte=0&vote_average.lte=10&vote_count.gte=0&with_runtime.gte=0&with_runtime.lte=400&page=1";
+  const movieCommonQuery = `discover/movie?include_adult=false&include_video=false&${commonQuery}`;
 
-  const arr = [];
+  const movieStreamQuery = `${movieCommonQuery}&with_watch_monetization_types=flatrate`;
+  const tvStreamQuery = `discover/tv?include_adult=false&include_null_first_air_dates=false&with_watch_monetization_types=flatrate&${commonQuery}`;
+
+  ("tv/popular?language=ko&page=1");
+
+  const movieRentQuery = `${movieCommonQuery}&with_watch_monetization_types=rent`;
+  const movieTheaterQuery = `${movieCommonQuery}&with_release_type=3&primary_release_date.gte=2023-10-01&primary_release_date.lte=2023-11-30`;
+
+  let requests = [];
+
+  switch (type) {
+    case "stream":
+      requests.push(apiClient.get(movieStreamQuery));
+      requests.push(apiClient.get(tvStreamQuery));
+      break;
+    case "tv":
+      requests.push(apiClient.get("tv/popular?language=ko&page=1"));
+      break;
+    case "rent":
+      requests.push(apiClient.get(movieRentQuery));
+      break;
+    case "theater":
+      requests.push(apiClient.get(movieTheaterQuery));
+      break;
+  }
+
+  return Promise.all(requests)
+    .then((res) => res)
+    .catch((error) => {
+      console.error(error);
+    });
 };
 
 export const contentDetailApi = (id: any, type: any) => {
@@ -41,24 +70,24 @@ export const searchResultsApi = (value: any) => {
     apiClient.get(`search/tv?${commonUrl}`),
     apiClient.get(`search/movie?${commonUrl}`),
     apiClient.get(`search/person?${commonUrl}`),
-    apiClient.get(`search/collection?${commonUrl}`),
-    apiClient.get(`search/company?${commonUrl}`),
-    apiClient.get(`search/keyword?${commonUrl}`),
+    // apiClient.get(`search/collection?${commonUrl}`),
+    // apiClient.get(`search/company?${commonUrl}`),
+    // apiClient.get(`search/keyword?${commonUrl}`),
   ];
 
   return Promise.all(requests)
     .then((res) => {
       const typeArr = [
-        "TV 프로그램",
-        "영화",
-        "인물",
-        "컬렉션",
-        "제작 및 배급사",
-        "키워드",
+        "tv",
+        "movie",
+        "person",
+        // "collection",
+        // "company",
+        // "keyword",
       ];
 
       const packing = res.map((val, idx) => {
-        return { type: typeArr[idx], data: val.data };
+        return { data: val.data, type: typeArr[idx] };
       });
 
       return packing.sort(

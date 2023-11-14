@@ -5,17 +5,18 @@ export default function CategoryButtons({ categoryData, onClickSelect }: any) {
     <CategoryButtonsWrapper>
       <ul>
         {categoryData.map((val: any, idx: number) => {
-          const { category, checked } = val;
+          const { id, name, checked } = val;
 
           return (
-            <li key={`${category}${idx}`} className={checked ? "select" : ""}>
-              <div
+            <li key={id} className={checked ? "select" : ""}>
+              <button
+                type="button"
                 onClick={() => {
                   onClickSelect(idx, checked);
                 }}
               >
-                {category}
-              </div>
+                {name}
+              </button>
             </li>
           );
         })}

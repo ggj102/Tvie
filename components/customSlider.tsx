@@ -2,22 +2,15 @@ import { useEffect, useState } from "react";
 import Slider from "@mui/material/Slider";
 import { CustomSliderWrapper } from "@/styles/components/customSliderWrapper";
 
-function valuetext(value: number) {
-  return `${value}°C`;
-}
-
 export default function CustomSlider({
   max,
   step,
   pointNum,
-  sliderValue,
-  onChange,
+  ...props
 }: {
   max: number;
   step: number;
   pointNum: number;
-  sliderValue: number | number[];
-  onChange: any;
 }) {
   const [graduationArr, setGraduationArr] = useState<number[]>([]);
 
@@ -47,13 +40,11 @@ export default function CustomSlider({
         })}
       </div>
       <Slider
-        value={sliderValue}
         min={0}
         max={max}
         step={step}
-        onChange={onChange}
         valueLabelDisplay="auto"
-        getAriaValueText={valuetext}
+        {...props}
       />
     </CustomSliderWrapper>
   );

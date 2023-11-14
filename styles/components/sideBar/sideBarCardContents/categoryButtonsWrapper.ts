@@ -14,7 +14,7 @@ export const CategoryButtonsWrapper = styled.div`
 
       cursor: pointer;
 
-      & > div {
+      button {
         padding: 4px 12px;
       }
 

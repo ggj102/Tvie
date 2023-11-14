@@ -1,10 +1,16 @@
 import styled from "styled-components";
 
 export const SideBarWrapper = styled.div`
-  width: 260px;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
+  form {
+    width: 260px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  select {
+    cursor: pointer;
+  }
 
   .card {
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
@@ -52,7 +58,14 @@ export const SideBarWrapper = styled.div`
     height: 44px;
     font-weight: bold;
     font-size: 1.2em;
-
+    cursor: auto;
+    color: rgba(0, 0, 0, 0.5);
     background-color: rgba(228, 228, 228, 0.7);
+  }
+
+  .readySearch {
+    cursor: pointer;
+    color: #fff;
+    background-color: rgb(1, 180, 228, 1);
   }
 `;
