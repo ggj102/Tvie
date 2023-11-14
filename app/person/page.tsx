@@ -6,13 +6,26 @@ import Image from "next/image";
 
 import { apiClient } from "@/api/httpClient";
 import ContentLayout from "@/components/contentLayout";
+import { Pagination } from "@mui/material";
 
 export default function PersonPage() {
   const [personData, setPersonData] = useState<any>([]);
+  const [totalPages, setTotalPages] = useState<number>(1);
+  const [currentPage, setCurrentPage] = useState<number>(1);
+
+  const onChangePagination = (e: any, page: any) => {
+    apiClient.get(`person/popular?language=ko&page=${page}`).then((res) => {
+      setPersonData(res.data.results);
+      setCurrentPage(page);
+
+      window.scrollTo({ top: 0 });
+    });
+  };
 
   useEffect(() => {
     apiClient.get("person/popular?language=ko&page=1").then((res) => {
       setPersonData(res.data.results);
+      setTotalPages(res.data.total_pages);
     });
   }, []);
 
@@ -51,7 +64,16 @@ export default function PersonPage() {
         })}
       </div>
       <div className="pagination">
-        <div>페이지네이션</div>
+        <Pagination
+          count={totalPages}
+          page={currentPage}
+          defaultPage={1}
+          boundaryCount={2}
+          siblingCount={3}
+          hidePrevButton={currentPage === 1}
+          hideNextButton={currentPage === totalPages}
+          onChange={onChangePagination}
+        />
       </div>
     </ContentLayout>
   );
