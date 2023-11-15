@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { usePathname, useSearchParams } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 import { SearchResultsWrapper } from "@/styles/pages/searchResults/searchResultsWrapper";
 import { searchResultsApi } from "@/api/httpClient";
@@ -17,9 +17,11 @@ export default function SearchResultsPage({
   const params = useSearchParams();
   const searchVal = params.get("search");
   const pathname = usePathname();
+  const router = useRouter();
 
   const [searchData, setSearchData] = useState<any>([]);
   const [currentTab, setCurrentTab] = useState<string>("");
+  const [inputValue, setInputValue] = useState<string>("");
 
   const typeConnect: any = {
     tv: "TV 프로그램",
@@ -28,6 +30,12 @@ export default function SearchResultsPage({
     collection: "컬렉션",
     company: "제작 및 배급사",
     keyword: "키워드",
+  };
+
+  const onKeyDownSearch = (e: any) => {
+    if (e.key === "Enter") {
+      router.push(`/searchResults?search=${inputValue}`);
+    }
   };
 
   useEffect(() => {
@@ -43,14 +51,19 @@ export default function SearchResultsPage({
     searchResultsApi(searchVal).then((res: any) => {
       setSearchData(res);
     });
-  }, []);
+  }, [pathname]);
 
   return (
     <SearchResultsWrapper>
       <div className="searchBar">
         <div className="searchInput">
           <SearchIcon />
-          <input placeholder="영화, TV 프로그램, 인물 검색" />
+          <input
+            value={inputValue}
+            placeholder="영화, TV 프로그램, 인물 검색"
+            onChange={(e) => setInputValue(e.target.value)}
+            onKeyDown={onKeyDownSearch}
+          />
         </div>
       </div>
       <div>
