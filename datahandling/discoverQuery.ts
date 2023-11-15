@@ -105,7 +105,7 @@ const runtimeQuery = (data: any) => {
   return `&with_runtime.gte=${data[0]}&with_runtime.lte=${data[1]}`;
 };
 
-export const discoverQuery = (type: string, data: any) => {
+export const discoverQuery = (type: any, data: any) => {
   // const certificationQuery = `&certification=${genreAndRatingQuery(
   //   data.certification
   // )}&certification_country=KR&region=US`;
