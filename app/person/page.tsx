@@ -1,19 +1,32 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 
 import { apiClient } from "@/api/httpClient";
 import ContentLayout from "@/components/contentLayout";
 import { Pagination } from "@mui/material";
+import { PersonDetailDataType } from "../personDetail/page";
+
+export type PersonDataType = {
+  adult: boolean;
+  gender: number;
+  id: number;
+  known_for: PersonDetailDataType[];
+  known_for_department?: string;
+  name?: string;
+  original_name?: string;
+  popularity?: number;
+  profile_path?: string;
+};
 
 export default function PersonPage() {
-  const [personData, setPersonData] = useState<any>([]);
+  const [personData, setPersonData] = useState<PersonDataType[]>([]);
   const [totalPages, setTotalPages] = useState<number>(1);
   const [currentPage, setCurrentPage] = useState<number>(1);
 
-  const onChangePagination = (e: any, page: any) => {
+  const onChangePagination = (e: ChangeEvent<unknown>, page: number) => {
     apiClient.get(`person/popular?language=ko&page=${page}`).then((res) => {
       setPersonData(res.data.results);
       setCurrentPage(page);
@@ -24,6 +37,7 @@ export default function PersonPage() {
 
   useEffect(() => {
     apiClient.get("person/popular?language=ko&page=1").then((res) => {
+      console.log(res.data.results);
       setPersonData(res.data.results);
       setTotalPages(res.data.total_pages);
     });
@@ -33,7 +47,7 @@ export default function PersonPage() {
     <ContentLayout>
       <div className="categoryTitle">인기 인물</div>
       <div className="personList">
-        {personData.map((val: any) => {
+        {personData.map((val: PersonDataType) => {
           const { id, name, known_for, profile_path } = val;
           return (
             <div key={id} className="personCard">
@@ -52,11 +66,17 @@ export default function PersonPage() {
                   {name}
                 </Link>
                 <div className="sub">
-                  {known_for.map((val: any, idx: number, arr: any) => {
-                    const title = val.title || val.name;
+                  {known_for.map(
+                    (
+                      val: PersonDetailDataType,
+                      idx: number,
+                      arr: PersonDetailDataType[]
+                    ) => {
+                      const title = val.title ? val.title : val.name;
 
-                    return `${title}${idx !== arr.length - 1 ? ", " : ""}`;
-                  })}
+                      return `${title}${idx !== arr.length - 1 ? ", " : ""}`;
+                    }
+                  )}
                 </div>
               </div>
             </div>

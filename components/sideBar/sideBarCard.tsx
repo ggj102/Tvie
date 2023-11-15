@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, ReactNode } from "react";
 import { SideBarCardWrapper } from "@/styles/components/sideBar/sideBarCardWrapper";
 
 export default function SideBarCard({
@@ -8,7 +8,7 @@ export default function SideBarCard({
 }: {
   title: string;
   defaultOpen: boolean;
-  children: any;
+  children: ReactNode;
 }) {
   const [isOpen, setIsOpen] = useState<boolean>(defaultOpen);
 

@@ -4,7 +4,7 @@ import EventIcon from "@mui/icons-material/Event";
 
 import "react-datepicker/dist/react-datepicker.css";
 
-export default function ReleaseDatePicker({ control }: any) {
+export default function ReleaseDatePicker({ control }: { control: any }) {
   return (
     <div className="datepickerWrapper">
       <div>
@@ -12,7 +12,7 @@ export default function ReleaseDatePicker({ control }: any) {
         <Controller
           name="release.release_date_g"
           control={control}
-          render={({ field }: any) => (
+          render={({ field }) => (
             <ReactDatePicker
               showIcon
               dateFormat="yyyy-MM-dd"
@@ -29,7 +29,7 @@ export default function ReleaseDatePicker({ control }: any) {
         <Controller
           name="release.release_date_l"
           control={control}
-          render={({ field }: any) => (
+          render={({ field }) => (
             <ReactDatePicker
               showIcon
               dateFormat="yyyy-MM-dd"

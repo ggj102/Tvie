@@ -2,11 +2,18 @@ import Link from "next/link";
 import Image from "next/image";
 
 import { dateFormatter } from "@/utils/dateFormatter";
+import { ContentDataType } from "@/components/contentList";
 
-export default function SearchResultsList({ type, list }: any) {
+export default function SearchResultsList({
+  type,
+  list,
+}: {
+  type: string;
+  list: ContentDataType[];
+}) {
   return (
     <ul className="searchResultsList">
-      {list.map((val: any) => {
+      {list.map((val: ContentDataType) => {
         const { id, poster_path, overview } = val;
 
         const title = val.title || val.name;

@@ -1,11 +1,16 @@
 import { usePathname } from "next/navigation";
-import { Controller, useWatch } from "react-hook-form";
+import { Control, Controller, FieldValues, useWatch } from "react-hook-form";
 import ReleaseDatePicker from "./releaseDatePicker";
 
 import CustomCheckBox from "@/components/customCheckBox";
 import { ReleaseDatesWrapper } from "@/styles/components/sideBar/sideBarCardContents/releaseDatesWrapper";
+import { DiscoverDataType } from "@/components/contentList";
 
-export default function ReleaseDates({ control }: any) {
+export default function ReleaseDates({
+  control,
+}: {
+  control: Control<DiscoverDataType, any>;
+}) {
   const pathname = usePathname();
 
   const isAllEpisodes = useWatch({ control, name: "release.all_episodes" });

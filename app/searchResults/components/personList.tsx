@@ -1,11 +1,14 @@
 import Image from "next/image";
 import { PersonListWrapper } from "@/styles/pages/searchResults/personListWrapper";
 import Link from "next/link";
+import { useEffect } from "react";
+import { PersonDataType } from "@/app/person/page";
+import { PersonDetailDataType } from "@/app/personDetail/page";
 
-export default function PersonList({ list }: any) {
+export default function PersonList({ list }: { list: PersonDataType[] }) {
   return (
     <PersonListWrapper>
-      {list.map((val: any) => {
+      {list.map((val: PersonDataType) => {
         const { id, name, profile_path, known_for_department, known_for } = val;
 
         return (
@@ -28,23 +31,29 @@ export default function PersonList({ list }: any) {
                 <div>
                   <span className="department">{known_for_department}</span>
                   {known_for &&
-                    known_for.map((val: any, idx: number, arr: any) => {
-                      const { id: contentId, media_type } = val;
+                    known_for.map(
+                      (
+                        val: PersonDetailDataType,
+                        idx: number,
+                        arr: PersonDetailDataType[]
+                      ) => {
+                        const { id: contentId, media_type } = val;
 
-                      const title = val.title || val.name;
+                        const title = val.title || val.name;
 
-                      return (
-                        <Link
-                          key={`${contentId}${id}`}
-                          href={`/contentDetail?type=${media_type}&id=${contentId}`}
-                        >
-                          <span>
-                            {title}
-                            {idx !== arr.length - 1 ? ", " : ""}
-                          </span>
-                        </Link>
-                      );
-                    })}
+                        return (
+                          <Link
+                            key={`${contentId}${id}`}
+                            href={`/contentDetail?type=${media_type}&id=${contentId}`}
+                          >
+                            <span>
+                              {title}
+                              {idx !== arr.length - 1 ? ", " : ""}
+                            </span>
+                          </Link>
+                        );
+                      }
+                    )}
                 </div>
               </div>
             </div>

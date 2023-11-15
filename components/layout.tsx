@@ -2,7 +2,7 @@
 
 import { LayoutWrapper } from "@/styles/components/layoutWrapper";
 
-export default function Layout({ children }: any) {
+export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <LayoutWrapper>
       {children}

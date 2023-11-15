@@ -11,6 +11,7 @@ export default function SearchResultsPage() {
 
   useEffect(() => {
     searchResultsApi(searchVal).then((res: any) => {
+      console.log(res);
       router.replace(`/searchResults/${res[0].type}Search?search=${searchVal}`);
     });
   }, []);

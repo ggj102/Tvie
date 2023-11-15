@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, KeyboardEvent } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 import { SearchResultsWrapper } from "@/styles/pages/searchResults/searchResultsWrapper";
@@ -8,6 +8,16 @@ import { searchResultsApi } from "@/api/httpClient";
 
 import SearchIcon from "@mui/icons-material/Search";
 import Link from "next/link";
+
+type ConnetType = {
+  [index: string]: string;
+  tv: string;
+  movie: string;
+  person: string;
+  collection: string;
+  company: string;
+  keyword: string;
+};
 
 export default function SearchResultsPage({
   children,
@@ -23,7 +33,7 @@ export default function SearchResultsPage({
   const [currentTab, setCurrentTab] = useState<string>("");
   const [inputValue, setInputValue] = useState<string>("");
 
-  const typeConnect: any = {
+  const typeConnect: ConnetType = {
     tv: "TV 프로그램",
     movie: "영화",
     person: "인물",
@@ -32,7 +42,7 @@ export default function SearchResultsPage({
     keyword: "키워드",
   };
 
-  const onKeyDownSearch = (e: any) => {
+  const onKeyDownSearch = (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
       router.push(`/searchResults?search=${inputValue}`);
     }
@@ -48,7 +58,7 @@ export default function SearchResultsPage({
   }, [pathname]);
 
   useEffect(() => {
-    searchResultsApi(searchVal).then((res: any) => {
+    searchResultsApi(searchVal).then((res) => {
       setSearchData(res);
     });
   }, [pathname]);

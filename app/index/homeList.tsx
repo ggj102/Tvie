@@ -2,13 +2,22 @@ import Link from "next/link";
 import Image from "next/image";
 
 import { dateFormatter } from "@/utils/dateFormatter";
+import { ContentDataType } from "@/components/contentList";
+import { RefObject } from "react";
 
-export default function HomeList({ listData, listRef }: any) {
+export default function HomeList({
+  listData,
+  listRef,
+}: {
+  listData: ContentDataType[];
+  listRef: RefObject<HTMLUListElement>;
+}) {
   return (
     <ul ref={listRef} className="contentList">
-      {listData.map((val: any) => {
+      {listData.map((val: ContentDataType) => {
         const { id, poster_path, vote_average } = val;
-        const vote = `${Math.floor(vote_average * 10)}%`;
+
+        const vote = `${Math.floor(vote_average ? vote_average * 10 : 0)}%`;
         const date = val.first_air_date || val.release_date;
         const type = val.hasOwnProperty("title") ? "movie" : "tv";
 

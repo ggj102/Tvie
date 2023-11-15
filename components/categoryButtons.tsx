@@ -1,10 +1,28 @@
+import { useEffect } from "react";
 import { CategoryButtonsWrapper } from "@/styles/components/sideBar/sideBarCardContents/categoryButtonsWrapper";
 
-export default function CategoryButtons({ categoryData, onClickSelect }: any) {
+type CategoryDataType = {
+  id: number;
+  name: string;
+  checked?: boolean;
+};
+
+export default function CategoryButtons({
+  categoryData,
+  onClickSelect,
+}: {
+  categoryData: CategoryDataType[];
+  onClickSelect: any;
+}) {
+  useEffect(() => {
+    console.log(categoryData);
+    console.log(onClickSelect);
+  }, [categoryData, onClickSelect]);
+
   return (
     <CategoryButtonsWrapper>
       <ul>
-        {categoryData.map((val: any, idx: number) => {
+        {categoryData.map((val: CategoryDataType, idx: number) => {
           const { id, name, checked } = val;
 
           return (

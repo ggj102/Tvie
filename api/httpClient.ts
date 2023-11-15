@@ -1,3 +1,4 @@
+import { PersonDetailDataType } from "@/app/personDetail/page";
 import axios from "axios";
 
 export const apiClient = axios.create({
@@ -9,7 +10,7 @@ export const apiClient = axios.create({
   },
 });
 
-export const popularListApi = (type: any) => {
+export const popularListApi = (type: string) => {
   const commonQuery =
     "language=ko&watch_region=KR&sort_by=popularity.desc&vote_average.gte=0&vote_average.lte=10&vote_count.gte=0&with_runtime.gte=0&with_runtime.lte=400&page=1";
   const movieCommonQuery = `discover/movie?include_adult=false&include_video=false&${commonQuery}`;
@@ -47,7 +48,7 @@ export const popularListApi = (type: any) => {
     });
 };
 
-export const contentDetailApi = (id: any, type: any) => {
+export const contentDetailApi = (id: string | null, type: string | null) => {
   const typeId = `${type}/${id}`;
   const credites = type === "tv" ? "aggregate_credits" : "credits";
 
@@ -64,7 +65,7 @@ export const contentDetailApi = (id: any, type: any) => {
     });
 };
 
-export const searchResultsApi = (value: any) => {
+export const searchResultsApi = (value: string | null) => {
   const commonUrl = `query=${value}&include_adult=false&language=ko&page=1`;
   const requests = [
     apiClient.get(`search/tv?${commonUrl}`),
@@ -99,7 +100,7 @@ export const searchResultsApi = (value: any) => {
     });
 };
 
-export const personDetailApi = (personId: any) => {
+export const personDetailApi = (personId: string | null) => {
   const requests = [
     apiClient.get(
       `person/${personId}?append_to_response=combined_credits&language=ko`
@@ -119,9 +120,13 @@ export const personDetailApi = (personId: any) => {
       let famous = [];
       let acting = [];
 
-      famous = sortCopy.sort((val1: any, val2: any) => {
-        return val2.vote_count - val1.vote_count;
-      });
+      famous = sortCopy.sort(
+        (val1: PersonDetailDataType, val2: PersonDetailDataType) => {
+          console.log(val1, val2);
+
+          return val2.vote_count - val1.vote_count;
+        }
+      );
 
       if (famous.length > 8) {
         famous = famous.slice(0, 8);

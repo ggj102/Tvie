@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { KeyboardEvent, useState } from "react";
 import { useRouter } from "next/navigation";
 
 import { SearchBarWrapper } from "@/styles/pages/index/searchBarWrapper";
@@ -11,7 +11,7 @@ export default function SearchBar() {
     router.push(`/searchResults?search=${inputValue}`);
   };
 
-  const onKeyDownSearch = (e: any) => {
+  const onKeyDownSearch = (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
       router.push(`/searchResults?search=${inputValue}`);
     }

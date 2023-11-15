@@ -4,7 +4,7 @@ import { KeywordListWrapper } from "@/styles/pages/searchResults/keywordListWrap
 export default function KeywordList({ list }: any) {
   return (
     <KeywordListWrapper>
-      {list.map((val: any) => {
+      {list.map((val: { id: number; name: string }) => {
         const { id, name } = val;
 
         return (

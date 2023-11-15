@@ -2,16 +2,22 @@ import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import CategoryButtons from "@/components/categoryButtons";
 import { apiClient } from "@/api/httpClient";
+import { FieldValues, SetFieldValue } from "react-hook-form";
+import { GenreResType } from "@/components/contentList";
 
-export default function Genre({ setValue }: any) {
+export default function Genre({
+  setValue,
+}: {
+  setValue: SetFieldValue<FieldValues>;
+}) {
   const pathname = usePathname();
-  const [genreArr, setGenreArr] = useState<any>([]);
+  const [genreArr, setGenreArr] = useState<GenreResType[]>([]);
 
   useEffect(() => {
     apiClient
       .get(`https://api.themoviedb.org/3/genre${pathname}/list?language=ko`)
       .then((res) => {
-        const alphabeticalSort = (a: any, b: any) => {
+        const alphabeticalSort = (a: GenreResType, b: GenreResType) => {
           const aIsAlphabet = /^[a-zA-Z]/.test(a.name);
           const bIsAlphabet = /^[a-zA-Z]/.test(b.name);
 
@@ -26,7 +32,7 @@ export default function Genre({ setValue }: any) {
         };
 
         const sortedStrings = res.data.genres.sort(alphabeticalSort);
-        const checkedMap = sortedStrings.map((val: any) => {
+        const checkedMap = sortedStrings.map((val: GenreResType) => {
           return { ...val, checked: false };
         });
 
@@ -35,7 +41,7 @@ export default function Genre({ setValue }: any) {
       });
   }, []);
 
-  const onClickSelect = (idx: number, checked: boolean) => {
+  const onClickSelect = (idx: number, checked?: boolean) => {
     const copy = [...genreArr];
     copy[idx].checked = !checked;
 
