@@ -1,11 +1,11 @@
 import Image from "next/image";
-import { PersonListWrapper } from "@/styles/components/searchResults/personListWrapper";
+import { PersonListWrapper } from "@/styles/pages/searchResults/personListWrapper";
 import Link from "next/link";
 
 export default function PersonList({ list }: any) {
   return (
     <PersonListWrapper>
-      {list.map((val: any, idx: number) => {
+      {list.map((val: any) => {
         const { id, name, profile_path, known_for_department, known_for } = val;
 
         return (

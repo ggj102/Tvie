@@ -75,7 +75,7 @@ export const SearchResultsWrapper = styled.div`
       padding: 8px 0;
 
       li {
-        button {
+        a {
           display: inline-flex;
           justify-content: space-between;
           align-items: center;

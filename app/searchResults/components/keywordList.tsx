@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { KeywordListWrapper } from "@/styles/components/searchResults/keywordListWrapper";
+import { KeywordListWrapper } from "@/styles/pages/searchResults/keywordListWrapper";
 
 export default function KeywordList({ list }: any) {
   return (

@@ -19,10 +19,10 @@ export default function Navigation() {
           <Link href="/tv">TV</Link>
           <Link href="/person">Person</Link>
         </div>
-        <div className="flex">
+        {/* <div className="flex">
           <div>로그인</div>
           <div>회원가입</div>
-        </div>
+        </div> */}
       </div>
     </NavWrapper>
   );
