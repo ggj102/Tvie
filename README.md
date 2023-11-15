@@ -1,5 +1,5 @@
 ## 프로젝트 소개
-
+- 제작 기간 2023.11.2 ~ 2023.11.15(첫배포)
 - [TMDB](https://www.themoviedb.org/) 사이트와 유사하게 구현
 - TMDB에서 제공하는 [Open API](https://developer.themoviedb.org/reference/intro/getting-started) 기반으로 데이터 구성
 - 영화, TV, 인물 관련 정보를 얻는 페이지
