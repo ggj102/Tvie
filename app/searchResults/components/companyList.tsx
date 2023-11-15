@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { CompanyListWrapper } from "@/styles/components/searchResults/companyListWrapper";
+import { CompanyListWrapper } from "@/styles/pages/searchResults/companyListWrapper";
 
 export default function CompanyList({ list }: any) {
   return (
