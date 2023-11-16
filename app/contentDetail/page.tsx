@@ -3,13 +3,13 @@
 import { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
-import Image from "next/image";
 
 import { contentDetailApi } from "@/api/httpClient";
 import {
   ContentDetailWrapper,
   DetailInfoWrapper,
 } from "@/styles/pages/contentDetailWrapper";
+import CustomImage from "@/components/customImage";
 
 export default function ContentDetailPage() {
   const params = useSearchParams();
@@ -88,14 +88,12 @@ export default function ContentDetailPage() {
         <div>
           <div>
             <div className="poster">
-              <div className="posterImg">
-                <Image
-                  src={`https://image.tmdb.org/t/p/w300_and_h450_bestv2/${contentData.poster_path}`}
-                  fill
-                  sizes="1x"
-                  alt="posterImg"
-                />
-              </div>
+              <CustomImage
+                className="posterImg"
+                type="content"
+                src={`https://image.tmdb.org/t/p/w300_and_h450_bestv2/${contentData.poster_path}`}
+              />
+
               <div className="ottOffer"></div>
             </div>
             <div className="contentInfo">
@@ -181,16 +179,13 @@ export default function ContentDetailPage() {
                     const { id, name, roles, profile_path, character } = val;
                     return (
                       <li key={id}>
-                        <div className="castImg">
-                          <Link href={`/personDetail?id=${id}`}>
-                            <Image
-                              src={`https://image.tmdb.org/t/p/w138_and_h175_face/${profile_path}`}
-                              fill
-                              sizes="1x"
-                              alt="castImg"
-                            />
-                          </Link>
-                        </div>
+                        <Link href={`/personDetail?id=${id}`}>
+                          <CustomImage
+                            className="castImg"
+                            type="person"
+                            src={`https://image.tmdb.org/t/p/w138_and_h175_face/${profile_path}`}
+                          />
+                        </Link>
                         <div className="castName">
                           <div className="name">
                             <Link href={`/personDetail?id=${id}`}>{name}</Link>

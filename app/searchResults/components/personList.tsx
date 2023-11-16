@@ -1,9 +1,8 @@
-import Image from "next/image";
 import { PersonListWrapper } from "@/styles/pages/searchResults/personListWrapper";
 import Link from "next/link";
-import { useEffect } from "react";
 import { PersonDataType } from "@/app/person/page";
 import { PersonDetailDataType } from "@/app/personDetail/page";
+import CustomImage from "@/components/customImage";
 
 export default function PersonList({ list }: { list: PersonDataType[] }) {
   return (
@@ -15,11 +14,9 @@ export default function PersonList({ list }: { list: PersonDataType[] }) {
           <li key={id}>
             <Link href={`/personDetail?id=${id}`}>
               <div className="personImage">
-                <Image
+                <CustomImage
+                  type="person"
                   src={`https://image.tmdb.org/t/p/w90_and_h90_face/${profile_path}`}
-                  fill
-                  sizes="1x"
-                  alt="image"
                 />
               </div>
             </Link>

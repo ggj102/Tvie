@@ -1,6 +1,8 @@
 import styled from "styled-components";
 
 export const PersonListWrapper = styled.ul`
+  display: flex;
+  flex-direction: column;
   gap: 10px;
 
   li {
@@ -15,6 +17,10 @@ export const PersonListWrapper = styled.ul`
       width: 70px;
       height: 70px;
       margin-right: 20px;
+
+      img {
+        border-radius: 8px;
+      }
     }
     .personInfo {
       display: flex;

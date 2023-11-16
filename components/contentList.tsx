@@ -1,8 +1,7 @@
 "use client";
 
-import { PointerEvent, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
-import Image from "next/image";
 
 import { apiClient } from "@/api/httpClient";
 import { dateFormatter } from "@/utils/dateFormatter";
@@ -10,6 +9,7 @@ import { dateFormatter } from "@/utils/dateFormatter";
 import ContentLayout from "@/components/contentLayout";
 import SideBar from "@/components/sideBar/sideBar";
 import { discoverQuery } from "@/datahandling/discoverQuery";
+import CustomImage from "./customImage";
 
 export type GenreDataType = {
   id: number;
@@ -241,14 +241,11 @@ export default function ContentList({ contentType }: { contentType: string }) {
               return (
                 <li key={id}>
                   <Link href={`/contentDetail?type=${contentType}&id=${id}`}>
-                    <div className="contentImg">
-                      <Image
-                        src={`https://image.tmdb.org/t/p/w220_and_h330_face/${poster_path}`}
-                        fill
-                        sizes="1x"
-                        alt="contentImg"
-                      />
-                    </div>
+                    <CustomImage
+                      className="contentImg"
+                      type="content"
+                      src={`https://image.tmdb.org/t/p/w220_and_h330_face/${poster_path}`}
+                    />
                   </Link>
                   <div className="score">{vote}</div>
                   <div className="titleRelease">

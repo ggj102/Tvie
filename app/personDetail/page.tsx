@@ -2,11 +2,11 @@
 
 import { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
-import Image from "next/image";
 
 import { PersonDetailWrapper } from "@/styles/pages/personDetailWrapper";
 import { personDetailApi } from "@/api/httpClient";
 import Link from "next/link";
+import CustomImage from "@/components/customImage";
 
 export type PersonDetailDataType = {
   adult: boolean;
@@ -66,14 +66,11 @@ export default function PersonDetailPage() {
     <PersonDetailWrapper>
       <div>
         <div className="personInfo">
-          <div className="personImg">
-            <Image
-              src={`https://image.tmdb.org/t/p/w300_and_h450_bestv2/${personDetailData.profile_path}`}
-              fill
-              sizes="1x"
-              alt="personImg"
-            />
-          </div>
+          <CustomImage
+            className="personImg"
+            type="person"
+            src={`https://image.tmdb.org/t/p/w300_and_h450_bestv2/${personDetailData.profile_path}`}
+          />
           <div className="info">
             <div>인물 정보</div>
             <div className="intro">
@@ -146,14 +143,11 @@ export default function PersonDetailPage() {
                   return (
                     <li key={id}>
                       <Link href={`/contentDetail?type=${media_type}&id=${id}`}>
-                        <div className="famousImg">
-                          <Image
-                            src={`https://image.tmdb.org/t/p/w150_and_h225_bestv2/${val.poster_path}`}
-                            fill
-                            sizes="1x"
-                            alt="famousImg"
-                          />
-                        </div>
+                        <CustomImage
+                          className="famousImg"
+                          type="content"
+                          src={`https://image.tmdb.org/t/p/w150_and_h225_bestv2/${val.poster_path}`}
+                        />
                       </Link>
                       <div className="famousTitle">
                         <Link

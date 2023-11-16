@@ -1,9 +1,9 @@
 import Link from "next/link";
-import Image from "next/image";
 
 import { dateFormatter } from "@/utils/dateFormatter";
 import { ContentDataType } from "@/components/contentList";
 import { RefObject } from "react";
+import CustomImage from "@/components/customImage";
 
 export default function HomeList({
   listData,
@@ -24,14 +24,11 @@ export default function HomeList({
         return (
           <li key={id}>
             <Link href={`/contentDetail?type=${type}&id=${id}`}>
-              <div className="contentImg">
-                <Image
-                  src={`https://image.tmdb.org/t/p/w220_and_h330_face/${poster_path}`}
-                  fill
-                  sizes="1x"
-                  alt="contentImg"
-                />
-              </div>
+              <CustomImage
+                className="contentImg"
+                type="content"
+                src={`https://image.tmdb.org/t/p/w220_and_h330_face/${poster_path}`}
+              />
             </Link>
             <div className="score">{vote}</div>
             <div className="titleRelease">

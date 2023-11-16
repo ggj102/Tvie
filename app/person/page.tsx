@@ -2,12 +2,12 @@
 
 import { ChangeEvent, useEffect, useState } from "react";
 import Link from "next/link";
-import Image from "next/image";
 
 import { apiClient } from "@/api/httpClient";
 import ContentLayout from "@/components/contentLayout";
 import { Pagination } from "@mui/material";
 import { PersonDetailDataType } from "../personDetail/page";
+import CustomImage from "@/components/customImage";
 
 export type PersonDataType = {
   adult: boolean;
@@ -52,14 +52,11 @@ export default function PersonPage() {
           return (
             <div key={id} className="personCard">
               <Link href={`/personDetail?id=${id}`}>
-                <div className="personImg">
-                  <Image
-                    src={`https://image.tmdb.org/t/p/w235_and_h235_face/${profile_path}`}
-                    fill
-                    sizes="1x"
-                    alt="personImg"
-                  />
-                </div>
+                <CustomImage
+                  className="personImg"
+                  type="person"
+                  src={`https://image.tmdb.org/t/p/w235_and_h235_face/${profile_path}`}
+                />
               </Link>
               <div className="personInfo">
                 <Link href={`/personDetail?id=${id}`} className="name">

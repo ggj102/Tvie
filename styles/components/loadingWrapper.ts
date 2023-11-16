@@ -23,9 +23,10 @@ export const Dot = styled("div")<{ i: number }>`
 export const LoadingWrapper = styled.div`
   width: 100%;
   height: calc(100vh);
+  background-color: #fff;
   aspect-ratio: 1;
-  position: relative;
-
+  position: fixed;
+  z-index: 1000;
   display: flex;
   align-items: center;
   justify-content: center;
