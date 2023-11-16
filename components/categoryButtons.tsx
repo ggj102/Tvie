@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import { CategoryButtonsWrapper } from "@/styles/components/sideBar/sideBarCardContents/categoryButtonsWrapper";
 
 export type CategoryDataType = {
