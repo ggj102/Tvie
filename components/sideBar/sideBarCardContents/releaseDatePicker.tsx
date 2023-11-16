@@ -1,22 +1,27 @@
-import { Controller } from "react-hook-form";
+import { Control, Controller } from "react-hook-form";
 import ReactDatePicker from "react-datepicker";
 import EventIcon from "@mui/icons-material/Event";
 
 import "react-datepicker/dist/react-datepicker.css";
+import { DiscoverDataType } from "@/components/contentList";
 
-export default function ReleaseDatePicker({ control }: { control: any }) {
+export default function ReleaseDatePicker({
+  control,
+}: {
+  control: Control<DiscoverDataType>;
+}) {
   return (
     <div className="datepickerWrapper">
       <div>
         <span>from</span>
         <Controller
-          name="release.release_date_g"
+          name="release_date_g"
           control={control}
-          render={({ field }) => (
+          render={({ field }: any) => (
             <ReactDatePicker
               showIcon
               dateFormat="yyyy-MM-dd"
-              selected={field.value}
+              selected={field.value || null}
               icon={<EventIcon />}
               autoComplete="off"
               {...field}
@@ -27,9 +32,9 @@ export default function ReleaseDatePicker({ control }: { control: any }) {
       <div>
         <span>to</span>
         <Controller
-          name="release.release_date_l"
+          name="release_date_l"
           control={control}
-          render={({ field }) => (
+          render={({ field }: any) => (
             <ReactDatePicker
               showIcon
               dateFormat="yyyy-MM-dd"

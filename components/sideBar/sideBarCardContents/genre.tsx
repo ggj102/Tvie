@@ -3,7 +3,7 @@ import { usePathname } from "next/navigation";
 import CategoryButtons from "@/components/categoryButtons";
 import { apiClient } from "@/api/httpClient";
 import { FieldValues, SetFieldValue } from "react-hook-form";
-import { GenreResType } from "@/components/contentList";
+import { GenreDataType } from "@/components/contentList";
 
 export default function Genre({
   setValue,
@@ -11,13 +11,13 @@ export default function Genre({
   setValue: SetFieldValue<FieldValues>;
 }) {
   const pathname = usePathname();
-  const [genreArr, setGenreArr] = useState<GenreResType[]>([]);
+  const [genreArr, setGenreArr] = useState<GenreDataType[]>([]);
 
   useEffect(() => {
     apiClient
       .get(`https://api.themoviedb.org/3/genre${pathname}/list?language=ko`)
       .then((res) => {
-        const alphabeticalSort = (a: GenreResType, b: GenreResType) => {
+        const alphabeticalSort = (a: GenreDataType, b: GenreDataType) => {
           const aIsAlphabet = /^[a-zA-Z]/.test(a.name);
           const bIsAlphabet = /^[a-zA-Z]/.test(b.name);
 
@@ -32,7 +32,7 @@ export default function Genre({
         };
 
         const sortedStrings = res.data.genres.sort(alphabeticalSort);
-        const checkedMap = sortedStrings.map((val: GenreResType) => {
+        const checkedMap = sortedStrings.map((val: GenreDataType) => {
           return { ...val, checked: false };
         });
 

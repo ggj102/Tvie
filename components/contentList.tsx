@@ -11,13 +11,14 @@ import ContentLayout from "@/components/contentLayout";
 import SideBar from "@/components/sideBar/sideBar";
 import { discoverQuery } from "@/datahandling/discoverQuery";
 
-export type GenreResType = {
+export type GenreDataType = {
   id: number;
   name: string;
   checked?: boolean;
 };
 
-type ReleaseDateType = {
+export type ReleaseDateType = {
+  [index: string]: boolean;
   all_releases: boolean;
   theater_limited: boolean;
   theater: boolean;
@@ -25,29 +26,31 @@ type ReleaseDateType = {
   digital: boolean;
   physical_media: boolean;
   tv: boolean;
-  release_date_g?: Date;
-  release_date_l?: Date;
 };
 
-type AirDateType = {
+export type AirDateType = {
+  [index: string]: boolean;
   all_episodes: true;
   first_air_date: true;
-  release_date_g?: Date;
-  release_date_l?: Date;
+};
+
+export type AvailabilitiesType = {
+  [index: string]: boolean;
+  all_availabilities: boolean;
+  stream: boolean;
+  free: boolean;
+  ads: boolean;
+  rent: boolean;
+  buy: boolean;
 };
 
 export type DiscoverDataType = {
   sort_by: string;
-  availabilities: {
-    all_availabilities: boolean;
-    stream: boolean;
-    free: boolean;
-    ads: boolean;
-    rent: boolean;
-    buy: boolean;
-  };
+  availabilities: AvailabilitiesType;
   release: ReleaseDateType | AirDateType;
-  genre: GenreResType[];
+  release_date_g: Date | null;
+  release_date_l: Date | null;
+  genre: GenreDataType[];
   vote_average: number[];
   vote_count: 0;
   runtime: number[];
@@ -99,14 +102,10 @@ export default function ContentList({ contentType }: { contentType: string }) {
           digital: true,
           physical_media: true,
           tv: true,
-          release_date_g: undefined,
-          release_date_l: setDate,
         }
       : {
           all_episodes: true,
           first_air_date: true,
-          release_date_g: undefined,
-          release_date_l: setDate,
         };
 
   const [defaultDiscoverData, setDefaultDiscoverData] =
@@ -121,36 +120,44 @@ export default function ContentList({ contentType }: { contentType: string }) {
         buy: true,
       },
       release,
+      release_date_g: null,
+      release_date_l: setDate,
       genre: [],
       vote_average: [0, 10],
       vote_count: 0,
       runtime: [0, 400],
     });
 
-  const onSubmitDiscover = (data: any, isDirty: boolean) => {
-    console.log(data, "데이터");
-    if (data.type === "click" || !isDirty) return;
-    setIsScrollEvent(false);
+  const isEvent = (data: DiscoverDataType | Event): data is Event => {
+    return (data as Event).type === "click";
+  };
 
-    const includeQuery =
-      contentType === "movie"
-        ? "include_video=false"
-        : "include_null_first_air_dates=false";
-    const discoverquery = discoverQuery(contentType, data);
-    const query = `discover/${contentType}?include_adult=false&${includeQuery}&language=ko&watch_region=KR${discoverquery}&page=`;
+  const onSubmitDiscover = (
+    data: DiscoverDataType | Event,
+    isDirty: boolean
+  ) => {
+    if (isEvent(data) || !isDirty) return;
+    else {
+      setIsScrollEvent(false);
 
-    apiClient.get(`${query}`).then((res) => {
-      setCurrentQuery(query);
-      setPageCount(1);
+      const includeQuery =
+        contentType === "movie"
+          ? "include_video=false"
+          : "include_null_first_air_dates=false";
+      const discoverquery = discoverQuery(contentType, data);
+      const query = `discover/${contentType}?include_adult=false&${includeQuery}&language=ko&watch_region=KR${discoverquery}&page=`;
 
-      console.log(res.data.results);
+      apiClient.get(`${query}`).then((res) => {
+        setCurrentQuery(query);
+        setPageCount(1);
 
-      setListData([...res.data.results]);
-      setTotalPage(res.data.total_pages);
-      setDefaultDiscoverData({ ...data });
+        setListData([...res.data.results]);
+        setTotalPage(res.data.total_pages);
+        setDefaultDiscoverData({ ...data });
 
-      window.scrollTo({ top: 0 });
-    });
+        window.scrollTo({ top: 0 });
+      });
+    }
   };
 
   const onClickAddList = () => {

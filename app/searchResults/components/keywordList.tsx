@@ -1,7 +1,14 @@
 import Link from "next/link";
 import { KeywordListWrapper } from "@/styles/pages/searchResults/keywordListWrapper";
 
-export default function KeywordList({ list }: any) {
+export default function KeywordList({
+  list,
+}: {
+  list: {
+    id: number;
+    name: string;
+  }[];
+}) {
   return (
     <KeywordListWrapper>
       {list.map((val: { id: number; name: string }) => {

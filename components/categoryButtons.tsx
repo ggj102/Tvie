@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { CategoryButtonsWrapper } from "@/styles/components/sideBar/sideBarCardContents/categoryButtonsWrapper";
 
-type CategoryDataType = {
+export type CategoryDataType = {
   id: number;
   name: string;
   checked?: boolean;
@@ -12,13 +12,8 @@ export default function CategoryButtons({
   onClickSelect,
 }: {
   categoryData: CategoryDataType[];
-  onClickSelect: any;
+  onClickSelect: (idx: number, checked?: boolean) => void;
 }) {
-  useEffect(() => {
-    console.log(categoryData);
-    console.log(onClickSelect);
-  }, [categoryData, onClickSelect]);
-
   return (
     <CategoryButtonsWrapper>
       <ul>

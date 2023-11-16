@@ -7,7 +7,7 @@ import { DiscoverDataType } from "@/components/contentList";
 export default function Availabilities({
   control,
 }: {
-  control: Control<DiscoverDataType, any>;
+  control: Control<DiscoverDataType>;
 }) {
   const isAllAvailabilities = useWatch({
     control,

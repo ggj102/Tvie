@@ -1,4 +1,12 @@
-const availabilitiesQuery = (data: any) => {
+import {
+  AirDateType,
+  AvailabilitiesType,
+  DiscoverDataType,
+  GenreDataType,
+  ReleaseDateType,
+} from "@/components/contentList";
+
+const availabilitiesQuery = (data: AvailabilitiesType) => {
   if (data.all_availabilities) return "";
   let monetization = "";
 
@@ -16,10 +24,18 @@ const availabilitiesQuery = (data: any) => {
   return "";
 };
 
-const releaseQuery = (data: any) => {
+const releaseQuery = (data: ReleaseDateType | AirDateType) => {
   if (data.all_releases) return "";
   let releaseType = "";
-  const typeNum: any = {
+  const typeNum: {
+    [index: string]: number;
+    theater_limited: number;
+    theater: number;
+    premier: number;
+    digital: number;
+    physical_media: number;
+    tv: number;
+  } = {
     theater_limited: 2,
     theater: 3,
     premier: 1,
@@ -42,7 +58,7 @@ const releaseQuery = (data: any) => {
   return "";
 };
 
-const releaseDateFormatter = (date: any) => {
+const releaseDateFormatter = (date: Date) => {
   const year = date.getFullYear();
   const month = date.getMonth() + 1;
   const day = date.getDate();
@@ -87,25 +103,31 @@ const airDateQuery = (data: any) => {
   return `${gte}${lte}`;
 };
 
-const genreAndRatingQuery = (data: any) => {
-  const filter = data.filter((val: any) => val.checked);
+const genreQuery = (data: GenreDataType[]) => {
+  const filter = data.filter((val: GenreDataType) => val.checked);
   if (filter.length === 0) return "";
 
-  return filter.reduce((acc: string, val: any, idx: number) => {
-    const idStr = idx === 0 ? `${val.id}` : `|${val.id}`;
-    return acc + `${idStr}`;
-  }, "");
+  const genreReduce = filter.reduce(
+    (acc: string, val: GenreDataType, idx: number) => {
+      const idStr = idx === 0 ? `${val.id}` : `|${val.id}`;
+      return acc + `${idStr}`;
+    },
+    ""
+  );
+
+  if (!genreReduce) return "";
+  else return `&with_genres=${genreReduce}`;
 };
 
-const voteAverageQuery = (data: any) => {
+const voteAverageQuery = (data: number[]) => {
   return `&vote_average.gte=${data[0]}&vote_average.lte=${data[1]}`;
 };
 
-const runtimeQuery = (data: any) => {
+const runtimeQuery = (data: number[]) => {
   return `&with_runtime.gte=${data[0]}&with_runtime.lte=${data[1]}`;
 };
 
-export const discoverQuery = (type: any, data: any) => {
+export const discoverQuery = (type: string, data: DiscoverDataType) => {
   // const certificationQuery = `&certification=${genreAndRatingQuery(
   //   data.certification
   // )}&certification_country=KR&region=US`;
@@ -118,7 +140,7 @@ export const discoverQuery = (type: any, data: any) => {
   const commonQuery = [
     `&sort_by=${data.sort_by}`,
     availabilitiesQuery(data.availabilities),
-    `&with_genres=${genreAndRatingQuery(data.genre)}`,
+    genreQuery(data.genre),
     voteAverageQuery(data.vote_average),
     `&vote_count.gte=${data.vote_count}`,
     runtimeQuery(data.runtime),

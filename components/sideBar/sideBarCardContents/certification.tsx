@@ -1,17 +1,19 @@
 import { useState } from "react";
 
-import CategoryButtons from "@/components/categoryButtons";
+import CategoryButtons, {
+  CategoryDataType,
+} from "@/components/categoryButtons";
 import { usePathname } from "next/navigation";
 
 export default function Certification() {
   const pathname = usePathname();
-  const [certificationArr, setCertification] = useState<any>([
-    { category: "Exempt", checked: false },
-    { category: "ALL", checked: false },
-    { category: "7", checked: false },
-    { category: "12", checked: false },
-    { category: "15", checked: false },
-    { category: "19", checked: false },
+  const [certificationArr, setCertification] = useState<CategoryDataType[]>([
+    { id: 1, name: "Exempt", checked: false },
+    { id: 0, name: "ALL", checked: false },
+    { id: 7, name: "7", checked: false },
+    { id: 12, name: "12", checked: false },
+    { id: 15, name: "15", checked: false },
+    { id: 19, name: "19", checked: false },
   ]);
 
   const onClickSelect = (idx: number, checked: boolean) => {

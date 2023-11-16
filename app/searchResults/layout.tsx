@@ -19,6 +19,18 @@ type ConnetType = {
   keyword: string;
 };
 
+type SearchResultsDataType = {
+  page: number;
+  results: [];
+  total_pages: number;
+  total_results: number;
+};
+
+type SearchResultsResType = {
+  data: SearchResultsDataType;
+  type: string;
+};
+
 export default function SearchResultsPage({
   children,
 }: {
@@ -29,7 +41,7 @@ export default function SearchResultsPage({
   const pathname = usePathname();
   const router = useRouter();
 
-  const [searchData, setSearchData] = useState<any>([]);
+  const [searchData, setSearchData] = useState<SearchResultsResType[]>([]);
   const [currentTab, setCurrentTab] = useState<string>("");
   const [inputValue, setInputValue] = useState<string>("");
 
@@ -58,7 +70,7 @@ export default function SearchResultsPage({
   }, [pathname]);
 
   useEffect(() => {
-    searchResultsApi(searchVal).then((res) => {
+    searchResultsApi(searchVal).then((res: any) => {
       setSearchData(res);
     });
   }, [pathname]);
@@ -81,7 +93,7 @@ export default function SearchResultsPage({
           <div className="sideBar">
             <div>Search Results</div>
             <ul>
-              {searchData.map((val: any, idx: number) => {
+              {searchData.map((val: SearchResultsResType, idx: number) => {
                 const categoryName = typeConnect[val.type];
 
                 return (
