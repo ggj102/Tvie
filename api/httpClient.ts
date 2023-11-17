@@ -48,6 +48,22 @@ export const popularListApi = (type: string) => {
     });
 };
 
+export const mainApi = () => {
+  const requests = [
+    apiClient.get("trending/all/day?language=ko"),
+    popularListApi("stream"),
+    apiClient.get(
+      `discover/movie?include_adult=false&include_video=false&language=ko&watch_region=KR&sort_by=popularity.desc&with_watch_monetization_types=free|ads&with_genres=&vote_average.gte=0&vote_average.lte=10&vote_count.gte=0&with_runtime.gte=0&with_runtime.lte=400&page=1`
+    ),
+  ];
+
+  return Promise.all(requests)
+    .then((res) => res)
+    .catch((error) => {
+      console.error(error);
+    });
+};
+
 export const contentDetailApi = (id: string | null, type: string | null) => {
   const typeId = `${type}/${id}`;
   const credites = type === "tv" ? "aggregate_credits" : "credits";
