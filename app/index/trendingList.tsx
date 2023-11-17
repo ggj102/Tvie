@@ -5,7 +5,7 @@ import HomeFilterBar from "./homeFilterBar";
 import HomeList from "./homeList";
 import { ContentDataType } from "@/components/contentList";
 
-export default function TrendingList() {
+export default function TrendingList({ list }: any) {
   const listRef = useRef<HTMLUListElement>(null);
 
   const [listData, setListData] = useState<ContentDataType[]>([]);
@@ -29,11 +29,11 @@ export default function TrendingList() {
   };
 
   useEffect(() => {
-    apiClient.get("trending/all/day?language=ko").then((res) => {
-      const ranSort = res.data.results.sort(() => Math.random() - 0.5);
+    if (list) {
+      const ranSort = list.sort(() => Math.random() - 0.5);
 
       setListData(ranSort);
-    });
+    }
   }, []);
 
   return (

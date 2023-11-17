@@ -5,7 +5,7 @@ import HomeFilterBar from "./homeFilterBar";
 import HomeList from "./homeList";
 import { ContentDataType } from "@/components/contentList";
 
-export default function FreeWatchList() {
+export default function FreeWatchList({ list }: any) {
   const listRef = useRef<HTMLUListElement>(null);
   const commonQuery =
     "language=ko&watch_region=KR&sort_by=popularity.desc&with_watch_monetization_types=free|ads&with_genres=&vote_average.gte=0&vote_average.lte=10&vote_count.gte=0&with_runtime.gte=0&with_runtime.lte=400&page=1";
@@ -26,7 +26,7 @@ export default function FreeWatchList() {
 
     apiClient.get(query).then((res) => {
       const ranSort = res.data.results.sort(() => Math.random() - 0.5);
-      console.log(ranSort);
+
       setListData(ranSort);
 
       if (listRef.current) {
@@ -36,11 +36,11 @@ export default function FreeWatchList() {
   };
 
   useEffect(() => {
-    apiClient(movieQuery).then((res) => {
-      const ranSort = res.data.results.sort(() => Math.random() - 0.5);
+    if (list) {
+      const ranSort = list.sort(() => Math.random() - 0.5);
 
       setListData(ranSort);
-    });
+    }
   }, []);
 
   return (

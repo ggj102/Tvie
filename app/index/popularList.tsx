@@ -5,7 +5,7 @@ import HomeFilterBar from "./homeFilterBar";
 import HomeList from "./homeList";
 import { ContentDataType } from "@/components/contentList";
 
-export default function PopularList() {
+export default function PopularList({ list }: any) {
   const listRef = useRef<HTMLUListElement>(null);
 
   const [listData, setListData] = useState<ContentDataType[]>([]);
@@ -42,11 +42,11 @@ export default function PopularList() {
   };
 
   useEffect(() => {
-    popularListApi("stream").then((res) => {
-      const data = dataRandomSort(res);
+    if (list) {
+      const data = dataRandomSort(list);
 
       setListData(data);
-    });
+    }
   }, []);
 
   return (

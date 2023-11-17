@@ -1,14 +1,17 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Link from "next/link";
 
 import { apiClient } from "@/api/httpClient";
+import { GlobalContext } from "@/app/context";
+import { discoverQuery } from "@/datahandling/discoverQuery";
+
 import { dateFormatter } from "@/utils/dateFormatter";
 
 import ContentLayout from "@/components/contentLayout";
 import SideBar from "@/components/sideBar/sideBar";
-import { discoverQuery } from "@/datahandling/discoverQuery";
+
 import CustomImage from "./customImage";
 
 export type GenreDataType = {
@@ -76,6 +79,7 @@ export type ContentDataType = {
 };
 
 export default function ContentList({ contentType }: { contentType: string }) {
+  const { isLoading, setIsLoading } = useContext(GlobalContext);
   const currentDate = new Date();
   const addMonthDate = currentDate.setMonth(currentDate.getMonth() + 6);
   const setDate = new Date(addMonthDate);
@@ -172,10 +176,11 @@ export default function ContentList({ contentType }: { contentType: string }) {
   };
 
   useEffect(() => {
+    setIsLoading(true);
     apiClient.get(`${currentQuery}1`).then((res) => {
       setListData(res.data.results);
       setTotalPage(res.data.total_pages);
-
+      setIsLoading(false);
       window.scrollTo({ top: 0 });
     });
   }, []);
@@ -216,58 +221,62 @@ export default function ContentList({ contentType }: { contentType: string }) {
   }, [isReload]);
 
   return (
-    <ContentLayout>
-      <div className="categoryTitle">
-        {contentType === "movie" ? "영화" : "TV 프로그램"}
-      </div>
-      <div className="contentArea">
-        <SideBar
-          defaultData={defaultDiscoverData}
-          onSubmit={onSubmitDiscover}
-        />
-        <div className="contentList">
-          <ul>
-            {listData.map((val: ContentDataType) => {
-              const { id, poster_path, vote_average } = val;
-
-              const title = contentType === "movie" ? val.title : val.name;
-              const date =
-                contentType === "movie" ? val.release_date : val.first_air_date;
-              const vote = `${Math.floor(
-                vote_average ? vote_average * 10 : 0
-              )}%`;
-              const dateFormat = dateFormatter(date);
-
-              return (
-                <li key={id}>
-                  <Link href={`/contentDetail?type=${contentType}&id=${id}`}>
-                    <CustomImage
-                      className="contentImg"
-                      type="content"
-                      src={`https://image.tmdb.org/t/p/w220_and_h330_face/${poster_path}`}
-                    />
-                  </Link>
-                  <div className="score">{vote}</div>
-                  <div className="titleRelease">
-                    <Link
-                      href={`/contentDetail?type=${contentType}&id=${id}`}
-                      className="title"
-                    >
-                      {title}
-                    </Link>
-                    <div className="release">{dateFormat}</div>
-                  </div>
-                </li>
-              );
-            })}
-          </ul>
-          {totalPage > 20 && (
-            <button type="button" onClick={onClickAddList}>
-              더 불러오기
-            </button>
-          )}
+    !isLoading && (
+      <ContentLayout>
+        <div className="categoryTitle">
+          {contentType === "movie" ? "영화" : "TV 프로그램"}
         </div>
-      </div>
-    </ContentLayout>
+        <div className="contentArea">
+          <SideBar
+            defaultData={defaultDiscoverData}
+            onSubmit={onSubmitDiscover}
+          />
+          <div className="contentList">
+            <ul>
+              {listData.map((val: ContentDataType) => {
+                const { id, poster_path, vote_average } = val;
+
+                const title = contentType === "movie" ? val.title : val.name;
+                const date =
+                  contentType === "movie"
+                    ? val.release_date
+                    : val.first_air_date;
+                const vote = `${Math.floor(
+                  vote_average ? vote_average * 10 : 0
+                )}%`;
+                const dateFormat = dateFormatter(date);
+
+                return (
+                  <li key={id}>
+                    <Link href={`/contentDetail?type=${contentType}&id=${id}`}>
+                      <CustomImage
+                        className="contentImg"
+                        type="content"
+                        src={`https://image.tmdb.org/t/p/w220_and_h330_face/${poster_path}`}
+                      />
+                    </Link>
+                    <div className="score">{vote}</div>
+                    <div className="titleRelease">
+                      <Link
+                        href={`/contentDetail?type=${contentType}&id=${id}`}
+                        className="title"
+                      >
+                        {title}
+                      </Link>
+                      <div className="release">{dateFormat}</div>
+                    </div>
+                  </li>
+                );
+              })}
+            </ul>
+            {totalPage > 20 && (
+              <button type="button" onClick={onClickAddList}>
+                더 불러오기
+              </button>
+            )}
+          </div>
+        </div>
+      </ContentLayout>
+    )
   );
 }

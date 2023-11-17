@@ -29,7 +29,6 @@ export default function TVSearchPage() {
 
   useEffect(() => {
     apiClient.get(`search/tv?${query}1`).then((res) => {
-      console.log(res.data.results);
       setSearchData(res.data.results);
       setTotalPages(res.data.total_pages);
     });
