@@ -138,8 +138,6 @@ export const personDetailApi = (personId: string | null) => {
 
       famous = sortCopy.sort(
         (val1: PersonDetailDataType, val2: PersonDetailDataType) => {
-          console.log(val1, val2);
-
           return val2.vote_count - val1.vote_count;
         }
       );
