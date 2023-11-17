@@ -3,6 +3,7 @@ import styled from "styled-components";
 export const IndexWrapper = styled.div`
   .content {
     padding-top: 30px;
+    /* min-height: 400px; */
   }
 
   .titleBar {
@@ -91,7 +92,7 @@ export const IndexWrapper = styled.div`
       display: flex;
       justify-content: center;
       align-items: center;
-
+      z-index: 100;
       position: absolute;
       top: 208px;
       left: 8px;

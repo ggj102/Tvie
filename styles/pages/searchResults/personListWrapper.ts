@@ -17,10 +17,8 @@ export const PersonListWrapper = styled.ul`
       width: 70px;
       height: 70px;
       margin-right: 20px;
-
-      img {
-        border-radius: 8px;
-      }
+      border-radius: 8px;
+      overflow: hidden;
     }
     .personInfo {
       display: flex;
