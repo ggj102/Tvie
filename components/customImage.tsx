@@ -12,10 +12,15 @@ export default function CustomImage({
   type: string;
   src: string;
 }) {
+  const [isLoad, setIsLoad] = useState<boolean>(true);
   const [isError, setIsError] = useState<boolean>(false);
   const [imagePath, setImagePath] = useState<string>(src);
 
-  const onErrorImagePath = (e: any) => {
+  const onLoadImage = () => {
+    setIsLoad(false);
+  };
+
+  const onErrorImagePath = () => {
     const noneImg =
       type === "content"
         ? "/images/noneContentImg.svg"
@@ -32,8 +37,14 @@ export default function CustomImage({
       <div
         className={`${isError ? "noneImg" : ""} ${className ? className : ""}`}
       >
+        <div className={isLoad ? "imgLoading" : "displayNone"}>
+          <div>
+            <Image src="/images/loadingText.png" fill alt="loadingText" />
+          </div>
+        </div>
         <Image
           ref={imageRef}
+          onLoad={onLoadImage}
           onError={onErrorImagePath}
           src={imagePath}
           fill

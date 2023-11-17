@@ -13,12 +13,11 @@ export default function PersonList({ list }: { list: PersonDataType[] }) {
         return (
           <li key={id}>
             <Link href={`/personDetail?id=${id}`}>
-              <div className="personImage">
-                <CustomImage
-                  type="person"
-                  src={`https://image.tmdb.org/t/p/w90_and_h90_face/${profile_path}`}
-                />
-              </div>
+              <CustomImage
+                className="personImage"
+                type="person"
+                src={`https://image.tmdb.org/t/p/w90_and_h90_face/${profile_path}`}
+              />
             </Link>
             <div className="personInfo">
               <div>
