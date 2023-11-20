@@ -2,11 +2,15 @@
 import { useState } from "react";
 import { GlobalContext } from "@/app/context";
 
-import Loading from "./common/loading";
+import Loading from "./loading";
 
-import { LayoutWrapper } from "@/styles/components/layoutWrapper";
+import styles from "../../styles/common/rootLayout.module.scss";
 
-export default function Layout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
   const value = {
@@ -16,11 +20,13 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 
   return (
     <GlobalContext.Provider value={value}>
-      <LayoutWrapper>
+      <div className={styles.root_layout}>
         <Loading />
-        {children}
+        <div className={styles.children}>
+          <div>{children}</div>
+        </div>
         <footer></footer>
-      </LayoutWrapper>
+      </div>
     </GlobalContext.Provider>
   );
 }

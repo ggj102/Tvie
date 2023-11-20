@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import StyledComponentsRegistry from "@/lib/styleRegistry";
 import "./globals.css";
 import Navigation from "@/components/common/navigation";
-import Layout from "@/components/layout";
+import Layout from "@/components/common/rootLayout";
 
 export const metadata: Metadata = {
   title: "TVie",
