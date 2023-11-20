@@ -1,12 +1,13 @@
-import { PersonListWrapper } from "@/styles/pages/searchResults/personListWrapper";
 import Link from "next/link";
 import { PersonDataType } from "@/app/person/page";
 import { PersonDetailDataType } from "@/app/personDetail/page";
 import CustomImage from "@/components/common/customImage";
 
+import personListStyles from "@styles/pages/searchResults/personList.module.scss";
+
 export default function PersonList({ list }: { list: PersonDataType[] }) {
   return (
-    <PersonListWrapper>
+    <ul className={personListStyles.person_list}>
       {list.map((val: PersonDataType) => {
         const { id, name, profile_path, known_for_department, known_for } = val;
 
@@ -14,18 +15,20 @@ export default function PersonList({ list }: { list: PersonDataType[] }) {
           <li key={id}>
             <Link href={`/personDetail?id=${id}`}>
               <CustomImage
-                className="personImage"
+                className={personListStyles.item_image}
                 type="person"
                 src={`https://image.tmdb.org/t/p/w90_and_h90_face/${profile_path}`}
               />
             </Link>
-            <div className="personInfo">
+            <div className={personListStyles.item_info}>
               <div>
-                <div className="personName">
+                <div className={personListStyles.item_name}>
                   <Link href={`/personDetail?id=${id}`}>{name}</Link>
                 </div>
                 <div>
-                  <span className="department">{known_for_department}</span>
+                  <span className={personListStyles.department}>
+                    {known_for_department}
+                  </span>
                   {known_for &&
                     known_for.map(
                       (
@@ -56,6 +59,6 @@ export default function PersonList({ list }: { list: PersonDataType[] }) {
           </li>
         );
       })}
-    </PersonListWrapper>
+    </ul>
   );
 }

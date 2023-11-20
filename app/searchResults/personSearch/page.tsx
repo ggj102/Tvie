@@ -9,6 +9,8 @@ import PersonList from "../../../components/pages/searchResults/personList";
 import { Pagination } from "@mui/material";
 import { PersonDataType } from "@/app/person/page";
 
+import searchResultsStyles from "@styles/pages/searchResults/searchResults.module.scss";
+
 export default function PersonSearchPage() {
   const params = useSearchParams();
   const searchVal = params.get("search");
@@ -35,10 +37,10 @@ export default function PersonSearchPage() {
   }, []);
 
   return (
-    <div className="searchResultsList">
+    <>
       <PersonList list={searchData} />
       {totalPages !== 1 && (
-        <div className="pagination">
+        <div className={searchResultsStyles.pagination}>
           <Pagination
             count={totalPages}
             page={currentPage}
@@ -51,6 +53,6 @@ export default function PersonSearchPage() {
           />
         </div>
       )}
-    </div>
+    </>
   );
 }

@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
-import { CompanyListWrapper } from "@/styles/pages/searchResults/companyListWrapper";
+
+import companyListStyles from "@styles/pages/searchResults/companyList.module.scss";
 
 export default function CompanyList({
   list,
@@ -12,7 +13,7 @@ export default function CompanyList({
   }[];
 }) {
   return (
-    <CompanyListWrapper>
+    <ul className={companyListStyles.company_list}>
       {list.map(
         (
           val: {
@@ -30,7 +31,7 @@ export default function CompanyList({
                 {logo_path ? (
                   <div>
                     <Image
-                      className="logo_image"
+                      className={companyListStyles.logo_image}
                       src={`https://image.tmdb.org/t/p/h30${logo_path}`}
                       fill
                       sizes="1x"
@@ -38,16 +39,18 @@ export default function CompanyList({
                     />
                   </div>
                 ) : (
-                  <span className="companyName">{name}</span>
+                  <span className={companyListStyles.company_name}>{name}</span>
                 )}
                 {origin_country && (
-                  <div className="nation">{origin_country}</div>
+                  <div className={companyListStyles.nation}>
+                    {origin_country}
+                  </div>
                 )}
               </Link>
             </li>
           );
         }
       )}
-    </CompanyListWrapper>
+    </ul>
   );
 }

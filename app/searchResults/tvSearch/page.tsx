@@ -9,6 +9,8 @@ import { Pagination } from "@mui/material";
 import SearchResultsList from "../../../components/pages/searchResults/searchResultsList";
 import { ContentDataType } from "@/components/pages/contents/contents";
 
+import searchResultsStyles from "@styles/pages/searchResults/searchResults.module.scss";
+
 export default function TVSearchPage() {
   const params = useSearchParams();
   const searchVal = params.get("search");
@@ -35,10 +37,10 @@ export default function TVSearchPage() {
   }, []);
 
   return (
-    <div className="searchResultsList">
+    <>
       <SearchResultsList type="tv" list={searchData} />
       {totalPages !== 1 && (
-        <div className="pagination">
+        <div className={searchResultsStyles.pagination}>
           <Pagination
             count={totalPages}
             page={currentPage}
@@ -51,6 +53,6 @@ export default function TVSearchPage() {
           />
         </div>
       )}
-    </div>
+    </>
   );
 }

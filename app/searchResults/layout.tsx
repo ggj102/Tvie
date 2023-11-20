@@ -7,8 +7,9 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { GlobalContext } from "../context";
 import { searchResultsApi } from "@/api/httpClient";
 
-import { SearchResultsWrapper } from "@/styles/pages/searchResults/searchResultsWrapper";
 import SearchIcon from "@mui/icons-material/Search";
+
+import searchResultsStyles from "@styles/pages/searchResults/searchResults.module.scss";
 
 type ConnetType = {
   [index: string]: string;
@@ -81,9 +82,9 @@ export default function SearchResultsPage({
 
   return (
     !isLoading && (
-      <SearchResultsWrapper>
-        <div className="searchBar">
-          <div className="searchInput">
+      <>
+        <div className={searchResultsStyles.search_bar}>
+          <div className={searchResultsStyles.search_input}>
             <SearchIcon />
             <input
               value={inputValue}
@@ -93,34 +94,40 @@ export default function SearchResultsPage({
             />
           </div>
         </div>
-        <div>
-          <div>
-            <div className="sideBar">
-              <div>Search Results</div>
-              <ul>
-                {searchData.map((val: SearchResultsResType, idx: number) => {
-                  const categoryName = typeConnect[val.type];
+        <div className={searchResultsStyles.search_results}>
+          <div className={searchResultsStyles.category_tab}>
+            <div>Search Results</div>
+            <ul>
+              {searchData.map((val: SearchResultsResType, idx: number) => {
+                const categoryName = typeConnect[val.type];
 
-                  return (
-                    <li
-                      key={`${val.type}${idx}`}
-                      className={val.type === currentTab ? "currentTab" : ""}
+                return (
+                  <li
+                    key={`${val.type}${idx}`}
+                    className={
+                      val.type === currentTab
+                        ? searchResultsStyles.current_tab
+                        : ""
+                    }
+                  >
+                    <Link
+                      href={`/searchResults/${val.type}Search?search=${searchVal}`}
                     >
-                      <Link
-                        href={`/searchResults/${val.type}Search?search=${searchVal}`}
-                      >
-                        <span className="category">{categoryName}</span>
-                        <span className="total">{val.data.total_results}</span>
-                      </Link>
-                    </li>
-                  );
-                })}
-              </ul>
-            </div>
-            {children}
+                      <span className={searchResultsStyles.category_name}>
+                        {categoryName}
+                      </span>
+                      <span className={searchResultsStyles.total}>
+                        {val.data.total_results}
+                      </span>
+                    </Link>
+                  </li>
+                );
+              })}
+            </ul>
           </div>
+          <div className={searchResultsStyles.list}>{children}</div>
         </div>
-      </SearchResultsWrapper>
+      </>
     )
   );
 }

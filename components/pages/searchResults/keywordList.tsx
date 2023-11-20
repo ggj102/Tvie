@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { KeywordListWrapper } from "@/styles/pages/searchResults/keywordListWrapper";
 
 export default function KeywordList({
   list,
@@ -10,7 +9,7 @@ export default function KeywordList({
   }[];
 }) {
   return (
-    <KeywordListWrapper>
+    <div>
       {list.map((val: { id: number; name: string }) => {
         const { id, name } = val;
 
@@ -20,6 +19,6 @@ export default function KeywordList({
           </li>
         );
       })}
-    </KeywordListWrapper>
+    </div>
   );
 }
