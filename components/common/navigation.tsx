@@ -15,8 +15,8 @@ export default function Navigation() {
             </div>
           </Link>
 
-          <Link href="/movie">Movie</Link>
-          <Link href="/tv">TV</Link>
+          <Link href="/contents/movie">Movie</Link>
+          <Link href="/contents/tv">TV</Link>
           <Link href="/person">Person</Link>
         </div>
         {/* <div className="flex">
