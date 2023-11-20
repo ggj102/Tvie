@@ -6,10 +6,11 @@ import Link from "next/link";
 import { GlobalContext } from "../context";
 import { apiClient } from "@/api/httpClient";
 
-import ContentLayout from "@/components/contentLayout";
 import { Pagination } from "@mui/material";
 import { PersonDetailDataType } from "../personDetail/page";
 import CustomImage from "@/components/common/customImage";
+
+import personStyles from "@styles/pages/person/person.module.scss";
 
 export type PersonDataType = {
   adult: boolean;
@@ -49,25 +50,28 @@ export default function PersonPage() {
 
   return (
     !isLoading && (
-      <ContentLayout>
-        <div className="categoryTitle">인기 인물</div>
-        <div className="personList">
+      <>
+        <div className={personStyles.person_title}>인기 인물</div>
+        <div className={personStyles.person_list}>
           {personData.map((val: PersonDataType) => {
             const { id, name, known_for, profile_path } = val;
             return (
-              <div key={id} className="personCard">
+              <div key={id} className={personStyles.person_card}>
                 <Link href={`/personDetail?id=${id}`}>
                   <CustomImage
-                    className="personImg"
+                    className={personStyles.image}
                     type="person"
                     src={`https://image.tmdb.org/t/p/w235_and_h235_face/${profile_path}`}
                   />
                 </Link>
-                <div className="personInfo">
-                  <Link href={`/personDetail?id=${id}`} className="name">
+                <div className={personStyles.person_info}>
+                  <Link
+                    href={`/personDetail?id=${id}`}
+                    className={personStyles.person_name}
+                  >
                     {name}
                   </Link>
-                  <div className="sub">
+                  <div className={personStyles.person_text}>
                     {known_for.map(
                       (
                         val: PersonDetailDataType,
@@ -85,7 +89,7 @@ export default function PersonPage() {
             );
           })}
         </div>
-        <div className="pagination">
+        <div className={personStyles.person_pagination}>
           <Pagination
             count={totalPages}
             page={currentPage}
@@ -97,7 +101,7 @@ export default function PersonPage() {
             onChange={onChangePagination}
           />
         </div>
-      </ContentLayout>
+      </>
     )
   );
 }
