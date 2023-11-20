@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
+import { FC, useEffect } from "react";
 import { Controller, useForm } from "react-hook-form";
 
 import SideBarCard from "./sideBarCard";
@@ -11,15 +11,22 @@ import ReleaseDates from "./sideBarCardContents/releaseDates";
 // import Certification from "./sideBarCardContents/certification";
 
 import { SideBarWrapper } from "@/styles/components/sideBar/sideBarWrapper";
+import { DiscoverDataType } from "../contentList";
 
-export default function SideBar({ defaultData, onSubmit }: any) {
+export default function SideBar({
+  defaultData,
+  onSubmit,
+}: {
+  defaultData: DiscoverDataType;
+  onSubmit: (data: DiscoverDataType, isDirty: boolean) => void;
+}) {
   const {
     control,
     setValue,
     handleSubmit,
     reset,
     formState: { isDirty },
-  } = useForm<any>({
+  } = useForm<DiscoverDataType>({
     defaultValues: { ...defaultData },
   });
 
@@ -29,7 +36,7 @@ export default function SideBar({ defaultData, onSubmit }: any) {
 
   return (
     <SideBarWrapper>
-      <form onSubmit={handleSubmit((data) => onSubmit(data))}>
+      <form onSubmit={handleSubmit((data) => onSubmit(data, isDirty))}>
         <SideBarCard title="정렬" defaultOpen={true}>
           <div className="cardContent">
             <div>Sort Results By</div>
@@ -123,7 +130,6 @@ export default function SideBar({ defaultData, onSubmit }: any) {
         <button
           type="submit"
           className={`submitBtn ${isDirty ? "readySearch" : ""}`}
-          onClick={isDirty ? onSubmit : () => {}}
         >
           검색
         </button>

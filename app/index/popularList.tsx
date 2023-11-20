@@ -3,11 +3,12 @@ import { useEffect, useRef, useState } from "react";
 import { popularListApi } from "@/api/httpClient";
 import HomeFilterBar from "./homeFilterBar";
 import HomeList from "./homeList";
+import { ContentDataType } from "@/components/contentList";
 
-export default function PopularList() {
-  const listRef = useRef<any>(null);
+export default function PopularList({ list }: any) {
+  const listRef = useRef<HTMLUListElement>(null);
 
-  const [listData, setListData] = useState<any>([]);
+  const [listData, setListData] = useState<ContentDataType[]>([]);
   const [currentTab, setCurrentTab] = useState<string>("stream");
 
   const tabData = [
@@ -31,20 +32,21 @@ export default function PopularList() {
   const onClickTab = (type: string) => {
     setCurrentTab(type);
 
-    popularListApi(type).then((res: any) => {
+    popularListApi(type).then((res) => {
       const data = dataRandomSort(res);
 
       setListData(data);
-      listRef.current.scrollLeft = 0;
+
+      if (listRef.current) listRef.current.scrollLeft = 0;
     });
   };
 
   useEffect(() => {
-    popularListApi("stream").then((res: any) => {
-      const data = dataRandomSort(res);
+    if (list) {
+      const data = dataRandomSort(list);
 
       setListData(data);
-    });
+    }
   }, []);
 
   return (

@@ -1,23 +1,24 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 
 import { apiClient } from "@/api/httpClient";
 
 import { Pagination } from "@mui/material";
 import SearchResultsList from "../components/searchResultsList";
+import { ContentDataType } from "@/components/contentList";
 
 export default function TVSearchPage() {
   const params = useSearchParams();
   const searchVal = params.get("search");
   const query = `query=${searchVal}&include_adult=false&language=ko&page=`;
-  const [searchData, setSearchData] = useState<any>([]);
+  const [searchData, setSearchData] = useState<ContentDataType[]>([]);
 
   const [totalPages, setTotalPages] = useState<number>(1);
   const [currentPage, setCurrentPage] = useState<number>(1);
 
-  const onChangePagination = (e: any, page: any) => {
+  const onChangePagination = (e: ChangeEvent<unknown>, page: number) => {
     apiClient.get(`search/tv?${query}${page}`).then((res) => {
       setSearchData(res.data.results);
       setCurrentPage(page);

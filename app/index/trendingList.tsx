@@ -3,11 +3,12 @@ import { useEffect, useRef, useState } from "react";
 import { apiClient } from "@/api/httpClient";
 import HomeFilterBar from "./homeFilterBar";
 import HomeList from "./homeList";
+import { ContentDataType } from "@/components/contentList";
 
-export default function TrendingList() {
-  const listRef = useRef<any>(null);
+export default function TrendingList({ list }: any) {
+  const listRef = useRef<HTMLUListElement>(null);
 
-  const [listData, setListData] = useState<any>([]);
+  const [listData, setListData] = useState<ContentDataType[]>([]);
   const [currentTab, setCurrentTab] = useState<string>("day");
 
   const tabData = [
@@ -18,21 +19,21 @@ export default function TrendingList() {
   const onClickTab = (type: string) => {
     setCurrentTab(type);
 
-    apiClient.get(`trending/all/${type}?language=ko`).then((res: any) => {
+    apiClient.get(`trending/all/${type}?language=ko`).then((res) => {
       const ranSort = res.data.results.sort(() => Math.random() - 0.5);
 
       setListData(ranSort);
 
-      listRef.current.scrollLeft = 0;
+      if (listRef.current) listRef.current.scrollLeft = 0;
     });
   };
 
   useEffect(() => {
-    apiClient.get("trending/all/day?language=ko").then((res: any) => {
-      const ranSort = res.data.results.sort(() => Math.random() - 0.5);
+    if (list) {
+      const ranSort = list.sort(() => Math.random() - 0.5);
 
       setListData(ranSort);
-    });
+    }
   }, []);
 
   return (

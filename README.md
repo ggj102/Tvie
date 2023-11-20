@@ -1,36 +1,44 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+## 프로젝트 소개
+- 기간: 2023.11.2 ~ 
+- 첫배포: 2023.11.15
+- [TMDB](https://www.themoviedb.org/) 사이트와 유사하게 구현
+- TMDB에서 제공하는 [Open API](https://developer.themoviedb.org/reference/intro/getting-started) 기반으로 데이터 구성
+- 영화, TV, 인물 관련 정보를 얻는 페이지
 
-## Getting Started
-
-First, run the development server:
+## 실행 가이드
 
 ```bash
+// 설치
+npm install
+
+// 개발 모드
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+
+// 빌드
+npm run build
+
+// 프로덕션 모드
+npm run strat
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 페이지 구성
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- main
+- movie
+- tv
+- person
+- contentDetail
+- personDetail
+- searchResults
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+## 프레임 워크 및 주요 라이브러리
 
-## Learn More
+- NextJS
+- Typescript
+- Styled-components, MUI
+- react-hook-form
 
-To learn more about Next.js, take a look at the following resources:
+## 배포
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+- vercel을 통한 자동배포
+- url - https://tvie-one.vercel.app/

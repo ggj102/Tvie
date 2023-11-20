@@ -1,12 +1,19 @@
 import Link from "next/link";
-import Image from "next/image";
 
 import { dateFormatter } from "@/utils/dateFormatter";
+import { ContentDataType } from "@/components/contentList";
+import CustomImage from "@/components/customImage";
 
-export default function SearchResultsList({ type, list }: any) {
+export default function SearchResultsList({
+  type,
+  list,
+}: {
+  type: string;
+  list: ContentDataType[];
+}) {
   return (
     <ul className="searchResultsList">
-      {list.map((val: any) => {
+      {list.map((val: ContentDataType) => {
         const { id, poster_path, overview } = val;
 
         const title = val.title || val.name;
@@ -15,14 +22,11 @@ export default function SearchResultsList({ type, list }: any) {
         return (
           <li key={id} className="contentCard">
             <Link href={`/contentDetail?type=${type}&id=${id}`}>
-              <div className="contentImage">
-                <Image
-                  src={`https://image.tmdb.org/t/p/w94_and_h141_bestv2/${poster_path}`}
-                  fill
-                  sizes="1x"
-                  alt="image"
-                />
-              </div>
+              <CustomImage
+                className="contentImage"
+                type="content"
+                src={`https://image.tmdb.org/t/p/w94_and_h141_bestv2/${poster_path}`}
+              />
             </Link>
             <div className="contentInfo">
               <div>

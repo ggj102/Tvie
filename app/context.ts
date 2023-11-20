@@ -1,13 +1,11 @@
-"use client";
-
 import { createContext, Dispatch, SetStateAction } from "react";
 
 interface ContextType {
-  isLoading: any;
+  isLoading: boolean;
   setIsLoading: Dispatch<SetStateAction<boolean>>;
 }
 
 export const GlobalContext = createContext<ContextType>({
-  isLoading: false,
+  isLoading: true,
   setIsLoading: () => {},
 });

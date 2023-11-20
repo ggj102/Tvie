@@ -1,23 +1,24 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 
 import { apiClient } from "@/api/httpClient";
 
 import PersonList from "../components/personList";
 import { Pagination } from "@mui/material";
+import { PersonDataType } from "@/app/person/page";
 
 export default function PersonSearchPage() {
   const params = useSearchParams();
   const searchVal = params.get("search");
   const query = `query=${searchVal}&include_adult=false&language=ko&page=`;
-  const [searchData, setSearchData] = useState<any>([]);
+  const [searchData, setSearchData] = useState<PersonDataType[]>([]);
 
   const [totalPages, setTotalPages] = useState<number>(1);
   const [currentPage, setCurrentPage] = useState<number>(1);
 
-  const onChangePagination = (e: any, page: any) => {
+  const onChangePagination = (e: ChangeEvent<unknown>, page: number) => {
     apiClient.get(`search/person?${query}${page}`).then((res) => {
       setSearchData(res.data.results);
       setCurrentPage(page);

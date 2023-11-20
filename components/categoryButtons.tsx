@@ -1,10 +1,22 @@
 import { CategoryButtonsWrapper } from "@/styles/components/sideBar/sideBarCardContents/categoryButtonsWrapper";
 
-export default function CategoryButtons({ categoryData, onClickSelect }: any) {
+export type CategoryDataType = {
+  id: number;
+  name: string;
+  checked?: boolean;
+};
+
+export default function CategoryButtons({
+  categoryData,
+  onClickSelect,
+}: {
+  categoryData: CategoryDataType[];
+  onClickSelect: (idx: number, checked?: boolean) => void;
+}) {
   return (
     <CategoryButtonsWrapper>
       <ul>
-        {categoryData.map((val: any, idx: number) => {
+        {categoryData.map((val: CategoryDataType, idx: number) => {
           const { id, name, checked } = val;
 
           return (

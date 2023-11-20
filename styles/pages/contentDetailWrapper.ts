@@ -128,6 +128,8 @@ export const ContentDetailWrapper = styled("div")<{ bgUrl: string }>`
         display: flex;
         align-items: center;
         font-weight: bold;
+        z-index: 100;
+
         .scoreGauge {
           width: 60px;
           height: 60px;
