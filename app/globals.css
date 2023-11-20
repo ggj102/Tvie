@@ -38,3 +38,19 @@ a {
 a:hover {
   opacity: 0.7;
 }
+
+.MuiSlider-track {
+  height: 2px !important;
+  color: rgb(1, 180, 228);
+}
+
+.MuiSlider-rail {
+  height: 2px !important;
+  color: #a9a9a9;
+}
+
+.MuiSlider-thumb {
+  color: rgb(1, 180, 228);
+  width: 16px !important;
+  height: 16px !important;
+}

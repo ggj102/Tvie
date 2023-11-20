@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import Slider from "@mui/material/Slider";
-import { CustomSliderWrapper } from "@/styles/components/customSliderWrapper";
+import customSliderStyles from "@styles/common/customSlider.module.scss";
 
 export default function CustomSlider({
   max,
@@ -24,17 +24,19 @@ export default function CustomSlider({
   }, []);
 
   return (
-    <CustomSliderWrapper>
-      <div className="graduation">
+    <div className={customSliderStyles.custom_slider}>
+      <div className={customSliderStyles.graduation}>
         {graduationArr.map((val: number, idx: number) => {
           const isPoint = val % pointNum === 0;
 
           return (
             <div
               key={`${val}${idx}`}
-              className={isPoint ? "pointGraduation" : ""}
+              className={isPoint ? customSliderStyles.point_graduation : ""}
             >
-              {isPoint && <div className="pointNum">{val}</div>}
+              {isPoint && (
+                <div className={customSliderStyles.point_num}>{val}</div>
+              )}
             </div>
           );
         })}
@@ -46,6 +48,6 @@ export default function CustomSlider({
         valueLabelDisplay="auto"
         {...props}
       />
-    </CustomSliderWrapper>
+    </div>
   );
 }

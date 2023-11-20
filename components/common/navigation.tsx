@@ -1,16 +1,17 @@
 "use client";
 
-import { NavWrapper } from "@/styles/components/navWrapper";
-import Image from "next/image";
 import Link from "next/link";
+import Image from "next/image";
+
+import navigationStyles from "@styles/common/navigation.module.scss";
 
 export default function Navigation() {
   return (
-    <NavWrapper>
+    <div className={navigationStyles.navigation}>
       <div>
-        <div className="navBar flex">
+        <div className={navigationStyles.flex}>
           <Link href="/">
-            <div className="logo">
+            <div className={navigationStyles.logo}>
               <Image src="/images/tvieLogo.png" fill sizes="1x" alt="logo" />
             </div>
           </Link>
@@ -19,11 +20,11 @@ export default function Navigation() {
           <Link href="/contents/tv">TV</Link>
           <Link href="/person">Person</Link>
         </div>
-        {/* <div className="flex">
+        {/* <div className={navigationStyles.flex}>
           <div>로그인</div>
           <div>회원가입</div>
         </div> */}
       </div>
-    </NavWrapper>
+    </div>
   );
 }

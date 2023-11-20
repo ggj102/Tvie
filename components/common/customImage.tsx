@@ -1,7 +1,7 @@
 import { useRef, useState } from "react";
 import Image from "next/image";
 
-import { CustomImageWrapper } from "@/styles/components/customImageWrapper";
+import customImage from "@styles/common/customImage.module.scss";
 
 export default function CustomImage({
   className,
@@ -33,25 +33,29 @@ export default function CustomImage({
   const imageRef = useRef<any>(null);
 
   return (
-    <CustomImageWrapper>
+    <div
+      className={`${customImage.custom_image} ${
+        isError ? customImage.none_image : ""
+      } ${className ? className : ""}`}
+    >
       <div
-        className={`${isError ? "noneImg" : ""} ${className ? className : ""}`}
+        className={
+          isLoad ? customImage.loading_image : customImage.display_none
+        }
       >
-        <div className={isLoad ? "imgLoading" : "displayNone"}>
-          <div>
-            <Image src="/images/loadingText.png" fill alt="loadingText" />
-          </div>
+        <div>
+          <Image src="/images/loadingText.png" fill alt="loadingText" />
         </div>
-        <Image
-          ref={imageRef}
-          onLoad={onLoadImage}
-          onError={onErrorImagePath}
-          src={imagePath}
-          fill
-          sizes="1x"
-          alt="contentImg"
-        />
       </div>
-    </CustomImageWrapper>
+      <Image
+        ref={imageRef}
+        onLoad={onLoadImage}
+        onError={onErrorImagePath}
+        src={imagePath}
+        fill
+        sizes="1x"
+        alt="contentImg"
+      />
+    </div>
   );
 }
