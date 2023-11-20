@@ -1,7 +1,7 @@
 import Link from "next/link";
 
 import { dateFormatter } from "@/utils/dateFormatter";
-import { ContentDataType } from "@/components/pages/contents/contentList";
+import { ContentDataType } from "@/components/pages/contents/contents";
 import CustomImage from "@/components/common/customImage";
 
 export default function SearchResultsList({

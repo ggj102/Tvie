@@ -3,9 +3,9 @@ import { useEffect, useRef, useState } from "react";
 import { popularListApi } from "@/api/httpClient";
 import HomeFilterBar from "./categoryTab";
 import HomeList from "./homeList";
-import { ContentDataType } from "@/components/pages/contents/contentList";
+import { ContentDataType } from "@/components/pages/contents/contents";
 
-import styles from "../../../styles/pages/home/contents.module.scss";
+import contentsStyles from "@styles/pages/home/contents.module.scss";
 
 export default function PopularList({ list }: any) {
   const listRef = useRef<HTMLUListElement>(null);
@@ -52,8 +52,8 @@ export default function PopularList({ list }: any) {
   }, []);
 
   return (
-    <div className={styles.content}>
-      <div className={styles.title_bar}>
+    <div className={contentsStyles.content}>
+      <div className={contentsStyles.title_bar}>
         <h2>{`What's Popular`}</h2>
         <HomeFilterBar
           tabData={tabData}

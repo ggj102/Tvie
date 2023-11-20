@@ -4,7 +4,7 @@ import { GlobalContext } from "@/app/context";
 
 import Loading from "./loading";
 
-import styles from "../../styles/common/rootLayout.module.scss";
+import rootLayoutStyles from "@styles/common/rootLayout.module.scss";
 
 export default function RootLayout({
   children,
@@ -20,9 +20,9 @@ export default function RootLayout({
 
   return (
     <GlobalContext.Provider value={value}>
-      <div className={styles.root_layout}>
+      <div className={rootLayoutStyles.root_layout}>
         <Loading />
-        <div className={styles.children}>
+        <div className={rootLayoutStyles.children}>
           <div>{children}</div>
         </div>
         <footer></footer>

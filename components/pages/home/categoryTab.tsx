@@ -1,4 +1,4 @@
-import styles from "../../../styles/pages/home/categoryTab.module.scss";
+import categoryTabStyles from "@styles/pages/home/categoryTab.module.scss";
 
 type TabData = {
   name: string;
@@ -15,14 +15,14 @@ export default function CategoryTab({
   onClick: any;
 }) {
   return (
-    <div className={styles.category_tab}>
+    <div className={categoryTabStyles.category_tab}>
       {tabData.map((val: TabData) => {
         const { name, type } = val;
 
         return (
           <button
             key={type}
-            className={currentTab === type ? styles.current_tab : ""}
+            className={currentTab === type ? categoryTabStyles.current_tab : ""}
             onClick={() => onClick(type)}
           >
             <div>{name}</div>

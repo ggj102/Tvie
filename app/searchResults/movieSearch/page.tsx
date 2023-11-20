@@ -7,7 +7,7 @@ import { apiClient } from "@/api/httpClient";
 
 import { Pagination } from "@mui/material";
 import SearchResultsList from "../../../components/pages/searchResults/searchResultsList";
-import { ContentDataType } from "@/components/pages/contents/contentList";
+import { ContentDataType } from "@/components/pages/contents/contents";
 
 export default function MovieSearchPage() {
   const params = useSearchParams();
