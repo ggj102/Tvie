@@ -9,6 +9,8 @@ import TrendingList from "../components/pages/home/trendingList";
 import FreeWatchList from "../components/pages/home/freeWatchList";
 import PopularList from "../components/pages/home/popularList";
 
+import homeStyles from "@styles/pages/home/home.module.scss";
+
 export default function Home() {
   const { isLoading, setIsLoading } = useContext(GlobalContext);
   const [listData, setListData] = useState<any>([]);
@@ -25,12 +27,12 @@ export default function Home() {
 
   return (
     !isLoading && (
-      <>
+      <div className={homeStyles.home}>
         <SearchBar />
         <TrendingList list={listData[0]} />
         <PopularList list={listData[1]} />
         <FreeWatchList list={listData[2]} />
-      </>
+      </div>
     )
   );
 }

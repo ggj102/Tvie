@@ -50,7 +50,7 @@ export default function PersonPage() {
 
   return (
     !isLoading && (
-      <>
+      <div className={personStyles.person}>
         <div className={personStyles.person_title}>인기 인물</div>
         <div className={personStyles.person_list}>
           {personData.map((val: PersonDataType) => {
@@ -101,7 +101,7 @@ export default function PersonPage() {
             onChange={onChangePagination}
           />
         </div>
-      </>
+      </div>
     )
   );
 }

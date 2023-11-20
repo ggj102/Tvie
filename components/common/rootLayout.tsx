@@ -22,9 +22,7 @@ export default function RootLayout({
     <GlobalContext.Provider value={value}>
       <div className={rootLayoutStyles.root_layout}>
         <Loading />
-        <div className={rootLayoutStyles.children}>
-          <div>{children}</div>
-        </div>
+        <div className={rootLayoutStyles.children}>{children}</div>
         <footer></footer>
       </div>
     </GlobalContext.Provider>

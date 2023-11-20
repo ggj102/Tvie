@@ -219,7 +219,7 @@ export default function Contents({ contentType }: { contentType: string }) {
 
   return (
     !isLoading && (
-      <>
+      <div className={contentsStyles.contents}>
         <div className={contentsStyles.contents_title}>
           {contentType === "movie" ? "영화" : "TV 프로그램"}
         </div>
@@ -236,7 +236,7 @@ export default function Contents({ contentType }: { contentType: string }) {
             onClickAddList={onClickAddList}
           />
         </div>
-      </>
+      </div>
     )
   );
 }
