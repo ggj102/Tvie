@@ -5,6 +5,8 @@ import HomeFilterBar from "./categoryTab";
 import HomeList from "./homeList";
 import { ContentDataType } from "@/components/pages/contents/contentList";
 
+import styles from "../../../styles/pages/home/contents.module.scss";
+
 export default function FreeWatchList({ list }: any) {
   const listRef = useRef<HTMLUListElement>(null);
   const commonQuery =
@@ -44,8 +46,8 @@ export default function FreeWatchList({ list }: any) {
   }, []);
 
   return (
-    <div className="content">
-      <div className="titleBar">
+    <div className={styles.content}>
+      <div className={styles.title_bar}>
         <h2>Free To Watch</h2>
         <HomeFilterBar
           tabData={tabData}

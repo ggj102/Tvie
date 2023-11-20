@@ -1,7 +1,7 @@
 import { KeyboardEvent, useState } from "react";
 import { useRouter } from "next/navigation";
 
-import { SearchBarWrapper } from "@/styles/pages/index/searchBarWrapper";
+import styles from "../../../styles/pages/home/searchBar.module.scss";
 
 export default function SearchBar() {
   const router = useRouter();
@@ -18,15 +18,15 @@ export default function SearchBar() {
   };
 
   return (
-    <SearchBarWrapper>
+    <div className={styles.search_bar}>
       <div>
-        <div className="introText">
+        <div className={styles.intro_text}>
           <div>Welcome.</div>
           <div>
             Millions of movies, TV shows and people to discover. Explore now.
           </div>
         </div>
-        <div className="searchInput">
+        <div className={styles.search_input}>
           <input
             value={inputValue}
             placeholder="영화, TV 프로그램, 인물 검색..."
@@ -36,6 +36,6 @@ export default function SearchBar() {
           <button onClick={onClickSearch}>Search</button>
         </div>
       </div>
-    </SearchBarWrapper>
+    </div>
   );
 }

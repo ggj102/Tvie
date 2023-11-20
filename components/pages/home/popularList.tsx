@@ -5,6 +5,8 @@ import HomeFilterBar from "./categoryTab";
 import HomeList from "./homeList";
 import { ContentDataType } from "@/components/pages/contents/contentList";
 
+import styles from "../../../styles/pages/home/contents.module.scss";
+
 export default function PopularList({ list }: any) {
   const listRef = useRef<HTMLUListElement>(null);
 
@@ -50,8 +52,8 @@ export default function PopularList({ list }: any) {
   }, []);
 
   return (
-    <div className="content">
-      <div className="titleBar">
+    <div className={styles.content}>
+      <div className={styles.title_bar}>
         <h2>{`What's Popular`}</h2>
         <HomeFilterBar
           tabData={tabData}
