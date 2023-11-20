@@ -1,0 +1,39 @@
+.category_tab {
+  display: flex;
+
+  align-items: center;
+  height: 33px;
+  border-radius: 30px;
+  box-sizing: border-box;
+  border: 1px solid #032541;
+  overflow: hidden;
+
+  button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    color: #032541;
+    height: 33px;
+    padding: 4px 20px;
+    border-radius: 30px;
+    box-sizing: border-box;
+
+    font-weight: bold;
+    cursor: pointer;
+  }
+}
+
+.current_tab {
+  background-color: #032541;
+
+  & > div {
+    background: linear-gradient(
+      to right,
+      rgba(28, 211, 174, 1) 0%,
+      rgba(2, 182, 225, 1) 100%
+    );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+}
