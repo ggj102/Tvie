@@ -3,7 +3,9 @@ import ReactDatePicker from "react-datepicker";
 import EventIcon from "@mui/icons-material/Event";
 
 import "react-datepicker/dist/react-datepicker.css";
-import { DiscoverDataType } from "@/components/pages/contents/contentList";
+import { DiscoverDataType } from "@/components/pages/contents/contents";
+
+import releaseDatesStyles from "@styles/pages/contents/filterBar/filterItems/releaseDates.module.scss";
 
 export default function ReleaseDatePicker({
   control,
@@ -11,7 +13,7 @@ export default function ReleaseDatePicker({
   control: Control<DiscoverDataType>;
 }) {
   return (
-    <div className="datepickerWrapper">
+    <div className={releaseDatesStyles.datepicker}>
       <div>
         <span>from</span>
         <Controller

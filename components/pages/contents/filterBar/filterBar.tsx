@@ -1,20 +1,24 @@
 "use client";
 
 import { useEffect } from "react";
-import { Controller, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 
-import { SideBarWrapper } from "@/styles/components/sideBar/sideBarWrapper";
-import { DiscoverDataType } from "@/components/pages/contents/contentList";
+import { DiscoverDataType } from "@/components/pages/contents/contents";
 import FilterBarCard from "./filterBarCard";
-import Availabilities from "./filterBarCardContents/availabilities";
-import ReleaseDates from "./filterBarCardContents/releaseDates";
-import Genre from "./filterBarCardContents/genre";
-import CustomSlider from "@/components/common/customSlider";
+import Availabilities from "./filterBarItems/availabilities";
+import ReleaseDates from "./filterBarItems/releaseDates";
+import Genre from "./filterBarItems/genre";
+
+import filterBarStyles from "@styles/pages/contents/filterBar/filterBar.module.scss";
+import Sort from "./filterBarItems/sort";
+import SliderFilter from "./filterBarItems/sliderFilter";
 
 export default function FilterBar({
+  contentType,
   defaultData,
   onSubmit,
 }: {
+  contentType: string;
   defaultData: DiscoverDataType;
   onSubmit: (data: DiscoverDataType, isDirty: boolean) => void;
 }) {
@@ -33,35 +37,14 @@ export default function FilterBar({
   }, [defaultData, reset]);
 
   return (
-    <SideBarWrapper>
-      <form onSubmit={handleSubmit((data) => onSubmit(data, isDirty))}>
-        <FilterBarCard title="정렬" defaultOpen={true}>
-          <div className="cardContent">
-            <div>Sort Results By</div>
-            {/* <CustomSelect /> */}
-            <Controller
-              name="sort_by"
-              control={control}
-              render={({ field }) => (
-                <select {...field}>
-                  <option value="popularity.desc">인기도 내림차순</option>
-                  <option value="popularity.asc">인기도 오름차순</option>
-                  <option value="vote_count.desc">평점 내림차순</option>
-                  <option value="vote_count.asc">평점 오름차순</option>
-                  <option value="primary_release_date.desc">
-                    상영일 내림차순
-                  </option>
-                  <option value="primary_release_date.asc">
-                    상영일 오름차순
-                  </option>
-                  <option value="revenue.desc">제목 내림차순</option>
-                  <option value="revenue.asc">제목 오름차순</option>
-                </select>
-              )}
-            />
-          </div>
-        </FilterBarCard>
-        {/* <FilterBarCard title="Where To Watch" defaultOpen={true}>
+    <form
+      className={filterBarStyles.filter_bar}
+      onSubmit={handleSubmit((data) => onSubmit(data, isDirty))}
+    >
+      <FilterBarCard title="정렬" defaultOpen={true}>
+        <Sort control={control} />
+      </FilterBarCard>
+      {/* <FilterBarCard title="Where To Watch" defaultOpen={true}>
           <div className="cardContent">
             <div>Country</div>
             <select>
@@ -70,68 +53,34 @@ export default function FilterBar({
             <div></div>
           </div>
         </FilterBarCard> */}
-        <FilterBarCard title="필터" defaultOpen={true}>
-          <Availabilities control={control} />
-          <ReleaseDates control={control} />
-          <Genre setValue={setValue} />
-          {/* <Certification setValue={setValue} /> */}
-          {/* {pathname === "/tv" && (
+      <FilterBarCard title="필터" defaultOpen={true}>
+        <Availabilities control={control} />
+        <ReleaseDates control={control} />
+        <Genre contentType={contentType} setValue={setValue} />
+        {/* <Certification setValue={setValue} /> */}
+        {/* {pathname === "/tv" && (
             <div className="cardContent">
               <div>방송사</div>
               <input />
             </div>
           )} */}
-          {/* <div className="cardContent">
+        {/* <div className="cardContent">
             <div>언어</div>
           </div> */}
-          <div className="cardContent">
-            <div>User Score</div>
-            <div className="slider">
-              <Controller
-                name="vote_average"
-                control={control}
-                render={({ field }) => (
-                  <CustomSlider max={10} step={1} pointNum={5} {...field} />
-                )}
-              />
-            </div>
-          </div>
-          <div className="cardContent">
-            <div>Minimum User Votes</div>
-            <div className="slider">
-              <Controller
-                name="vote_count"
-                control={control}
-                render={({ field }) => (
-                  <CustomSlider max={500} step={50} pointNum={100} {...field} />
-                )}
-              />
-            </div>
-          </div>
-          <div className="cardContent">
-            <div>Runtime</div>
-            <div className="slider">
-              <Controller
-                name="runtime"
-                control={control}
-                render={({ field }) => (
-                  <CustomSlider max={400} step={15} pointNum={120} {...field} />
-                )}
-              />
-            </div>
-          </div>
-          {/* <div className="cardContent">
+        <SliderFilter control={control} />
+        {/* <div className="cardContent">
             <div>키워드 </div>
             <input className="keywordInput" placeholder="필터할 단어..." />
           </div> */}
-        </FilterBarCard>
-        <button
-          type="submit"
-          className={`submitBtn ${isDirty ? "readySearch" : ""}`}
-        >
-          검색
-        </button>
-      </form>
-    </SideBarWrapper>
+      </FilterBarCard>
+      <button
+        type="submit"
+        className={`${filterBarStyles.submit_btn} ${
+          isDirty ? filterBarStyles.ready_search : ""
+        }`}
+      >
+        검색
+      </button>
+    </form>
   );
 }

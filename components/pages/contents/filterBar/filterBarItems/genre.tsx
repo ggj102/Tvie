@@ -1,25 +1,29 @@
 import { useEffect, useState } from "react";
-import { usePathname } from "next/navigation";
-import CategoryButtons from "@/components/pages/contents/filterBar/filterBarCardContents/genreButtons";
+import CategoryButtons from "@/components/pages/contents/filterBar/filterBarItems/genreButtons";
 import { apiClient } from "@/api/httpClient";
 import { FieldValues, SetFieldValue } from "react-hook-form";
-import { GenreDataType } from "@/components/pages/contents/contentList";
+import { GenreDataType } from "@/components/pages/contents/contents";
+
+import filterBarCardStyles from "@styles/pages/contents/filterBar/filterBarCard.module.scss";
 
 export default function Genre({
+  contentType,
   setValue,
 }: {
+  contentType: string;
   setValue: SetFieldValue<FieldValues>;
 }) {
-  const pathname = usePathname();
   const [genreArr, setGenreArr] = useState<GenreDataType[]>([]);
 
   useEffect(() => {
     apiClient
-      .get(`https://api.themoviedb.org/3/genre${pathname}/list?language=ko`)
+      .get(`https://api.themoviedb.org/3/genre/${contentType}/list?language=ko`)
       .then((res) => {
         const alphabeticalSort = (a: GenreDataType, b: GenreDataType) => {
           const aIsAlphabet = /^[a-zA-Z]/.test(a.name);
           const bIsAlphabet = /^[a-zA-Z]/.test(b.name);
+
+          console.log(res);
 
           if (aIsAlphabet && !bIsAlphabet) {
             return -1; // a는 알파벳이고 b는 한글이므로 a를 먼저 놓음
@@ -50,7 +54,7 @@ export default function Genre({
   };
 
   return (
-    <div className="cardContent">
+    <div className={filterBarCardStyles.card_item}>
       <div>Genre</div>
       <CategoryButtons categoryData={genreArr} onClickSelect={onClickSelect} />
     </div>

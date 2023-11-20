@@ -1,5 +1,5 @@
 import { useState, ReactNode } from "react";
-import { SideBarCardWrapper } from "@/styles/components/sideBar/sideBarCardWrapper";
+import filterBarCardStyles from "@styles/pages/contents/filterBar/filterBarCard.module.scss";
 
 export default function FilterBarCard({
   title,
@@ -13,11 +13,15 @@ export default function FilterBarCard({
   const [isOpen, setIsOpen] = useState<boolean>(defaultOpen);
 
   return (
-    <SideBarCardWrapper className="card">
-      <button className="cardTitle" onClick={() => setIsOpen(!isOpen)}>
+    <div className={filterBarCardStyles.filter_bar_card}>
+      <button
+        className={filterBarCardStyles.title}
+        type="button"
+        onClick={() => setIsOpen(!isOpen)}
+      >
         {title}
       </button>
-      {isOpen && <div>{children}</div>}
-    </SideBarCardWrapper>
+      {isOpen && children}
+    </div>
   );
 }

@@ -1,8 +1,10 @@
-import { Control, Controller, FieldValues, useWatch } from "react-hook-form";
+import { Control, Controller, useWatch } from "react-hook-form";
 
 import CustomCheckBox from "@/components/common/customCheckBox";
-import { AvailabilitiesWrapper } from "@/styles/components/sideBar/sideBarCardContents/availabilitiesWrapper";
-import { DiscoverDataType } from "@/components/pages/contents/contentList";
+import { DiscoverDataType } from "@/components/pages/contents/contents";
+
+import filterBarCardStyles from "@styles/pages/contents/filterBar/filterBarCard.module.scss";
+import availabilitiesStyles from "@styles/pages/contents/filterBar/filterItems/availabilities.module.scss";
 
 export default function Availabilities({
   control,
@@ -15,9 +17,9 @@ export default function Availabilities({
   });
 
   return (
-    <div className="cardContent">
+    <div className={filterBarCardStyles.card_item}>
       <div>Availabilities</div>
-      <AvailabilitiesWrapper>
+      <div className={availabilitiesStyles.availabilities}>
         <Controller
           name="availabilities.all_availabilities"
           control={control}
@@ -30,7 +32,7 @@ export default function Availabilities({
           )}
         />
         {!isAllAvailabilities && (
-          <div className="hideOption">
+          <div className={availabilitiesStyles.hideOption}>
             <Controller
               name="availabilities.stream"
               control={control}
@@ -72,7 +74,7 @@ export default function Availabilities({
             />
           </div>
         )}
-      </AvailabilitiesWrapper>
+      </div>
     </div>
   );
 }
