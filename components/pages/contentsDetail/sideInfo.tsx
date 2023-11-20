@@ -15,7 +15,7 @@ export default function SideInfo({ isTypeTV, detailData, keywordData }: any) {
   };
 
   return (
-    <div className={sideInfoStyles.sideInfo}>
+    <div className={sideInfoStyles.side_info}>
       <div>
         <strong>원제</strong>
         <div>

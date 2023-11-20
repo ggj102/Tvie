@@ -35,7 +35,7 @@ export default function TopInfo({ isTypeTV, detailData, date }: any) {
             {/* <div className="ottOffer"></div> */}
           </div>
           <div className={topInfoStyles.info}>
-            <div className="titleWrapper">
+            <div className={topInfoStyles.title_wrapper}>
               <div className={topInfoStyles.title}>
                 <span>{isTypeTV ? detailData.name : detailData.title}</span>{" "}
                 <span>({date.year})</span>
