@@ -1,0 +1,62 @@
+.career {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(227, 227, 227, 1);
+  background-color: #fff;
+  padding: 10px 0;
+
+  li {
+    padding: 8px 16px;
+    gap: 16px;
+    display: flex;
+  }
+}
+
+.top_line {
+  border-top: 1px solid #dedede;
+  margin-top: 10px;
+  padding-top: 18px;
+}
+
+.bottom_line {
+  border-bottom: 1px solid #dedede;
+  margin-bottom: 10px;
+  padding-bottom: 18px;
+}
+
+.career_year {
+  width: 44px;
+  font-weight: 400;
+  text-align: center;
+}
+
+.dot {
+  padding-top: 6px;
+  & > div {
+    color: #ccc;
+    width: 10px;
+    height: 10px;
+
+    background-color: #000;
+    border-radius: 100%;
+  }
+}
+
+.casting {
+  width: 100%;
+  & > div:first-of-type {
+    font-weight: 600;
+  }
+
+  a:hover {
+    color: rgb(1, 180, 228);
+  }
+}
+
+.casting_info {
+  padding-left: 14px;
+
+  display: flex;
+  gap: 1px;
+  color: rgba(0, 0, 0, 0.5);
+  font-weight: 400;
+}

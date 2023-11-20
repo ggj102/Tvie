@@ -1,0 +1,65 @@
+.famous {
+  position: relative;
+
+  ul {
+    display: flex;
+    gap: 12px;
+    min-height: 221px;
+    -webkit-overflow-scrolling: touch;
+    overflow: scroll;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    width: auto;
+    padding-bottom: 10px;
+
+    &::-webkit-scrollbar {
+      height: 10px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: rgb(219, 219, 219);
+      border-radius: 8px;
+    }
+
+    li {
+      position: relative;
+    }
+  }
+
+  &::after {
+    content: "";
+    width: 60px;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    right: 0;
+    background-image: linear-gradient(
+      to right,
+      rgba(255, 255, 255, 0) 0,
+      #fff 100%
+    );
+    will-change: opacity;
+    pointer-events: none;
+  }
+}
+
+.famous_image {
+  position: relative;
+  width: 130px;
+  height: 195px;
+  border-radius: 8px;
+  margin-bottom: 4px;
+  overflow: hidden;
+}
+
+.famous_title {
+  width: 100%;
+  display: inline-block;
+  text-align: center;
+  color: #000;
+  font-size: 0.9em;
+
+  a:hover {
+    color: rgb(1, 180, 228);
+  }
+}
