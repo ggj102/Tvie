@@ -5,7 +5,7 @@ import { useSearchParams } from "next/navigation";
 
 import { apiClient } from "@/api/httpClient";
 
-import PersonList from "../components/personList";
+import PersonList from "../../../components/pages/searchResults/personList";
 import { Pagination } from "@mui/material";
 import { PersonDataType } from "@/app/person/page";
 

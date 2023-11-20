@@ -1,7 +1,7 @@
 import { useState, ReactNode } from "react";
 import { SideBarCardWrapper } from "@/styles/components/sideBar/sideBarCardWrapper";
 
-export default function SideBarCard({
+export default function FilterBarCard({
   title,
   children,
   defaultOpen,

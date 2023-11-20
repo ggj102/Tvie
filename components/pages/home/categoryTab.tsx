@@ -3,7 +3,7 @@ type TabData = {
   type: string;
 };
 
-export default function HomeFilterBar({
+export default function CategoryTab({
   tabData,
   currentTab,
   onClick,

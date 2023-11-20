@@ -10,9 +10,9 @@ import { discoverQuery } from "@/datahandling/discoverQuery";
 import { dateFormatter } from "@/utils/dateFormatter";
 
 import ContentLayout from "@/components/contentLayout";
-import SideBar from "@/components/sideBar/sideBar";
 
-import CustomImage from "./customImage";
+import CustomImage from "../../common/customImage";
+import FilterBar from "./filterBar/filterBar";
 
 export type GenreDataType = {
   id: number;
@@ -227,7 +227,7 @@ export default function ContentList({ contentType }: { contentType: string }) {
           {contentType === "movie" ? "영화" : "TV 프로그램"}
         </div>
         <div className="contentArea">
-          <SideBar
+          <FilterBar
             defaultData={defaultDiscoverData}
             onSubmit={onSubmitDiscover}
           />

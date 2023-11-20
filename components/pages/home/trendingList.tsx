@@ -1,9 +1,9 @@
 import { useEffect, useRef, useState } from "react";
 
 import { apiClient } from "@/api/httpClient";
-import HomeFilterBar from "./homeFilterBar";
+import HomeFilterBar from "./categoryTab";
 import HomeList from "./homeList";
-import { ContentDataType } from "@/components/contentList";
+import { ContentDataType } from "@/components/pages/contents/contentList";
 
 export default function TrendingList({ list }: any) {
   const listRef = useRef<HTMLUListElement>(null);

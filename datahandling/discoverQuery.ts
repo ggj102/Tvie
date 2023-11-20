@@ -4,7 +4,7 @@ import {
   DiscoverDataType,
   GenreDataType,
   ReleaseDateType,
-} from "@/components/contentList";
+} from "@/components/pages/contents/contentList";
 
 const availabilitiesQuery = (data: AvailabilitiesType) => {
   if (data.all_availabilities) return "";

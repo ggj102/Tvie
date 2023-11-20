@@ -2,9 +2,9 @@ import { usePathname } from "next/navigation";
 import { Control, Controller, FieldValues, useWatch } from "react-hook-form";
 import ReleaseDatePicker from "./releaseDatePicker";
 
-import CustomCheckBox from "@/components/customCheckBox";
+import CustomCheckBox from "@/components/common/customCheckBox";
 import { ReleaseDatesWrapper } from "@/styles/components/sideBar/sideBarCardContents/releaseDatesWrapper";
-import { DiscoverDataType } from "@/components/contentList";
+import { DiscoverDataType } from "@/components/pages/contents/contentList";
 
 export default function ReleaseDates({
   control,

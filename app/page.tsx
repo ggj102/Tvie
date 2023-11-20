@@ -5,10 +5,10 @@ import { GlobalContext } from "./context";
 import { mainApi } from "@/api/httpClient";
 
 import ContentLayout from "@/components/contentLayout";
-import SearchBar from "./index/searchBar";
-import TrendingList from "./index/trendingList";
-import FreeWatchList from "./index/freeWatchList";
-import PopularList from "./index/popularList";
+import SearchBar from "../components/pages/home/searchBar";
+import TrendingList from "../components/pages/home/trendingList";
+import FreeWatchList from "../components/pages/home/freeWatchList";
+import PopularList from "../components/pages/home/popularList";
 
 import { IndexWrapper } from "@/styles/pages/index/indexWrapper";
 

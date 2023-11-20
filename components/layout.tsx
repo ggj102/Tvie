@@ -2,7 +2,7 @@
 import { useState } from "react";
 import { GlobalContext } from "@/app/context";
 
-import Loading from "./loading";
+import Loading from "./common/loading";
 
 import { LayoutWrapper } from "@/styles/components/layoutWrapper";
 

@@ -3,7 +3,7 @@ import ReactDatePicker from "react-datepicker";
 import EventIcon from "@mui/icons-material/Event";
 
 import "react-datepicker/dist/react-datepicker.css";
-import { DiscoverDataType } from "@/components/contentList";
+import { DiscoverDataType } from "@/components/pages/contents/contentList";
 
 export default function ReleaseDatePicker({
   control,

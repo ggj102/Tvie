@@ -9,7 +9,7 @@ import { apiClient } from "@/api/httpClient";
 import ContentLayout from "@/components/contentLayout";
 import { Pagination } from "@mui/material";
 import { PersonDetailDataType } from "../personDetail/page";
-import CustomImage from "@/components/customImage";
+import CustomImage from "@/components/common/customImage";
 
 export type PersonDataType = {
   adult: boolean;

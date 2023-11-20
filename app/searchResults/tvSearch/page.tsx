@@ -6,8 +6,8 @@ import { useSearchParams } from "next/navigation";
 import { apiClient } from "@/api/httpClient";
 
 import { Pagination } from "@mui/material";
-import SearchResultsList from "../components/searchResultsList";
-import { ContentDataType } from "@/components/contentList";
+import SearchResultsList from "../../../components/pages/searchResults/searchResultsList";
+import { ContentDataType } from "@/components/pages/contents/contentList";
 
 export default function TVSearchPage() {
   const params = useSearchParams();

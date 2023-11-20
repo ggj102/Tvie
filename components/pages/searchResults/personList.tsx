@@ -2,7 +2,7 @@ import { PersonListWrapper } from "@/styles/pages/searchResults/personListWrappe
 import Link from "next/link";
 import { PersonDataType } from "@/app/person/page";
 import { PersonDetailDataType } from "@/app/personDetail/page";
-import CustomImage from "@/components/customImage";
+import CustomImage from "@/components/common/customImage";
 
 export default function PersonList({ list }: { list: PersonDataType[] }) {
   return (

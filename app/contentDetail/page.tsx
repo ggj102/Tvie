@@ -10,7 +10,7 @@ import {
   ContentDetailWrapper,
   DetailInfoWrapper,
 } from "@/styles/pages/contentDetailWrapper";
-import CustomImage from "@/components/customImage";
+import CustomImage from "@/components/common/customImage";
 
 export default function ContentDetailPage() {
   const { isLoading, setIsLoading } = useContext(GlobalContext);

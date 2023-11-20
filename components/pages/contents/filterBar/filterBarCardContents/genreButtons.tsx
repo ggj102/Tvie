@@ -6,7 +6,7 @@ export type CategoryDataType = {
   checked?: boolean;
 };
 
-export default function CategoryButtons({
+export default function GenreButtons({
   categoryData,
   onClickSelect,
 }: {

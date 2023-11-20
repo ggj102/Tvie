@@ -1,19 +1,17 @@
 "use client";
 
-import { FC, useEffect } from "react";
+import { useEffect } from "react";
 import { Controller, useForm } from "react-hook-form";
 
-import SideBarCard from "./sideBarCard";
-import Availabilities from "./sideBarCardContents/availabilities";
-import Genre from "./sideBarCardContents/genre";
-import CustomSlider from "../customSlider";
-import ReleaseDates from "./sideBarCardContents/releaseDates";
-// import Certification from "./sideBarCardContents/certification";
-
 import { SideBarWrapper } from "@/styles/components/sideBar/sideBarWrapper";
-import { DiscoverDataType } from "../contentList";
+import { DiscoverDataType } from "@/components/pages/contents/contentList";
+import FilterBarCard from "./filterBarCard";
+import Availabilities from "./filterBarCardContents/availabilities";
+import ReleaseDates from "./filterBarCardContents/releaseDates";
+import Genre from "./filterBarCardContents/genre";
+import CustomSlider from "@/components/common/customSlider";
 
-export default function SideBar({
+export default function FilterBar({
   defaultData,
   onSubmit,
 }: {
@@ -37,7 +35,7 @@ export default function SideBar({
   return (
     <SideBarWrapper>
       <form onSubmit={handleSubmit((data) => onSubmit(data, isDirty))}>
-        <SideBarCard title="정렬" defaultOpen={true}>
+        <FilterBarCard title="정렬" defaultOpen={true}>
           <div className="cardContent">
             <div>Sort Results By</div>
             {/* <CustomSelect /> */}
@@ -62,8 +60,8 @@ export default function SideBar({
               )}
             />
           </div>
-        </SideBarCard>
-        {/* <SideBarCard title="Where To Watch" defaultOpen={true}>
+        </FilterBarCard>
+        {/* <FilterBarCard title="Where To Watch" defaultOpen={true}>
           <div className="cardContent">
             <div>Country</div>
             <select>
@@ -71,8 +69,8 @@ export default function SideBar({
             </select>
             <div></div>
           </div>
-        </SideBarCard> */}
-        <SideBarCard title="필터" defaultOpen={true}>
+        </FilterBarCard> */}
+        <FilterBarCard title="필터" defaultOpen={true}>
           <Availabilities control={control} />
           <ReleaseDates control={control} />
           <Genre setValue={setValue} />
@@ -126,7 +124,7 @@ export default function SideBar({
             <div>키워드 </div>
             <input className="keywordInput" placeholder="필터할 단어..." />
           </div> */}
-        </SideBarCard>
+        </FilterBarCard>
         <button
           type="submit"
           className={`submitBtn ${isDirty ? "readySearch" : ""}`}

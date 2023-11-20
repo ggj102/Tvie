@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
-import CategoryButtons from "@/components/categoryButtons";
+import CategoryButtons from "@/components/pages/contents/filterBar/filterBarCardContents/genreButtons";
 import { apiClient } from "@/api/httpClient";
 import { FieldValues, SetFieldValue } from "react-hook-form";
-import { GenreDataType } from "@/components/contentList";
+import { GenreDataType } from "@/components/pages/contents/contentList";
 
 export default function Genre({
   setValue,

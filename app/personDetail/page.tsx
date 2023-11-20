@@ -7,7 +7,7 @@ import { useSearchParams } from "next/navigation";
 import { GlobalContext } from "../context";
 import { personDetailApi } from "@/api/httpClient";
 
-import CustomImage from "@/components/customImage";
+import CustomImage from "@/components/common/customImage";
 
 import { PersonDetailWrapper } from "@/styles/pages/personDetailWrapper";
 

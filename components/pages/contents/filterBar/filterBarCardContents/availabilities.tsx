@@ -1,8 +1,8 @@
 import { Control, Controller, FieldValues, useWatch } from "react-hook-form";
 
-import CustomCheckBox from "@/components/customCheckBox";
+import CustomCheckBox from "@/components/common/customCheckBox";
 import { AvailabilitiesWrapper } from "@/styles/components/sideBar/sideBarCardContents/availabilitiesWrapper";
-import { DiscoverDataType } from "@/components/contentList";
+import { DiscoverDataType } from "@/components/pages/contents/contentList";
 
 export default function Availabilities({
   control,
