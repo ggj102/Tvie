@@ -4,7 +4,6 @@ import { useContext, useEffect, useState } from "react";
 import { GlobalContext } from "./context";
 import { mainApi } from "@/api/httpClient";
 
-import ContentLayout from "@/components/contentLayout";
 import SearchBar from "../components/pages/home/searchBar";
 import TrendingList from "../components/pages/home/trendingList";
 import FreeWatchList from "../components/pages/home/freeWatchList";
@@ -26,12 +25,12 @@ export default function Home() {
 
   return (
     !isLoading && (
-      <ContentLayout>
+      <>
         <SearchBar />
         <TrendingList list={listData[0]} />
         <PopularList list={listData[1]} />
         <FreeWatchList list={listData[2]} />
-      </ContentLayout>
+      </>
     )
   );
 }
