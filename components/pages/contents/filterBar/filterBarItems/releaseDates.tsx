@@ -1,8 +1,8 @@
 import { usePathname } from "next/navigation";
-import { Control, Controller, FieldValues, useWatch } from "react-hook-form";
+import { Control, Controller, useWatch } from "react-hook-form";
 import ReleaseDatePicker from "./releaseDatePicker";
 
-import CustomCheckBox from "@/components/common/customCheckBox";
+import CustomCheckBox from "@/components/common/customCheckbox";
 import { DiscoverDataType } from "@/components/pages/contents/contents";
 
 import filterBarCardStyles from "@styles/pages/contents/filterBar/filterBarCard.module.scss";
@@ -30,6 +30,7 @@ export default function ReleaseDates({
             control={control}
             render={({ field }) => (
               <CustomCheckBox
+                id="all_episodes"
                 text="Search all episodes?"
                 checked={field.value}
                 {...field}
@@ -43,6 +44,7 @@ export default function ReleaseDates({
                 control={control}
                 render={({ field }) => (
                   <CustomCheckBox
+                    id="first_air_date"
                     text="Search first air date?"
                     checked={field.value}
                     {...field}
@@ -59,6 +61,7 @@ export default function ReleaseDates({
             control={control}
             render={({ field }) => (
               <CustomCheckBox
+                id="all_releases"
                 text="Search all releases?"
                 checked={field.value}
                 {...field}
@@ -85,6 +88,7 @@ export default function ReleaseDates({
                 control={control}
                 render={({ field }) => (
                   <CustomCheckBox
+                    id="theater_limited"
                     text="극장 (제한)"
                     checked={field.value}
                     {...field}
@@ -96,6 +100,7 @@ export default function ReleaseDates({
                 control={control}
                 render={({ field }) => (
                   <CustomCheckBox
+                    id="theater"
                     text="극장"
                     checked={field.value}
                     {...field}
@@ -107,6 +112,7 @@ export default function ReleaseDates({
                 control={control}
                 render={({ field }) => (
                   <CustomCheckBox
+                    id="premier"
                     text="프리미어"
                     checked={field.value}
                     {...field}
@@ -118,6 +124,7 @@ export default function ReleaseDates({
                 control={control}
                 render={({ field }) => (
                   <CustomCheckBox
+                    id="digital"
                     text="디지털"
                     checked={field.value}
                     {...field}
@@ -129,6 +136,7 @@ export default function ReleaseDates({
                 control={control}
                 render={({ field }) => (
                   <CustomCheckBox
+                    id="physical_media"
                     text="물리매체"
                     checked={field.value}
                     {...field}
@@ -139,7 +147,12 @@ export default function ReleaseDates({
                 name="release.tv"
                 control={control}
                 render={({ field }) => (
-                  <CustomCheckBox text="TV" checked={field.value} {...field} />
+                  <CustomCheckBox
+                    id="releaseTv"
+                    text="TV"
+                    checked={field.value}
+                    {...field}
+                  />
                 )}
               />
             </div>

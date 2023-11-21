@@ -1,6 +1,6 @@
 import { Control, Controller, useWatch } from "react-hook-form";
 
-import CustomCheckBox from "@/components/common/customCheckBox";
+import CustomCheckBox from "@/components/common/customCheckbox";
 import { DiscoverDataType } from "@/components/pages/contents/contents";
 
 import filterBarCardStyles from "@styles/pages/contents/filterBar/filterBarCard.module.scss";
@@ -25,6 +25,7 @@ export default function Availabilities({
           control={control}
           render={({ field }) => (
             <CustomCheckBox
+              id="all_availabilities"
               text="Search all availabilities?"
               checked={field.value}
               {...field}
@@ -38,6 +39,7 @@ export default function Availabilities({
               control={control}
               render={({ field }) => (
                 <CustomCheckBox
+                  id="Stream"
                   text="Stream"
                   checked={field.value}
                   {...field}
@@ -48,28 +50,48 @@ export default function Availabilities({
               name="availabilities.free"
               control={control}
               render={({ field }) => (
-                <CustomCheckBox text="Free" checked={field.value} {...field} />
+                <CustomCheckBox
+                  id="free"
+                  text="Free"
+                  checked={field.value}
+                  {...field}
+                />
               )}
             />
             <Controller
               name="availabilities.ads"
               control={control}
               render={({ field }) => (
-                <CustomCheckBox text="Ads" checked={field.value} {...field} />
+                <CustomCheckBox
+                  id="Ads"
+                  text="Ads"
+                  checked={field.value}
+                  {...field}
+                />
               )}
             />
             <Controller
               name="availabilities.rent"
               control={control}
               render={({ field }) => (
-                <CustomCheckBox text="Rent" checked={field.value} {...field} />
+                <CustomCheckBox
+                  id="Rent"
+                  text="Rent"
+                  checked={field.value}
+                  {...field}
+                />
               )}
             />
             <Controller
               name="availabilities.buy"
               control={control}
               render={({ field }) => (
-                <CustomCheckBox text="Buy" checked={field.value} {...field} />
+                <CustomCheckBox
+                  id="buy"
+                  text="Buy"
+                  checked={field.value}
+                  {...field}
+                />
               )}
             />
           </div>
