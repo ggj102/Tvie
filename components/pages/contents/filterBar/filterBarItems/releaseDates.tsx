@@ -2,7 +2,7 @@ import { usePathname } from "next/navigation";
 import { Control, Controller, useWatch } from "react-hook-form";
 import ReleaseDatePicker from "./releaseDatePicker";
 
-import CustomCheckBox from "@/components/common/customCheckbox";
+import CustomCheckbox from "@/components/common/fixcustomCheckbox";
 import { DiscoverDataType } from "@/components/pages/contents/contents";
 
 import filterBarCardStyles from "@styles/pages/contents/filterBar/filterBarCard.module.scss";
@@ -29,7 +29,7 @@ export default function ReleaseDates({
             name="release.all_episodes"
             control={control}
             render={({ field }) => (
-              <CustomCheckBox
+              <CustomCheckbox
                 id="all_episodes"
                 text="Search all episodes?"
                 checked={field.value}
@@ -43,7 +43,7 @@ export default function ReleaseDates({
                 name="release.first_air_date"
                 control={control}
                 render={({ field }) => (
-                  <CustomCheckBox
+                  <CustomCheckbox
                     id="first_air_date"
                     text="Search first air date?"
                     checked={field.value}
@@ -60,7 +60,7 @@ export default function ReleaseDates({
             name="release.all_releases"
             control={control}
             render={({ field }) => (
-              <CustomCheckBox
+              <CustomCheckbox
                 id="all_releases"
                 text="Search all releases?"
                 checked={field.value}
@@ -74,7 +74,7 @@ export default function ReleaseDates({
                   name="release.all_countries"
                   control={control}
                   render={({ field }) => (
-                    <CustomCheckBox
+                    <CustomCheckbox
                       id="allCountries"
                       text="Search all countries?"
                       checked={field.value}
@@ -87,7 +87,7 @@ export default function ReleaseDates({
                 name="release.theater_limited"
                 control={control}
                 render={({ field }) => (
-                  <CustomCheckBox
+                  <CustomCheckbox
                     id="theater_limited"
                     text="극장 (제한)"
                     checked={field.value}
@@ -99,7 +99,7 @@ export default function ReleaseDates({
                 name="release.theater"
                 control={control}
                 render={({ field }) => (
-                  <CustomCheckBox
+                  <CustomCheckbox
                     id="theater"
                     text="극장"
                     checked={field.value}
@@ -111,7 +111,7 @@ export default function ReleaseDates({
                 name="release.premier"
                 control={control}
                 render={({ field }) => (
-                  <CustomCheckBox
+                  <CustomCheckbox
                     id="premier"
                     text="프리미어"
                     checked={field.value}
@@ -123,7 +123,7 @@ export default function ReleaseDates({
                 name="release.digital"
                 control={control}
                 render={({ field }) => (
-                  <CustomCheckBox
+                  <CustomCheckbox
                     id="digital"
                     text="디지털"
                     checked={field.value}
@@ -135,7 +135,7 @@ export default function ReleaseDates({
                 name="release.physical_media"
                 control={control}
                 render={({ field }) => (
-                  <CustomCheckBox
+                  <CustomCheckbox
                     id="physical_media"
                     text="물리매체"
                     checked={field.value}
@@ -147,7 +147,7 @@ export default function ReleaseDates({
                 name="release.tv"
                 control={control}
                 render={({ field }) => (
-                  <CustomCheckBox
+                  <CustomCheckbox
                     id="releaseTv"
                     text="TV"
                     checked={field.value}

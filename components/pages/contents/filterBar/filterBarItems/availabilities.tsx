@@ -1,6 +1,6 @@
 import { Control, Controller, useWatch } from "react-hook-form";
 
-import CustomCheckBox from "@/components/common/customCheckbox";
+import CustomCheckbox from "@/components/common/fixcustomCheckbox";
 import { DiscoverDataType } from "@/components/pages/contents/contents";
 
 import filterBarCardStyles from "@styles/pages/contents/filterBar/filterBarCard.module.scss";
@@ -24,7 +24,7 @@ export default function Availabilities({
           name="availabilities.all_availabilities"
           control={control}
           render={({ field }) => (
-            <CustomCheckBox
+            <CustomCheckbox
               id="all_availabilities"
               text="Search all availabilities?"
               checked={field.value}
@@ -38,7 +38,7 @@ export default function Availabilities({
               name="availabilities.stream"
               control={control}
               render={({ field }) => (
-                <CustomCheckBox
+                <CustomCheckbox
                   id="Stream"
                   text="Stream"
                   checked={field.value}
@@ -50,7 +50,7 @@ export default function Availabilities({
               name="availabilities.free"
               control={control}
               render={({ field }) => (
-                <CustomCheckBox
+                <CustomCheckbox
                   id="free"
                   text="Free"
                   checked={field.value}
@@ -62,7 +62,7 @@ export default function Availabilities({
               name="availabilities.ads"
               control={control}
               render={({ field }) => (
-                <CustomCheckBox
+                <CustomCheckbox
                   id="Ads"
                   text="Ads"
                   checked={field.value}
@@ -74,7 +74,7 @@ export default function Availabilities({
               name="availabilities.rent"
               control={control}
               render={({ field }) => (
-                <CustomCheckBox
+                <CustomCheckbox
                   id="Rent"
                   text="Rent"
                   checked={field.value}
@@ -86,7 +86,7 @@ export default function Availabilities({
               name="availabilities.buy"
               control={control}
               render={({ field }) => (
-                <CustomCheckBox
+                <CustomCheckbox
                   id="buy"
                   text="Buy"
                   checked={field.value}
