@@ -19,7 +19,12 @@ export default function FilterBarCard({
         type="button"
         onClick={() => setIsOpen(!isOpen)}
       >
-        {title}
+        <span>{title}</span>
+        <span
+          className={
+            isOpen ? filterBarCardStyles.unfold : filterBarCardStyles.fold
+          }
+        ></span>
       </button>
       {isOpen && children}
     </div>
