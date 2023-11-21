@@ -1,21 +1,22 @@
-import { GlobalContext } from "@/app/context";
-import { Dot, LoadingWrapper } from "@/styles/components/loadingWrapper";
 import { useContext } from "react";
+import { GlobalContext } from "@/app/context";
+
+import loadingStyles from "@styles/common/loading.module.scss";
 
 export default function Loading() {
   const { isLoading } = useContext(GlobalContext);
 
   return (
     isLoading && (
-      <LoadingWrapper>
-        <div className="dot-spinner">
-          <div className="container">
+      <div className={loadingStyles.loading}>
+        <div className={loadingStyles.dot_spinner}>
+          <div className={loadingStyles.container}>
             {[...Array(8)].map((_, i) => (
-              <Dot key={i} i={i} />
+              <div key={i} className={loadingStyles.dot} />
             ))}
           </div>
         </div>
-      </LoadingWrapper>
+      </div>
     )
   );
 }
