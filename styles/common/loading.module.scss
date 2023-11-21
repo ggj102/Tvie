@@ -53,11 +53,12 @@
       calc(cos(var(--degrees)) * 25px),
       calc(sin(var(--degrees)) * 25px)
     );
-    animation: animate-in
-      900ms
-      ease-in-out
-      calc((#{$i - 1} * 100ms))
-      infinite
-      alternate;
+
+    animation-name: animate-in;
+    animation-duration: 900ms;
+    animation-timing-function: ease-in-out;
+    animation-delay: calc((#{$i - 1} * 100ms));
+    animation-direction: alternate;
+    animation-iteration-count: infinite;
   }
 }
