@@ -1,6 +1,6 @@
 import { Control, Controller, useWatch } from "react-hook-form";
 
-import CustomCheckbox from "@/components/common/fixcustomCheckbox";
+import CustomCheckbox from "@/components/common/customCheckbox";
 import { DiscoverDataType } from "@/components/pages/contents/contents";
 
 import filterBarCardStyles from "@styles/pages/contents/filterBar/filterBarCard.module.scss";
