@@ -35,7 +35,7 @@ npm run strat
 
 - NextJS
 - Typescript
-- SCSS, MUI
+- SASS, MUI
 - react-hook-form
 
 ## 배포
