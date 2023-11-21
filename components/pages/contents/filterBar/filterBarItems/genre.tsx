@@ -23,8 +23,6 @@ export default function Genre({
           const aIsAlphabet = /^[a-zA-Z]/.test(a.name);
           const bIsAlphabet = /^[a-zA-Z]/.test(b.name);
 
-          console.log(res);
-
           if (aIsAlphabet && !bIsAlphabet) {
             return -1; // a는 알파벳이고 b는 한글이므로 a를 먼저 놓음
           } else if (!aIsAlphabet && bIsAlphabet) {
