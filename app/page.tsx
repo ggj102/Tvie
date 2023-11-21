@@ -4,13 +4,12 @@ import { useContext, useEffect, useState } from "react";
 import { GlobalContext } from "./context";
 import { mainApi } from "@/api/httpClient";
 
-import ContentLayout from "@/components/contentLayout";
-import SearchBar from "./index/searchBar";
-import TrendingList from "./index/trendingList";
-import FreeWatchList from "./index/freeWatchList";
-import PopularList from "./index/popularList";
+import SearchBar from "../components/pages/home/searchBar";
+import TrendingList from "../components/pages/home/trendingList";
+import FreeWatchList from "../components/pages/home/freeWatchList";
+import PopularList from "../components/pages/home/popularList";
 
-import { IndexWrapper } from "@/styles/pages/index/indexWrapper";
+import homeStyles from "@styles/pages/home/home.module.scss";
 
 export default function Home() {
   const { isLoading, setIsLoading } = useContext(GlobalContext);
@@ -28,14 +27,12 @@ export default function Home() {
 
   return (
     !isLoading && (
-      <ContentLayout>
-        <IndexWrapper>
-          <SearchBar />
-          <TrendingList list={listData[0]} />
-          <PopularList list={listData[1]} />
-          <FreeWatchList list={listData[2]} />
-        </IndexWrapper>
-      </ContentLayout>
+      <div className={homeStyles.home}>
+        <SearchBar />
+        <TrendingList list={listData[0]} />
+        <PopularList list={listData[1]} />
+        <FreeWatchList list={listData[2]} />
+      </div>
     )
   );
 }

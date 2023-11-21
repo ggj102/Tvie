@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
-import StyledComponentsRegistry from "@/lib/styleRegistry";
 import "./globals.css";
-import Navigation from "@/components/navigation";
-import Layout from "@/components/layout";
+import Navigation from "@/components/common/navigation";
+import Layout from "@/components/common/rootLayout";
 
 export const metadata: Metadata = {
   title: "TVie",
@@ -17,10 +16,8 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <StyledComponentsRegistry>
-          <Navigation />
-          <Layout>{children}</Layout>
-        </StyledComponentsRegistry>
+        <Navigation />
+        <Layout>{children}</Layout>
       </body>
     </html>
   );

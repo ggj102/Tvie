@@ -1,0 +1,27 @@
+.history {
+  position: relative;
+}
+
+.history_text {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  max-height: 222px;
+  line-height: 1.4em;
+  overflow: hidden;
+
+  &::after {
+    content: "";
+    width: 100%;
+    height: 22px;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    background-image: linear-gradient(
+      to right,
+      rgba(255, 255, 255, 0) 0,
+      #fff 85%
+    );
+    pointer-events: none;
+  }
+}

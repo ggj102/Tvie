@@ -1,0 +1,45 @@
+.filter_bar {
+  width: 260px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.keyword_input {
+  transition: all 0.2s ease-in-out;
+  border-color: #ced4da;
+  color: #495057;
+  background-color: #fff;
+
+  border-radius: 0.25rem;
+  padding: 0 calc(16px + 0.75rem) 0 0;
+  width: 100%;
+  border-width: 1px;
+  border-style: solid;
+  box-sizing: border-box;
+  position: relative;
+  cursor: text;
+  outline: 0;
+}
+
+.submit_btn {
+  width: 100%;
+  margin-top: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  border-radius: 20px;
+  height: 44px;
+  font-weight: bold;
+  font-size: 1.2em;
+  cursor: auto;
+  color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(228, 228, 228, 0.7);
+}
+
+.ready_search {
+  cursor: pointer;
+  color: #fff;
+  background-color: rgb(1, 180, 228, 1);
+}

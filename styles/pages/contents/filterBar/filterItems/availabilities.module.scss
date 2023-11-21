@@ -1,0 +1,15 @@
+.availabilities {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+
+  label {
+    cursor: pointer;
+  }
+}
+
+.hideOption {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}

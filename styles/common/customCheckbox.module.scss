@@ -1,0 +1,41 @@
+.custom_checkbox {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  cursor: pointer;
+}
+
+.input {
+  display: none;
+}
+
+.checkbox_icon {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  background-color: transparent;
+  box-sizing: border-box;
+  border-radius: 3px;
+  border: 1px solid #5c5f61;
+  position: relative;
+  cursor: pointer;
+
+  img {
+    display: none;
+  }
+}
+
+.input:checked + .checkbox_icon {
+  background-color: rgba(23, 186, 230, 0.8);
+  border: none;
+  box-shadow: rgba(16, 22, 26, 0.2) 0px 0px 0px 1px inset,
+    rgba(16, 22, 26, 0.1) 0px -1px 0px inset;
+
+  img {
+    display: block;
+  }
+}
+
+.checkbox_text {
+  line-height: 16px;
+}
