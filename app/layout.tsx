@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import StyledComponentsRegistry from "@/lib/styleRegistry";
 import "./globals.css";
 import Navigation from "@/components/common/navigation";
 import Layout from "@/components/common/rootLayout";
@@ -17,10 +16,8 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <StyledComponentsRegistry>
-          <Navigation />
-          <Layout>{children}</Layout>
-        </StyledComponentsRegistry>
+        <Navigation />
+        <Layout>{children}</Layout>
       </body>
     </html>
   );
