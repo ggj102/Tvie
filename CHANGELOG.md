@@ -3,12 +3,12 @@
 ### Added
 
 - 로딩 추가
-- SCSS
+- SASS
 - 이미지, 텍스트 드래그 off
 
 ### Changed
 
-- CSS 라이브러리 Styled-components -> SCSS로 변경
+- CSS 라이브러리 Styled-components -> SASS로 변경
 - customCheckbox MUI -> css로 자체 구현
 
 ### Removed
