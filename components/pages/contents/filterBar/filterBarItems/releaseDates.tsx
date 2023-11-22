@@ -3,7 +3,6 @@ import { Control, Controller, useWatch } from "react-hook-form";
 import ReleaseDatePicker from "./releaseDatePicker";
 
 import CustomCheckbox from "@/components/common/customCheckbox";
-import { DiscoverDataType } from "@/components/pages/contents/contents";
 
 import filterBarCardStyles from "@styles/pages/contents/filterBar/filterBarCard.module.scss";
 import releaseDatesStyles from "@styles/pages/contents/filterBar/filterItems/releaseDates.module.scss";
@@ -11,7 +10,7 @@ import releaseDatesStyles from "@styles/pages/contents/filterBar/filterItems/rel
 export default function ReleaseDates({
   control,
 }: {
-  control: Control<DiscoverDataType, any>;
+  control: Control<DiscoverDataType>;
 }) {
   const pathname = usePathname();
 

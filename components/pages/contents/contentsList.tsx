@@ -1,5 +1,4 @@
 import { dateFormatter } from "@/utils/dateFormatter";
-import { ContentDataType } from "./contents";
 import Link from "next/link";
 import CustomImage from "@/components/common/customImage";
 
@@ -12,15 +11,15 @@ export default function ContentsList({
   totalPage,
   onClickAddList,
 }: {
-  listData: ContentDataType[];
+  listData: ContentsDataType[];
   contentType: string;
   totalPage: number;
-  onClickAddList: any;
+  onClickAddList: () => void;
 }) {
   return (
     <div className={contentsListStyles.contents_list}>
       <ul>
-        {listData.map((val: ContentDataType) => {
+        {listData.map((val: ContentsDataType) => {
           const { id, poster_path, vote_average } = val;
 
           const title = contentType === "movie" ? val.title : val.name;

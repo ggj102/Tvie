@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import CategoryButtons from "@/components/pages/contents/filterBar/filterBarItems/genreButtons";
 import { apiClient } from "@/api/httpClient";
 import { FieldValues, SetFieldValue } from "react-hook-form";
-import { GenreDataType } from "@/components/pages/contents/contents";
 
 import filterBarCardStyles from "@styles/pages/contents/filterBar/filterBarCard.module.scss";
 

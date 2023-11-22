@@ -1,9 +1,13 @@
-import { Controller } from "react-hook-form";
+import { Control, Controller } from "react-hook-form";
 
 import CustomSlider from "@/components/common/customSlider";
 import filterBarCardStyles from "@styles/pages/contents/filterBar/filterBarCard.module.scss";
 
-export default function SliderFilter({ control }: { control: any }) {
+export default function SliderFilter({
+  control,
+}: {
+  control: Control<DiscoverDataType>;
+}) {
   return (
     <>
       <div className={filterBarCardStyles.card_item}>

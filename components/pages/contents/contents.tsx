@@ -11,70 +11,6 @@ import ContentsList from "./contentsList";
 
 import contentsStyles from "@styles/pages/contents/contents.module.scss";
 
-export type GenreDataType = {
-  id: number;
-  name: string;
-  checked?: boolean;
-};
-
-export type ReleaseDateType = {
-  [index: string]: boolean;
-  all_releases: boolean;
-  theater_limited: boolean;
-  theater: boolean;
-  premier: boolean;
-  digital: boolean;
-  physical_media: boolean;
-  tv: boolean;
-};
-
-export type AirDateType = {
-  [index: string]: boolean;
-  all_episodes: true;
-  first_air_date: true;
-};
-
-export type AvailabilitiesType = {
-  [index: string]: boolean;
-  all_availabilities: boolean;
-  stream: boolean;
-  free: boolean;
-  ads: boolean;
-  rent: boolean;
-  buy: boolean;
-};
-
-export type DiscoverDataType = {
-  sort_by: string;
-  availabilities: AvailabilitiesType;
-  release: ReleaseDateType | AirDateType;
-  release_date_g: Date | null;
-  release_date_l: Date | null;
-  genre: GenreDataType[];
-  vote_average: number[];
-  vote_count: 0;
-  runtime: number[];
-};
-
-export type ContentDataType = {
-  adult: boolean;
-  backdrop_path?: string;
-  genre_ids: number[];
-  id: number;
-  original_language?: string;
-  original_title?: string;
-  overview?: string;
-  popularity?: number;
-  poster_path?: string;
-  release_date?: string;
-  first_air_date?: string;
-  title?: string;
-  name?: string;
-  video: boolean;
-  vote_average?: number;
-  vote_count?: number;
-};
-
 export default function Contents({ contentType }: { contentType: string }) {
   const { isLoading, setIsLoading } = useContext(GlobalContext);
   const currentDate = new Date();
@@ -84,7 +20,7 @@ export default function Contents({ contentType }: { contentType: string }) {
   const [pageCount, setPageCount] = useState<number>(1);
 
   const [totalPage, setTotalPage] = useState<number>(0);
-  const [listData, setListData] = useState<ContentDataType[]>([]);
+  const [listData, setListData] = useState<ContentsDataType[]>([]);
   const [isReload, setIsReload] = useState<boolean>(false);
   const [currentQuery, setCurrentQuery] = useState<string>(
     `${contentType}/popular?language=ko&page=`
