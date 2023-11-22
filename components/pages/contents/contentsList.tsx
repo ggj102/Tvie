@@ -4,6 +4,7 @@ import Link from "next/link";
 import CustomImage from "@/components/common/customImage";
 
 import contentsListStyles from "@styles/pages/contents/contentsList.module.scss";
+import VoteAverage from "@/components/common/voteAverage";
 
 export default function ContentsList({
   listData,
@@ -25,7 +26,7 @@ export default function ContentsList({
           const title = contentType === "movie" ? val.title : val.name;
           const date =
             contentType === "movie" ? val.release_date : val.first_air_date;
-          const vote = `${Math.floor(vote_average ? vote_average * 10 : 0)}%`;
+          // const vote = `${Math.floor(vote_average ? vote_average * 10 : 0)}%`;
           const dateFormat = dateFormatter(date);
 
           return (
@@ -37,7 +38,7 @@ export default function ContentsList({
                   src={`https://image.tmdb.org/t/p/w220_and_h330_face/${poster_path}`}
                 />
               </Link>
-              <div className={contentsListStyles.vote_average}>{vote}</div>
+              <VoteAverage size={34} top={256} left={8} vote={vote_average} />
               <div className={contentsListStyles.title_release}>
                 <Link
                   href={`/contentDetail?type=${contentType}&id=${id}`}
