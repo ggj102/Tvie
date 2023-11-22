@@ -27,23 +27,6 @@
     overflow: hidden;
   }
 
-  .vote_average {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 100;
-    position: absolute;
-    top: 256px;
-    left: 8px;
-    width: 34px;
-    height: 34px;
-    border-radius: 100%;
-    background-color: #000;
-    font-weight: bold;
-    font-size: 0.6em;
-    color: #fff;
-  }
-
   .title_release {
     padding: 26px 10px 12px;
 

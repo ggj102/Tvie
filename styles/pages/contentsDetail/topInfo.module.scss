@@ -116,24 +116,14 @@
 }
 
 .vote_average {
+  height: 60px;
+  padding-left: 66px;
   margin-bottom: 20px;
   display: flex;
   align-items: center;
   font-weight: bold;
   z-index: 100;
-}
-
-.vote_average_gauge {
-  width: 60px;
-  height: 60px;
-  border-radius: 100%;
-  background-color: #000;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  margin-right: 6px;
+  position: relative;
 }
 
 .trail_btn {

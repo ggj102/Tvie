@@ -3,6 +3,7 @@ import Link from "next/link";
 import CustomImage from "@/components/common/customImage";
 
 import topInfoStyles from "@styles/pages/contentsDetail/topInfo.module.scss";
+import VoteAverage from "@/components/common/voteAverage";
 
 export default function TopInfo({ isTypeTV, detailData, date }: any) {
   const bgDefaultUrl = "https://image.tmdb.org/t/p/w1920_and_h800_multi_faces/";
@@ -66,9 +67,13 @@ export default function TopInfo({ isTypeTV, detailData, date }: any) {
               </div>
             </div>
             <div className={topInfoStyles.vote_average}>
-              <div className={topInfoStyles.vote_average_gauge}>
-                <div>{`${Math.floor(detailData.vote_average * 10)}%`}</div>
-              </div>
+              <VoteAverage
+                size={60}
+                font={20}
+                top={0}
+                left={0}
+                vote={detailData.vote_average}
+              />
               <div>
                 회원
                 <br />
