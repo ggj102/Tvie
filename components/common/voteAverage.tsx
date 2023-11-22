@@ -10,11 +10,13 @@ interface VoteDataType {
 export default function VoteAverage({
   vote,
   size,
+  font,
   top,
   left,
 }: {
   vote?: number;
   size: number;
+  font?: number;
   top: number;
   left: number;
 }) {
@@ -67,7 +69,7 @@ export default function VoteAverage({
               } as React.CSSProperties
             }
           >
-            <span>
+            <span style={{ fontSize: `${font}px` }}>
               {voteData.vote_average}
               {voteData.vote_average !== "NR" && <span>%</span>}
             </span>
