@@ -10,7 +10,7 @@ export const apiClient = axios.create({
   },
 });
 
-export const popularListApi = (type: string) => {
+export const popularListApiRequests = (type: string) => {
   const commonQuery =
     "language=ko&watch_region=KR&sort_by=popularity.desc&vote_average.gte=0&vote_average.lte=10&vote_count.gte=0&with_runtime.gte=0&with_runtime.lte=400&page=1";
   const movieCommonQuery = `discover/movie?include_adult=false&include_video=false&${commonQuery}`;
@@ -41,17 +41,23 @@ export const popularListApi = (type: string) => {
       break;
   }
 
+  return requests;
+};
+
+export const popularListApi = (type: string) => {
+  const requests = popularListApiRequests(type);
+
   return Promise.all(requests)
     .then((res) => res)
     .catch((error) => {
-      console.error(error);
+      throw error;
     });
 };
 
 export const mainApi = () => {
   const requests = [
     apiClient.get("trending/all/day?language=ko"),
-    popularListApi("stream"),
+    ...popularListApiRequests("stream"),
     apiClient.get(
       `discover/movie?include_adult=false&include_video=false&language=ko&watch_region=KR&sort_by=popularity.desc&with_watch_monetization_types=free|ads&with_genres=&vote_average.gte=0&vote_average.lte=10&vote_count.gte=0&with_runtime.gte=0&with_runtime.lte=400&page=1`
     ),
@@ -60,7 +66,7 @@ export const mainApi = () => {
   return Promise.all(requests)
     .then((res) => res)
     .catch((error) => {
-      console.error(error);
+      throw error;
     });
 };
 
@@ -77,7 +83,7 @@ export const contentDetailApi = (id: string | null, type: string | null) => {
   return Promise.all(requests)
     .then((res) => res)
     .catch((error) => {
-      console.error(error);
+      throw error;
     });
 };
 
@@ -112,7 +118,7 @@ export const searchResultsApi = (value: string | null) => {
       );
     })
     .catch((error) => {
-      console.error(error);
+      throw error;
     });
 };
 
@@ -184,6 +190,6 @@ export const personDetailApi = (personId: string | null) => {
       return { koData, biography, famous, acting };
     })
     .catch((error) => {
-      console.error(error);
+      throw error;
     });
 };
