@@ -12,7 +12,7 @@ export default function CategoryTab({
 }: {
   tabData: TabData[];
   currentTab: string;
-  onClick: any;
+  onClick: (type: string) => void;
 }) {
   return (
     <div className={categoryTabStyles.category_tab}>

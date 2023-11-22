@@ -13,14 +13,24 @@ import homeStyles from "@styles/pages/home/home.module.scss";
 
 export default function Home() {
   const { isLoading, setIsLoading } = useContext(GlobalContext);
-  const [listData, setListData] = useState<any>([]);
+
+  const [trendingData, setTrendingData] = useState<ContentsDataType[]>([]);
+  const [popularData, setPopularData] = useState<ContentsDataType[]>([]);
+  const [freeWatchData, setFreeWatchData] = useState<ContentsDataType[]>([]);
 
   useEffect(() => {
     setIsLoading(true);
-    mainApi().then((res: any) => {
-      const resData = [res[0].data.results, res[1], res[2].data.results];
+    mainApi().then((res) => {
+      const movieData = res[1].data.results;
+      const tvData = res[2].data.results;
+      const popularConcat = movieData.concat(tvData);
 
-      setListData(resData);
+      setTrendingData(res[0].data.results);
+      setPopularData(popularConcat);
+      setFreeWatchData(res[2].data.results);
+
+      console.log(res);
+
       setIsLoading(false);
     });
   }, []);
@@ -29,9 +39,9 @@ export default function Home() {
     !isLoading && (
       <div className={homeStyles.home}>
         <SearchBar />
-        <TrendingList list={listData[0]} />
-        <PopularList list={listData[1]} />
-        <FreeWatchList list={listData[2]} />
+        <TrendingList list={trendingData} />
+        <PopularList list={popularData} />
+        <FreeWatchList list={freeWatchData} />
       </div>
     )
   );

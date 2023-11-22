@@ -7,7 +7,7 @@ import { ContentDataType } from "@/components/pages/contents/contents";
 
 import contentsStyles from "@styles/pages/home/contents.module.scss";
 
-export default function PopularList({ list }: any) {
+export default function PopularList({ list }: { list: ContentsDataType[] }) {
   const listRef = useRef<HTMLUListElement>(null);
 
   const [listData, setListData] = useState<ContentDataType[]>([]);
@@ -20,24 +20,25 @@ export default function PopularList({ list }: any) {
     { name: "극장", type: "theater" },
   ];
 
-  const dataRandomSort = (response: any) => {
-    if (response.length > 1) {
-      const [movieStream, tvStream] = response;
-      const movieData = movieStream.data.results;
-      const tvData = tvStream.data.results;
-      const concat = movieData.concat(tvData);
-
-      return concat.sort(() => Math.random() - 0.5);
-    } else return response[0].data.results.sort(() => Math.random() - 0.5);
+  const dataRandomSort = (data: ContentsDataType[]) => {
+    return data.sort(() => Math.random() - 0.5);
   };
 
   const onClickTab = (type: string) => {
     setCurrentTab(type);
 
     popularListApi(type).then((res) => {
-      const data = dataRandomSort(res);
+      let sortData = [];
 
-      setListData(data);
+      if (res.length > 1) {
+        const [movieStream, tvStream] = res;
+        const movieData = movieStream.data.results;
+        const tvData = tvStream.data.results;
+        const concat = movieData.concat(tvData);
+        sortData = dataRandomSort(concat);
+      } else sortData = dataRandomSort(res[0].data.results);
+
+      setListData(sortData);
 
       if (listRef.current) listRef.current.scrollLeft = 0;
     });
