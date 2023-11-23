@@ -12,18 +12,6 @@ import CustomImage from "@/components/common/customImage";
 
 import personStyles from "@styles/pages/person/person.module.scss";
 
-export type PersonDataType = {
-  adult: boolean;
-  gender: number;
-  id: number;
-  known_for: PersonDetailDataType[];
-  known_for_department?: string;
-  name?: string;
-  original_name?: string;
-  popularity?: number;
-  profile_path?: string;
-};
-
 export default function PersonPage() {
   const { isLoading, setIsLoading } = useContext(GlobalContext);
   const [personData, setPersonData] = useState<PersonDataType[]>([]);
