@@ -1,6 +1,12 @@
 import historyStyles from "@styles/pages/personDetail/history.module.scss";
 
-export default function History({ biography, personDetailData }: any) {
+export default function History({
+  biography,
+  personInfoData,
+}: {
+  biography: string[];
+  personInfoData: personInfoType;
+}) {
   return (
     <div className={historyStyles.history}>
       <div className={historyStyles.history_text}>
@@ -8,7 +14,7 @@ export default function History({ biography, personDetailData }: any) {
           ? biography.map((val: string, idx: number) => {
               return <div key={`${biography}${idx}`}>{val}</div>;
             })
-          : `${personDetailData.name}의 약력 란이 비어있습니다.`}
+          : `${personInfoData.name}의 약력 란이 비어있습니다.`}
       </div>
     </div>
   );

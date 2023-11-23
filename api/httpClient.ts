@@ -1,4 +1,3 @@
-import { PersonDetailDataType } from "@/app/personDetail/page";
 import axios from "axios";
 
 export const apiClient = axios.create({
@@ -10,7 +9,7 @@ export const apiClient = axios.create({
   },
 });
 
-export const popularListApi = (type: string) => {
+export const popularListApiRequests = (type: string) => {
   const commonQuery =
     "language=ko&watch_region=KR&sort_by=popularity.desc&vote_average.gte=0&vote_average.lte=10&vote_count.gte=0&with_runtime.gte=0&with_runtime.lte=400&page=1";
   const movieCommonQuery = `discover/movie?include_adult=false&include_video=false&${commonQuery}`;
@@ -41,17 +40,23 @@ export const popularListApi = (type: string) => {
       break;
   }
 
+  return requests;
+};
+
+export const popularListApi = (type: string) => {
+  const requests = popularListApiRequests(type);
+
   return Promise.all(requests)
     .then((res) => res)
     .catch((error) => {
-      console.error(error);
+      throw error;
     });
 };
 
 export const mainApi = () => {
   const requests = [
     apiClient.get("trending/all/day?language=ko"),
-    popularListApi("stream"),
+    ...popularListApiRequests("stream"),
     apiClient.get(
       `discover/movie?include_adult=false&include_video=false&language=ko&watch_region=KR&sort_by=popularity.desc&with_watch_monetization_types=free|ads&with_genres=&vote_average.gte=0&vote_average.lte=10&vote_count.gte=0&with_runtime.gte=0&with_runtime.lte=400&page=1`
     ),
@@ -60,7 +65,7 @@ export const mainApi = () => {
   return Promise.all(requests)
     .then((res) => res)
     .catch((error) => {
-      console.error(error);
+      throw error;
     });
 };
 
@@ -77,7 +82,7 @@ export const contentDetailApi = (id: string | null, type: string | null) => {
   return Promise.all(requests)
     .then((res) => res)
     .catch((error) => {
-      console.error(error);
+      throw error;
     });
 };
 
@@ -112,7 +117,7 @@ export const searchResultsApi = (value: string | null) => {
       );
     })
     .catch((error) => {
-      console.error(error);
+      throw error;
     });
 };
 
@@ -131,7 +136,7 @@ export const personDetailApi = (personId: string | null) => {
       const { cast } = koData.data.combined_credits;
       const sortCopy = [...cast];
       const releaseCopy = [...cast];
-      const expected: any = [];
+      const expected: PersonDetailDataType[] = [];
       let currentYear = "";
       let famous = [];
       let acting = [];
@@ -146,24 +151,28 @@ export const personDetailApi = (personId: string | null) => {
         famous = famous.slice(0, 8);
       }
 
-      const releasefilter: any = releaseCopy.filter((val: any) => {
-        if (!val.first_air_date && !val.release_date) {
-          expected.push(val);
+      const releasefilter: PersonDetailDataType[] = releaseCopy.filter(
+        (val: PersonDetailDataType) => {
+          if (!val.first_air_date && !val.release_date) {
+            expected.push(val);
+          }
+
+          return val.first_air_date || val.release_date;
         }
+      );
 
-        return val.first_air_date || val.release_date;
-      });
+      const releaseSort = releasefilter.sort(
+        (val1: PersonDetailDataType, val2: PersonDetailDataType) => {
+          const date1 = val1.first_air_date || val1.release_date || "";
+          const date2 = val2.first_air_date || val2.release_date || "";
 
-      const releaseSort = releasefilter.sort((val1: any, val2: any) => {
-        const date1 = val1.first_air_date || val1.release_date;
-        const date2 = val2.first_air_date || val2.release_date;
+          if (date1 > date2) return -1;
+          else if (date1 < date2) return 1;
+          else return 0;
+        }
+      );
 
-        if (date1 > date2) return -1;
-        else if (date1 < date2) return 1;
-        else 0;
-      });
-
-      acting = releaseSort.map((val: any, idx: number) => {
+      acting = releaseSort.map((val: PersonDetailDataType, idx: number) => {
         const date = val.first_air_date || val.release_date;
         const checkDate = !date ? "" : date.slice(0, 4);
         if (idx !== 0 && currentYear !== checkDate) {
@@ -179,11 +188,11 @@ export const personDetailApi = (personId: string | null) => {
       }
 
       const split = enData.data.biography.split("\n");
-      const biography = split.filter((val: any) => val);
+      const biography = split.filter((val: string) => val);
 
       return { koData, biography, famous, acting };
     })
     .catch((error) => {
-      console.error(error);
+      throw error;
     });
 };

@@ -16,18 +16,20 @@ export default function ContentDetailPage() {
   const { isLoading, setIsLoading } = useContext(GlobalContext);
   const params = useSearchParams();
   const [isTypeTV, setIsTypeTV] = useState<boolean>(false);
-  const [detailData, setDetailData] = useState<any>({
-    backdrop_path: "",
-    poster_path: "",
-    genres: [],
-    created_by: [],
+  const [movieInfolData, setMovieInfolData] = useState<MovieInfoType>(() => {
+    return {} as MovieInfoType;
   });
-  const [keywordData, setKeywordData] = useState<any>({
-    keywords: [],
-    results: [{ id: -1, name: "" }],
+  const [tvInfolData, setTvInfolData] = useState<TVShowInfoType>(() => {
+    return {} as TVShowInfoType;
   });
-  const [castData, setCastData] = useState<any>([]);
-  const [date, setDate] = useState<any>({
+
+  const [keywordData, setKeywordData] = useState<KeywordType[]>([]);
+  const [castData, setCastData] = useState<CastInfoType[]>([]);
+  const [date, setDate] = useState<{
+    year: string;
+    month: string;
+    day: string;
+  }>({
     year: "",
     month: "",
     day: "",
@@ -40,18 +42,18 @@ export default function ContentDetailPage() {
 
     setIsTypeTV(contentType === "tv");
 
-    contentDetailApi(contentId, contentType).then((res: any) => {
+    contentDetailApi(contentId, contentType).then((res) => {
       const [contents, credits, keywords] = res;
       const contentDate =
-        contentType === "tv"
-          ? contents.data.first_air_date
-          : contents.data.release_date;
+        contents.data.first_air_date || contents.data.release_date;
+
       const dateSplit = contentDate.split("-");
       const slice = credits.data.cast.slice(0, 9);
 
-      setDetailData(contents.data);
+      if (contentType === "tv") setTvInfolData(contents.data);
+      else setMovieInfolData(contents.data);
       setCastData(slice);
-      setKeywordData(keywords.data);
+      setKeywordData(keywords.data.keywords || keywords.data.results);
 
       setDate({
         ...date,
@@ -66,12 +68,18 @@ export default function ContentDetailPage() {
   return (
     !isLoading && (
       <>
-        <TopInfo isTypeTV={isTypeTV} detailData={detailData} date={date} />
+        <TopInfo
+          isTypeTV={isTypeTV}
+          movieInfolData={movieInfolData}
+          tvInfolData={tvInfolData}
+          date={date}
+        />
         <div className={contentsDetailStyles.detail_info}>
           <MainCast isTypeTV={isTypeTV} castData={castData} />
           <SideInfo
             isTypeTV={isTypeTV}
-            detailData={detailData}
+            movieInfolData={movieInfolData}
+            tvInfolData={tvInfolData}
             keywordData={keywordData}
           />
         </div>

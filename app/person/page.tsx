@@ -7,22 +7,9 @@ import { GlobalContext } from "../context";
 import { apiClient } from "@/api/httpClient";
 
 import { Pagination } from "@mui/material";
-import { PersonDetailDataType } from "../personDetail/page";
 import CustomImage from "@/components/common/customImage";
 
 import personStyles from "@styles/pages/person/person.module.scss";
-
-export type PersonDataType = {
-  adult: boolean;
-  gender: number;
-  id: number;
-  known_for: PersonDetailDataType[];
-  known_for_department?: string;
-  name?: string;
-  original_name?: string;
-  popularity?: number;
-  profile_path?: string;
-};
 
 export default function PersonPage() {
   const { isLoading, setIsLoading } = useContext(GlobalContext);

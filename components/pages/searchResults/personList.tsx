@@ -1,6 +1,4 @@
 import Link from "next/link";
-import { PersonDataType } from "@/app/person/page";
-import { PersonDetailDataType } from "@/app/personDetail/page";
 import CustomImage from "@/components/common/customImage";
 
 import personListStyles from "@styles/pages/searchResults/personList.module.scss";

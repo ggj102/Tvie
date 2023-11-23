@@ -4,11 +4,15 @@ import CustomImage from "@/components/common/customImage";
 
 import famousStyles from "@styles/pages/personDetail/famous.module.scss";
 
-export default function Famous({ famousData }: any) {
+export default function Famous({
+  famousData,
+}: {
+  famousData: PersonDetailDataType[];
+}) {
   return (
     <div className={famousStyles.famous}>
       <ul>
-        {famousData.map((val: any, idx: number) => {
+        {famousData.map((val: PersonDetailDataType) => {
           const { id, media_type } = val;
           const title = val.title || val.name;
           return (

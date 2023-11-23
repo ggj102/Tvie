@@ -7,7 +7,6 @@ import { apiClient } from "@/api/httpClient";
 
 import PersonList from "../../../components/pages/searchResults/personList";
 import { Pagination } from "@mui/material";
-import { PersonDataType } from "@/app/person/page";
 
 import searchResultsStyles from "@styles/pages/searchResults/searchResults.module.scss";
 

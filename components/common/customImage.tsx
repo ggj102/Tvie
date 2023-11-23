@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 
 import customImage from "@styles/common/customImage.module.scss";
@@ -30,7 +30,11 @@ export default function CustomImage({
     setIsError(true);
   };
 
-  const imageRef = useRef<any>(null);
+  const imageRef = useRef<HTMLImageElement>(null);
+
+  useEffect(() => {
+    setImagePath(src);
+  }, [src]);
 
   return (
     <div

@@ -7,7 +7,6 @@ import { apiClient } from "@/api/httpClient";
 
 import { Pagination } from "@mui/material";
 import SearchResultsList from "@/components/pages/searchResults/searchResultsList";
-import { ContentDataType } from "@/components/pages/contents/contents";
 
 import searchResultsStyles from "@styles/pages/searchResults/searchResults.module.scss";
 
@@ -15,7 +14,7 @@ export default function MovieSearchPage() {
   const params = useSearchParams();
   const searchVal = params.get("search");
   const query = `query=${searchVal}&include_adult=false&language=ko&page=`;
-  const [searchData, setSearchData] = useState<ContentDataType[]>([]);
+  const [searchData, setSearchData] = useState<ContentsDataType[]>([]);
 
   const [totalPages, setTotalPages] = useState<number>(1);
   const [currentPage, setCurrentPage] = useState<number>(1);

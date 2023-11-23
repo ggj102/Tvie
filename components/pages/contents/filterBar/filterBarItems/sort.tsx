@@ -1,8 +1,12 @@
-import { Controller } from "react-hook-form";
+import { Control, Controller } from "react-hook-form";
 
 import filterBarCardStyles from "@styles/pages/contents/filterBar/filterBarCard.module.scss";
 
-export default function Sort({ control }: any) {
+export default function Sort({
+  control,
+}: {
+  control: Control<DiscoverDataType>;
+}) {
   return (
     <div className={filterBarCardStyles.card_item}>
       <div>Sort Results By</div>

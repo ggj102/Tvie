@@ -1,7 +1,6 @@
 import { Control, Controller, useWatch } from "react-hook-form";
 
 import CustomCheckbox from "@/components/common/customCheckbox";
-import { DiscoverDataType } from "@/components/pages/contents/contents";
 
 import filterBarCardStyles from "@styles/pages/contents/filterBar/filterBarCard.module.scss";
 import availabilitiesStyles from "@styles/pages/contents/filterBar/filterItems/availabilities.module.scss";
@@ -28,7 +27,7 @@ export default function Availabilities({
               id="all_availabilities"
               text="Search all availabilities?"
               checked={field.value}
-              {...field}
+              onChange={field.onChange}
             />
           )}
         />
@@ -42,7 +41,7 @@ export default function Availabilities({
                   id="Stream"
                   text="Stream"
                   checked={field.value}
-                  {...field}
+                  onChange={field.onChange}
                 />
               )}
             />
@@ -54,7 +53,7 @@ export default function Availabilities({
                   id="free"
                   text="Free"
                   checked={field.value}
-                  {...field}
+                  onChange={field.onChange}
                 />
               )}
             />
@@ -66,7 +65,7 @@ export default function Availabilities({
                   id="Ads"
                   text="Ads"
                   checked={field.value}
-                  {...field}
+                  onChange={field.onChange}
                 />
               )}
             />
@@ -78,7 +77,7 @@ export default function Availabilities({
                   id="Rent"
                   text="Rent"
                   checked={field.value}
-                  {...field}
+                  onChange={field.onChange}
                 />
               )}
             />
@@ -90,7 +89,7 @@ export default function Availabilities({
                   id="buy"
                   text="Buy"
                   checked={field.value}
-                  {...field}
+                  onChange={field.onChange}
                 />
               )}
             />

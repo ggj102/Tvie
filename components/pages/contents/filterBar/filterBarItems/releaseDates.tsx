@@ -3,7 +3,6 @@ import { Control, Controller, useWatch } from "react-hook-form";
 import ReleaseDatePicker from "./releaseDatePicker";
 
 import CustomCheckbox from "@/components/common/customCheckbox";
-import { DiscoverDataType } from "@/components/pages/contents/contents";
 
 import filterBarCardStyles from "@styles/pages/contents/filterBar/filterBarCard.module.scss";
 import releaseDatesStyles from "@styles/pages/contents/filterBar/filterItems/releaseDates.module.scss";
@@ -11,7 +10,7 @@ import releaseDatesStyles from "@styles/pages/contents/filterBar/filterItems/rel
 export default function ReleaseDates({
   control,
 }: {
-  control: Control<DiscoverDataType, any>;
+  control: Control<DiscoverDataType>;
 }) {
   const pathname = usePathname();
 
@@ -21,9 +20,9 @@ export default function ReleaseDates({
 
   return (
     <div className={filterBarCardStyles.card_item}>
-      <div>{pathname === "/tv" ? "방영일자" : "Release Dates"}</div>
+      <div>{pathname === "/contents/tv" ? "방영일자" : "Release Dates"}</div>
 
-      {pathname === "/tv" ? (
+      {pathname === "/contents/tv" ? (
         <div>
           <Controller
             name="release.all_episodes"
@@ -33,7 +32,7 @@ export default function ReleaseDates({
                 id="all_episodes"
                 text="Search all episodes?"
                 checked={field.value}
-                {...field}
+                onChange={field.onChange}
               />
             )}
           />
@@ -47,7 +46,7 @@ export default function ReleaseDates({
                     id="first_air_date"
                     text="Search first air date?"
                     checked={field.value}
-                    {...field}
+                    onChange={field.onChange}
                   />
                 )}
               />
@@ -64,7 +63,7 @@ export default function ReleaseDates({
                 id="all_releases"
                 text="Search all releases?"
                 checked={field.value}
-                {...field}
+                onChange={field.onChange}
               />
             )}
           />
@@ -78,7 +77,7 @@ export default function ReleaseDates({
                       id="allCountries"
                       text="Search all countries?"
                       checked={field.value}
-                      {...field}
+                      onChange={field.onChange}
                     />
                   )}
                 />
@@ -91,7 +90,7 @@ export default function ReleaseDates({
                     id="theater_limited"
                     text="극장 (제한)"
                     checked={field.value}
-                    {...field}
+                    onChange={field.onChange}
                   />
                 )}
               />
@@ -103,7 +102,7 @@ export default function ReleaseDates({
                     id="theater"
                     text="극장"
                     checked={field.value}
-                    {...field}
+                    onChange={field.onChange}
                   />
                 )}
               />
@@ -115,7 +114,7 @@ export default function ReleaseDates({
                     id="premier"
                     text="프리미어"
                     checked={field.value}
-                    {...field}
+                    onChange={field.onChange}
                   />
                 )}
               />
@@ -127,7 +126,7 @@ export default function ReleaseDates({
                     id="digital"
                     text="디지털"
                     checked={field.value}
-                    {...field}
+                    onChange={field.onChange}
                   />
                 )}
               />
@@ -139,7 +138,7 @@ export default function ReleaseDates({
                     id="physical_media"
                     text="물리매체"
                     checked={field.value}
-                    {...field}
+                    onChange={field.onChange}
                   />
                 )}
               />
@@ -151,7 +150,7 @@ export default function ReleaseDates({
                     id="releaseTv"
                     text="TV"
                     checked={field.value}
-                    {...field}
+                    onChange={field.onChange}
                   />
                 )}
               />

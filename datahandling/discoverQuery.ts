@@ -1,11 +1,3 @@
-import {
-  AirDateType,
-  AvailabilitiesType,
-  DiscoverDataType,
-  GenreDataType,
-  ReleaseDateType,
-} from "@/components/pages/contents/contents";
-
 const availabilitiesQuery = (data: AvailabilitiesType) => {
   if (data.all_availabilities) return "";
   let monetization = "";

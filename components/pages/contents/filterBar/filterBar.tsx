@@ -3,7 +3,6 @@
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 
-import { DiscoverDataType } from "@/components/pages/contents/contents";
 import FilterBarCard from "./filterBarCard";
 import Availabilities from "./filterBarItems/availabilities";
 import ReleaseDates from "./filterBarItems/releaseDates";

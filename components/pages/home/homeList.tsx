@@ -3,7 +3,6 @@ import Link from "next/link";
 import homeListStyles from "@styles/pages/home/homeList.module.scss";
 
 import { dateFormatter } from "@/utils/dateFormatter";
-import { ContentDataType } from "@/components/pages/contents/contents";
 import { RefObject } from "react";
 import CustomImage from "@/components/common/customImage";
 
@@ -13,12 +12,12 @@ export default function HomeList({
   listData,
   listRef,
 }: {
-  listData: ContentDataType[];
+  listData: ContentsDataType[];
   listRef: RefObject<HTMLUListElement>;
 }) {
   return (
     <ul ref={listRef} className={homeListStyles.home_list}>
-      {listData.map((val: ContentDataType) => {
+      {listData.map((val: ContentsDataType) => {
         const { id, poster_path, vote_average } = val;
 
         const date = val.first_air_date || val.release_date;
