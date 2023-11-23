@@ -5,14 +5,17 @@ import careerStyles from "@styles/pages/personDetail/career.module.scss";
 export default function Career({ acting }: { acting: PersonDetailDataType[] }) {
   return (
     <ul className={careerStyles.career}>
-      {acting.map((val: PersonDetailDataType) => {
+      {acting.map((val: PersonDetailDataType, idx: number) => {
         const { id, media_type } = val;
         const title = val.title || val.name;
         const date = val.first_air_date || val.release_date;
         const year = date ? date.substring(0, 4) : "—";
 
         return (
-          <li key={id} className={val.topLine ? careerStyles.top_line : ""}>
+          <li
+            key={`${id}${idx}`}
+            className={val.topLine ? careerStyles.top_line : ""}
+          >
             <div className={careerStyles.career_year}>{year}</div>
             <div className={careerStyles.dot}>
               <div></div>
