@@ -2,13 +2,13 @@ import Link from "next/link";
 
 import careerStyles from "@styles/pages/personDetail/career.module.scss";
 
-export default function Career({ acting }: any) {
+export default function Career({ acting }: { acting: PersonDetailDataType[] }) {
   return (
     <ul className={careerStyles.career}>
-      {acting.map((val: any) => {
+      {acting.map((val: PersonDetailDataType) => {
         const { id, media_type } = val;
         const title = val.title || val.name;
-        const date: string = val.first_air_date || val.release_date;
+        const date = val.first_air_date || val.release_date;
         const year = date ? date.substring(0, 4) : "—";
 
         return (
