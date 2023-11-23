@@ -3,13 +3,19 @@ import Link from "next/link";
 
 import mainCastStyles from "@styles/pages/contentsDetail/mainCast.module.scss";
 
-export default function MainCast({ isTypeTV, castData }: any) {
+export default function MainCast({
+  isTypeTV,
+  castData,
+}: {
+  isTypeTV: boolean;
+  castData: CastInfoType[];
+}) {
   return (
     <div>
       <div className={mainCastStyles.title}>주요 출연진</div>
       <div className={mainCastStyles.cast_list}>
         <ul>
-          {castData.map((val: any) => {
+          {castData.map((val: CastInfoType) => {
             const { id, name, roles, profile_path, character } = val;
             return (
               <li key={id}>
@@ -25,7 +31,7 @@ export default function MainCast({ isTypeTV, castData }: any) {
                     <Link href={`/personDetail?id=${id}`}>{name}</Link>
                   </div>
                   <div className={mainCastStyles.casting}>
-                    {isTypeTV ? roles[0].character : character}
+                    {isTypeTV && roles ? roles[0].character : character}
                   </div>
                 </div>
               </li>

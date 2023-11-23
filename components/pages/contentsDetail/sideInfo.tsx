@@ -1,6 +1,21 @@
 import sideInfoStyles from "@styles/pages/contentsDetail/sideInfo.module.scss";
+import { useEffect, useState } from "react";
 
-export default function SideInfo({ isTypeTV, detailData, keywordData }: any) {
+export default function SideInfo({
+  isTypeTV,
+  movieInfolData,
+  tvInfolData,
+  keywordData,
+}: {
+  isTypeTV: boolean;
+  movieInfolData: MovieInfoType;
+  tvInfolData: TVShowInfoType;
+  keywordData: KeywordType[];
+}) {
+  const [contentsData, setContentsData] = useState<
+    MovieInfoType | TVShowInfoType
+  >(movieInfolData || tvInfolData);
+
   const dollarFormatter = (dollar: number) => {
     const strDollar = `${dollar}`;
     const arr = [];
@@ -14,31 +29,34 @@ export default function SideInfo({ isTypeTV, detailData, keywordData }: any) {
     return `$${format}.00`;
   };
 
+  useEffect(() => {
+    if (isTypeTV) setContentsData(tvInfolData);
+    else setContentsData(movieInfolData);
+  }, [movieInfolData, tvInfolData]);
+
   return (
     <div className={sideInfoStyles.side_info}>
       <div>
         <strong>원제</strong>
-        <div>
-          {isTypeTV ? detailData.original_name : detailData.original_title}
-        </div>
+        <div>{tvInfolData.original_name || movieInfolData.original_title}</div>
       </div>
       <div>
         <strong>상태</strong>
-        <div>{detailData.status}</div>
+        <div>{contentsData.status}</div>
       </div>
       <div>
         <strong>원어</strong>
-        <div>{detailData.original_language}</div>
+        <div>{contentsData.original_language}</div>
       </div>
       {!isTypeTV && (
         <>
           <div>
             <strong>제작비</strong>
-            <div>{dollarFormatter(detailData.budget)}</div>
+            <div>{dollarFormatter(movieInfolData.budget)}</div>
           </div>
           <div>
             <strong>수익</strong>
-            <div>{dollarFormatter(detailData.revenue)}</div>
+            <div>{dollarFormatter(movieInfolData.revenue)}</div>
           </div>
         </>
       )}
@@ -46,23 +64,14 @@ export default function SideInfo({ isTypeTV, detailData, keywordData }: any) {
       <div>
         <h4>키워드</h4>
         <ul>
-          {isTypeTV
-            ? keywordData.results.map((val: any, idx: number) => {
-                return (
-                  <li key={`${val.name}${idx}`}>
-                    {/* <Link href="">{val.name}</Link> */}
-                    {val.name}
-                  </li>
-                );
-              })
-            : keywordData.keywords.map((val: any, idx: number) => {
-                return (
-                  <li key={`${val.name}${idx}`}>
-                    {/* <Link href="">{val.name}</Link> */}
-                    {val.name}
-                  </li>
-                );
-              })}
+          {keywordData.map((val: KeywordType, idx: number) => {
+            return (
+              <li key={`${val.name}${idx}`}>
+                {/* <Link href="">{val.name}</Link> */}
+                {val.name}
+              </li>
+            );
+          })}
         </ul>
       </div>
     </div>
