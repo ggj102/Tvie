@@ -1,7 +1,6 @@
 import Link from "next/link";
 
 import { dateFormatter } from "@/utils/dateFormatter";
-import { ContentDataType } from "@/components/pages/contents/contents";
 import CustomImage from "@/components/common/customImage";
 
 import searchResultsListStyles from "@styles/pages/searchResults/searchResultsList.module.scss";
@@ -11,11 +10,11 @@ export default function SearchResultsList({
   list,
 }: {
   type: string;
-  list: ContentDataType[];
+  list: ContentsDataType[];
 }) {
   return (
     <ul className={searchResultsListStyles.search_results_list}>
-      {list.map((val: ContentDataType) => {
+      {list.map((val: ContentsDataType) => {
         const { id, poster_path, overview } = val;
 
         const title = val.title || val.name;

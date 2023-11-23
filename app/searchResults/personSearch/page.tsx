@@ -7,7 +7,6 @@ import { apiClient } from "@/api/httpClient";
 
 import PersonList from "../../../components/pages/searchResults/personList";
 import { Pagination } from "@mui/material";
-import { PersonDataType } from "@/app/person/page";
 
 import searchResultsStyles from "@styles/pages/searchResults/searchResults.module.scss";
 
@@ -15,7 +14,7 @@ export default function PersonSearchPage() {
   const params = useSearchParams();
   const searchVal = params.get("search");
   const query = `query=${searchVal}&include_adult=false&language=ko&page=`;
-  const [searchData, setSearchData] = useState<PersonDataType[]>([]);
+  const [searchData, setSearchData] = useState<ContentsDataType[]>([]);
 
   const [totalPages, setTotalPages] = useState<number>(1);
   const [currentPage, setCurrentPage] = useState<number>(1);

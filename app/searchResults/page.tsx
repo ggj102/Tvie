@@ -10,7 +10,7 @@ export default function SearchResultsPage() {
   const router = useRouter();
 
   useEffect(() => {
-    searchResultsApi(searchVal).then((res: any) => {
+    searchResultsApi(searchVal).then((res) => {
       router.replace(`/searchResults/${res[0].type}Search?search=${searchVal}`);
     });
   }, []);

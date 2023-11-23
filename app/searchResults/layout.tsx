@@ -11,28 +11,6 @@ import SearchIcon from "@mui/icons-material/Search";
 
 import searchResultsStyles from "@styles/pages/searchResults/searchResults.module.scss";
 
-type ConnetType = {
-  [index: string]: string;
-  tv: string;
-  movie: string;
-  person: string;
-  collection: string;
-  company: string;
-  keyword: string;
-};
-
-type SearchResultsDataType = {
-  page: number;
-  results: [];
-  total_pages: number;
-  total_results: number;
-};
-
-type SearchResultsResType = {
-  data: SearchResultsDataType;
-  type: string;
-};
-
 export default function SearchResultsPage({
   children,
 }: {
@@ -74,7 +52,7 @@ export default function SearchResultsPage({
 
   useEffect(() => {
     setIsLoading(true);
-    searchResultsApi(searchVal).then((res: any) => {
+    searchResultsApi(searchVal).then((res) => {
       setSearchData(res);
       setIsLoading(false);
     });
