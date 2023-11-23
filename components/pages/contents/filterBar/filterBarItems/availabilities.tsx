@@ -27,7 +27,7 @@ export default function Availabilities({
               id="all_availabilities"
               text="Search all availabilities?"
               checked={field.value}
-              {...field}
+              onChange={field.onChange}
             />
           )}
         />
@@ -41,7 +41,7 @@ export default function Availabilities({
                   id="Stream"
                   text="Stream"
                   checked={field.value}
-                  {...field}
+                  onChange={field.onChange}
                 />
               )}
             />
@@ -53,7 +53,7 @@ export default function Availabilities({
                   id="free"
                   text="Free"
                   checked={field.value}
-                  {...field}
+                  onChange={field.onChange}
                 />
               )}
             />
@@ -65,7 +65,7 @@ export default function Availabilities({
                   id="Ads"
                   text="Ads"
                   checked={field.value}
-                  {...field}
+                  onChange={field.onChange}
                 />
               )}
             />
@@ -77,7 +77,7 @@ export default function Availabilities({
                   id="Rent"
                   text="Rent"
                   checked={field.value}
-                  {...field}
+                  onChange={field.onChange}
                 />
               )}
             />
@@ -89,7 +89,7 @@ export default function Availabilities({
                   id="buy"
                   text="Buy"
                   checked={field.value}
-                  {...field}
+                  onChange={field.onChange}
                 />
               )}
             />
