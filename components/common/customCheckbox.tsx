@@ -1,7 +1,14 @@
 import Image from "next/image";
 import customCheckBox from "@styles/common/customCheckbox.module.scss";
 
-export default function CustomCheckbox({ id, text, ...props }: any) {
+export default function CustomCheckbox({
+  id,
+  text,
+  ...props
+}: {
+  id: string;
+  text?: string;
+}) {
   return (
     <label className={customCheckBox.custom_checkbox} htmlFor={id}>
       <input
