@@ -7,7 +7,6 @@ import { GlobalContext } from "../context";
 import { apiClient } from "@/api/httpClient";
 
 import { Pagination } from "@mui/material";
-import { PersonDetailDataType } from "../personDetail/page";
 import CustomImage from "@/components/common/customImage";
 
 import personStyles from "@styles/pages/person/person.module.scss";

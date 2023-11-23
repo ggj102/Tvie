@@ -3,14 +3,13 @@ import { useEffect, useRef, useState } from "react";
 import { popularListApi } from "@/api/httpClient";
 import HomeFilterBar from "./categoryTab";
 import HomeList from "./homeList";
-import { ContentDataType } from "@/components/pages/contents/contents";
 
 import contentsStyles from "@styles/pages/home/contents.module.scss";
 
 export default function PopularList({ list }: { list: ContentsDataType[] }) {
   const listRef = useRef<HTMLUListElement>(null);
 
-  const [listData, setListData] = useState<ContentDataType[]>([]);
+  const [listData, setListData] = useState<ContentsDataType[]>([]);
   const [currentTab, setCurrentTab] = useState<string>("stream");
 
   const tabData = [
