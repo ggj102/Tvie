@@ -163,8 +163,6 @@ export const personDetailApi = (personId: string | null) => {
 
       const releaseSort = releasefilter.sort(
         (val1: PersonDetailDataType, val2: PersonDetailDataType) => {
-          console.log(val1);
-
           const date1 = val1.first_air_date || val1.release_date || "";
           const date2 = val2.first_air_date || val2.release_date || "";
 
