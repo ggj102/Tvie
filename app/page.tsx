@@ -29,8 +29,6 @@ export default function Home() {
       setPopularData(popularConcat);
       setFreeWatchData(res[2].data.results);
 
-      console.log(res);
-
       setIsLoading(false);
     });
   }, []);
