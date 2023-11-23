@@ -1,17 +1,15 @@
-import { useEffect, useState } from "react";
+import { forwardRef, useEffect, useState } from "react";
 import Slider from "@mui/material/Slider";
 import customSliderStyles from "@styles/common/customSlider.module.scss";
 
-export default function CustomSlider({
-  max,
-  step,
-  pointNum,
-  ...props
-}: {
-  max: number;
-  step: number;
-  pointNum: number;
-}) {
+const CustomSlider = forwardRef<
+  HTMLDivElement,
+  {
+    max: number;
+    step: number;
+    pointNum: number;
+  }
+>(({ max, step, pointNum, ...props }, ref) => {
   const [graduationArr, setGraduationArr] = useState<number[]>([]);
 
   useEffect(() => {
@@ -42,6 +40,7 @@ export default function CustomSlider({
         })}
       </div>
       <Slider
+        ref={ref}
         min={0}
         max={max}
         step={step}
@@ -50,4 +49,8 @@ export default function CustomSlider({
       />
     </div>
   );
-}
+});
+
+CustomSlider.displayName = "CustomSlider";
+
+export default CustomSlider;
