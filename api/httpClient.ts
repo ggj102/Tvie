@@ -1,4 +1,5 @@
 import axios from "axios";
+import { dataRandomSort } from "@/utils/dataRandomSort";
 
 export const apiClient = axios.create({
   baseURL: "https://api.themoviedb.org/3/",
@@ -47,13 +48,15 @@ export const popularListApi = (type: string) => {
   const requests = popularListApiRequests(type);
 
   return Promise.all(requests)
-    .then((res) => res)
+    .then((res) => {
+      return dataRandomSort(res);
+    })
     .catch((error) => {
       throw error;
     });
 };
 
-export const mainApi = () => {
+export const homeApi = () => {
   const requests = [
     apiClient.get("trending/all/day?language=ko"),
     ...popularListApiRequests("stream"),
@@ -63,7 +66,13 @@ export const mainApi = () => {
   ];
 
   return Promise.all(requests)
-    .then((res) => res)
+    .then((res) => {
+      const data = [[res[0]], [res[1], res[2]], [res[3]]];
+      const sortMap = data.map((val) => dataRandomSort(val));
+      const [trendingData, popularData, freeWatchData] = sortMap;
+
+      return { trendingData, popularData, freeWatchData };
+    })
     .catch((error) => {
       throw error;
     });
