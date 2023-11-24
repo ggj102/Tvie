@@ -1,15 +1,17 @@
-import { useEffect, useRef, useState } from "react";
+"use client";
+
+import { useRef, useState } from "react";
 
 import { apiClient } from "@/api/httpClient";
-import HomeFilterBar from "./categoryTab";
+import CategoryTab from "./categoryTab";
 import HomeList from "./homeList";
 
 import contentsStyles from "@styles/pages/home/contents.module.scss";
+import { dataRandomSort } from "@/utils/dataRandomSort";
 
 export default function TrendingList({ list }: { list: ContentsDataType[] }) {
   const listRef = useRef<HTMLUListElement>(null);
-
-  const [listData, setListData] = useState<ContentsDataType[]>([]);
+  const [listData, setListData] = useState<ContentsDataType[]>(list);
   const [currentTab, setCurrentTab] = useState<string>("day");
 
   const tabData = [
@@ -21,7 +23,7 @@ export default function TrendingList({ list }: { list: ContentsDataType[] }) {
     setCurrentTab(type);
 
     apiClient.get(`trending/all/${type}?language=ko`).then((res) => {
-      const ranSort = res.data.results.sort(() => Math.random() - 0.5);
+      const ranSort = dataRandomSort([res]);
 
       setListData(ranSort);
 
@@ -29,19 +31,11 @@ export default function TrendingList({ list }: { list: ContentsDataType[] }) {
     });
   };
 
-  useEffect(() => {
-    if (list) {
-      const ranSort = list.sort(() => Math.random() - 0.5);
-
-      setListData(ranSort);
-    }
-  }, []);
-
   return (
     <div className={contentsStyles.content}>
       <div className={contentsStyles.title_bar}>
         <h2>트렌딩</h2>
-        <HomeFilterBar
+        <CategoryTab
           tabData={tabData}
           currentTab={currentTab}
           onClick={onClickTab}

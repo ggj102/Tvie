@@ -1,10 +1,13 @@
-import { useEffect, useRef, useState } from "react";
+"use client";
+
+import { useRef, useState } from "react";
 
 import { apiClient } from "@/api/httpClient";
-import HomeFilterBar from "./categoryTab";
+import CategoryTab from "./categoryTab";
 import HomeList from "./homeList";
 
 import contentsStyles from "@styles/pages/home/contents.module.scss";
+import { dataRandomSort } from "@/utils/dataRandomSort";
 
 export default function FreeWatchList({ list }: { list: ContentsDataType[] }) {
   const listRef = useRef<HTMLUListElement>(null);
@@ -13,7 +16,7 @@ export default function FreeWatchList({ list }: { list: ContentsDataType[] }) {
   const movieQuery = `discover/movie?include_adult=false&include_video=false&${commonQuery}`;
   const tvQuery = `discover/tv?include_adult=false&include_null_first_air_dates=false&${commonQuery}`;
 
-  const [listData, setListData] = useState<ContentsDataType[]>([]);
+  const [listData, setListData] = useState<ContentsDataType[]>(list);
   const [currentTab, setCurrentTab] = useState<string>("movie");
 
   const tabData = [
@@ -26,29 +29,19 @@ export default function FreeWatchList({ list }: { list: ContentsDataType[] }) {
     const query = type === "movie" ? movieQuery : tvQuery;
 
     apiClient.get(query).then((res) => {
-      const ranSort = res.data.results.sort(() => Math.random() - 0.5);
+      const ranSort = dataRandomSort([res]);
 
       setListData(ranSort);
 
-      if (listRef.current) {
-        listRef.current.scrollLeft = 0;
-      }
+      if (listRef.current) listRef.current.scrollLeft = 0;
     });
   };
-
-  useEffect(() => {
-    if (list) {
-      const ranSort = list.sort(() => Math.random() - 0.5);
-
-      setListData(ranSort);
-    }
-  }, []);
 
   return (
     <div className={contentsStyles.content}>
       <div className={contentsStyles.title_bar}>
         <h2>Free To Watch</h2>
-        <HomeFilterBar
+        <CategoryTab
           tabData={tabData}
           currentTab={currentTab}
           onClick={onClickTab}
