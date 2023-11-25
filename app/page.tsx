@@ -1,9 +1,9 @@
 import { homeApi } from "@/api/httpClient";
 
-import SearchBar from "../components/pages/home/searchBar";
-import TrendingList from "../components/pages/home/trendingList";
-import FreeWatchList from "../components/pages/home/freeWatchList";
-import PopularList from "../components/pages/home/popularList";
+import HomeSearchBar from "./components/homeSearchBar/homeSearchBar";
+import TrendingList from "./components/trendingList/trendingList";
+import PopularList from "./components/popularList/popularList";
+import FreeWatchList from "./components/freeWatchList/freeWatchList";
 
 import homeStyles from "@styles/pages/home/home.module.scss";
 
@@ -18,8 +18,8 @@ export default async function Home() {
   const { trendingData, popularData, freeWatchData } = homeData;
 
   return (
-    <div className={homeStyles.home}>
-      <SearchBar />
+    <div className={homeStyles.home_container}>
+      <HomeSearchBar />
       <TrendingList list={trendingData} />
       <PopularList list={popularData} />
       <FreeWatchList list={freeWatchData} />

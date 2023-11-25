@@ -1,12 +1,13 @@
+import { RefObject } from "react";
+
 import Link from "next/link";
 
-import homeListStyles from "@styles/pages/home/homeList.module.scss";
-
 import { dateFormatter } from "@/utils/dateFormatter";
-import { RefObject } from "react";
-import CustomImage from "@/components/common/customImage";
 
+import CustomImage from "@/components/common/customImage";
 import VoteAverage from "@/components/common/voteAverage";
+
+import homeListStyles from "@styles/pages/home/homeList.module.scss";
 
 export default function HomeList({
   listData,

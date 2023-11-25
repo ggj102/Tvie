@@ -1,15 +1,10 @@
 "use client";
 
 import { useRef, useState } from "react";
-
 import { apiClient } from "@/api/httpClient";
-import CategoryTab from "./categoryTab";
-import HomeList from "./homeList";
-
-import contentsStyles from "@styles/pages/home/contents.module.scss";
 import { dataRandomSort } from "@/utils/dataRandomSort";
 
-export default function FreeWatchList({ list }: { list: ContentsDataType[] }) {
+export default function useFreeWatchList(list: ContentsDataType[]) {
   const listRef = useRef<HTMLUListElement>(null);
   const commonQuery =
     "language=ko&watch_region=KR&sort_by=popularity.desc&with_watch_monetization_types=free|ads&with_genres=&vote_average.gte=0&vote_average.lte=10&vote_count.gte=0&with_runtime.gte=0&with_runtime.lte=400&page=1";
@@ -37,17 +32,11 @@ export default function FreeWatchList({ list }: { list: ContentsDataType[] }) {
     });
   };
 
-  return (
-    <div className={contentsStyles.content}>
-      <div className={contentsStyles.title_bar}>
-        <h2>Free To Watch</h2>
-        <CategoryTab
-          tabData={tabData}
-          currentTab={currentTab}
-          onClick={onClickTab}
-        />
-      </div>
-      <HomeList listData={listData} listRef={listRef} />
-    </div>
-  );
+  return {
+    listRef,
+    listData,
+    currentTab,
+    tabData,
+    onClickTab,
+  };
 }

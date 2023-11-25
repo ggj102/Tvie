@@ -1,15 +1,10 @@
 "use client";
 
+import { apiClient } from "@/api/httpClient";
+import { dataRandomSort } from "@/utils/dataRandomSort";
 import { useRef, useState } from "react";
 
-import { apiClient } from "@/api/httpClient";
-import CategoryTab from "./categoryTab";
-import HomeList from "./homeList";
-
-import contentsStyles from "@styles/pages/home/contents.module.scss";
-import { dataRandomSort } from "@/utils/dataRandomSort";
-
-export default function TrendingList({ list }: { list: ContentsDataType[] }) {
+export default function useTrendingList(list: ContentsDataType[]) {
   const listRef = useRef<HTMLUListElement>(null);
   const [listData, setListData] = useState<ContentsDataType[]>(list);
   const [currentTab, setCurrentTab] = useState<string>("day");
@@ -31,17 +26,11 @@ export default function TrendingList({ list }: { list: ContentsDataType[] }) {
     });
   };
 
-  return (
-    <div className={contentsStyles.content}>
-      <div className={contentsStyles.title_bar}>
-        <h2>트렌딩</h2>
-        <CategoryTab
-          tabData={tabData}
-          currentTab={currentTab}
-          onClick={onClickTab}
-        />
-      </div>
-      <HomeList listData={listData} listRef={listRef} />
-    </div>
-  );
+  return {
+    listRef,
+    listData,
+    currentTab,
+    tabData,
+    onClickTab,
+  };
 }
