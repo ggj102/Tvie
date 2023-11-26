@@ -1,9 +1,11 @@
-import { dateFormatter } from "@/utils/dateFormatter";
 import Link from "next/link";
+
+import { dateFormatter } from "@/utils/dateFormatter";
+
 import CustomImage from "@/components/common/customImage";
+import VoteAverage from "@/components/common/voteAverage";
 
 import contentsListStyles from "@styles/pages/contents/contentsList.module.scss";
-import VoteAverage from "@/components/common/voteAverage";
 
 export default function ContentsList({
   listData,

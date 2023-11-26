@@ -1,5 +1,5 @@
 import { apiClient, genreApi } from "@/api/httpClient";
-import Contents from "@/components/pages/contents";
+import Contents from "../components/contents";
 
 async function ServerSideProps() {
   const movieContents = await apiClient.get("movie/popular?language=ko&page=1");

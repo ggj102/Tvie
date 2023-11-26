@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { FieldValues, SetFieldValue } from "react-hook-form";
 
-import CategoryButtons from "@/components/pages/contents/filterBar/filterBarItems/genreButtons";
+import GenreButtons from "./genreButtons";
+
 import filterBarCardStyles from "@styles/pages/contents/filterBar/filterBarCard.module.scss";
 
 export default function Genre({
@@ -24,7 +25,7 @@ export default function Genre({
   return (
     <div className={filterBarCardStyles.card_item}>
       <div>Genre</div>
-      <CategoryButtons categoryData={genreArr} onClickSelect={onClickSelect} />
+      <GenreButtons categoryData={genreArr} onClickSelect={onClickSelect} />
     </div>
   );
 }
