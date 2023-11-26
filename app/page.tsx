@@ -1,9 +1,9 @@
 import { homeApi } from "@/api/httpClient";
 
-import HomeSearchBar from "./components/homeSearchBar/homeSearchBar";
-import TrendingList from "./components/trendingList/trendingList";
-import PopularList from "./components/popularList/popularList";
-import FreeWatchList from "./components/freeWatchList/freeWatchList";
+import HomeSearchBar from "./components/homeSearchBar";
+import TrendingList from "./components/trendingList";
+import PopularList from "./components/popularList";
+import FreeWatchList from "./components/freeWatchList";
 
 import homeStyles from "@styles/pages/home/home.module.scss";
 
