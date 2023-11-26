@@ -25,7 +25,7 @@ export default function ContentsList({
           const title = contentType === "movie" ? val.title : val.name;
           const date =
             contentType === "movie" ? val.release_date : val.first_air_date;
-          // const vote = `${Math.floor(vote_average ? vote_average * 10 : 0)}%`;
+
           const dateFormat = dateFormatter(date);
 
           return (

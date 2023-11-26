@@ -15,10 +15,12 @@ import SliderFilter from "./filterBarItems/sliderFilter";
 export default function FilterBar({
   contentType,
   defaultData,
+  genreData,
   onSubmit,
 }: {
   contentType: string;
   defaultData: DiscoverDataType;
+  genreData: GenreDataType[];
   onSubmit: (data: DiscoverDataType, isDirty: boolean) => void;
 }) {
   const {
@@ -54,8 +56,8 @@ export default function FilterBar({
         </FilterBarCard> */}
       <FilterBarCard title="필터" defaultOpen={true}>
         <Availabilities control={control} />
-        <ReleaseDates control={control} />
-        <Genre contentType={contentType} setValue={setValue} />
+        <ReleaseDates contentType={contentType} control={control} />
+        <Genre genreData={genreData} setValue={setValue} />
         {/* <Certification setValue={setValue} /> */}
         {/* {pathname === "/tv" && (
             <div className="cardContent">

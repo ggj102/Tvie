@@ -1,26 +1,22 @@
 "use client";
 
-import { useContext, useEffect, useState } from "react";
-
 import { apiClient } from "@/api/httpClient";
-import { GlobalContext } from "@/app/context";
 import { discoverQuery } from "@/datahandling/discoverQuery";
+import { useEffect, useState } from "react";
 
-import FilterBar from "./filterBar/filterBar";
-import ContentsList from "./contentsList";
-
-import contentsStyles from "@styles/pages/contents/contents.module.scss";
-
-export default function Contents({ contentType }: { contentType: string }) {
-  const { isLoading, setIsLoading } = useContext(GlobalContext);
+export default function useContents(
+  contentType: string,
+  list: ContentsDataType[],
+  total_Pages: number
+) {
   const currentDate = new Date();
   const addMonthDate = currentDate.setMonth(currentDate.getMonth() + 6);
   const setDate = new Date(addMonthDate);
 
   const [pageCount, setPageCount] = useState<number>(1);
 
-  const [totalPage, setTotalPage] = useState<number>(0);
-  const [listData, setListData] = useState<ContentsDataType[]>([]);
+  const [totalPages, setTotalPages] = useState<number>(total_Pages);
+  const [listData, setListData] = useState<ContentsDataType[]>(list);
   const [isReload, setIsReload] = useState<boolean>(false);
   const [currentQuery, setCurrentQuery] = useState<string>(
     `${contentType}/popular?language=ko&page=`
@@ -89,7 +85,7 @@ export default function Contents({ contentType }: { contentType: string }) {
         setPageCount(1);
 
         setListData([...res.data.results]);
-        setTotalPage(res.data.total_pages);
+        setTotalPages(res.data.total_pages);
         setDefaultDiscoverData({ ...data });
 
         window.scrollTo({ top: 0 });
@@ -109,13 +105,7 @@ export default function Contents({ contentType }: { contentType: string }) {
   };
 
   useEffect(() => {
-    setIsLoading(true);
-    apiClient.get(`${currentQuery}1`).then((res) => {
-      setListData(res.data.results);
-      setTotalPage(res.data.total_pages);
-      setIsLoading(false);
-      window.scrollTo({ top: 0 });
-    });
+    window.scrollTo({ top: 0 });
   }, []);
 
   useEffect(() => {
@@ -153,26 +143,11 @@ export default function Contents({ contentType }: { contentType: string }) {
     }
   }, [isReload]);
 
-  return (
-    !isLoading && (
-      <div className={contentsStyles.contents}>
-        <div className={contentsStyles.contents_title}>
-          {contentType === "movie" ? "영화" : "TV 프로그램"}
-        </div>
-        <div className={contentsStyles.content_area}>
-          <FilterBar
-            contentType={contentType}
-            defaultData={defaultDiscoverData}
-            onSubmit={onSubmitDiscover}
-          />
-          <ContentsList
-            listData={listData}
-            contentType={contentType}
-            totalPage={totalPage}
-            onClickAddList={onClickAddList}
-          />
-        </div>
-      </div>
-    )
-  );
+  return {
+    defaultDiscoverData,
+    listData,
+    totalPages,
+    onSubmitDiscover,
+    onClickAddList,
+  };
 }

@@ -1,4 +1,3 @@
-import { usePathname } from "next/navigation";
 import { Control, Controller, useWatch } from "react-hook-form";
 import ReleaseDatePicker from "./releaseDatePicker";
 
@@ -9,20 +8,20 @@ import releaseDatesStyles from "@styles/pages/contents/filterBar/filterItems/rel
 
 export default function ReleaseDates({
   control,
+  contentType,
 }: {
   control: Control<DiscoverDataType>;
+  contentType: string;
 }) {
-  const pathname = usePathname();
-
   const isAllEpisodes = useWatch({ control, name: "release.all_episodes" });
   const isAllRelease = useWatch({ control, name: "release.all_releases" });
   // const isAllCountries = useWatch({ control, name: "release.all_countries" });
 
   return (
     <div className={filterBarCardStyles.card_item}>
-      <div>{pathname === "/contents/tv" ? "방영일자" : "Release Dates"}</div>
+      <div>{contentType === "tv" ? "방영일자" : "Release Dates"}</div>
 
-      {pathname === "/contents/tv" ? (
+      {contentType === "tv" ? (
         <div>
           <Controller
             name="release.all_episodes"
