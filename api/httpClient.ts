@@ -104,7 +104,7 @@ export const genreApi = (contentType: string) => {
     });
 };
 
-export const contentDetailApi = (id: string | null, type: string | null) => {
+export const contentsDetailApi = (id: string | null, type: string | null) => {
   const typeId = `${type}/${id}`;
   const credites = type === "tv" ? "aggregate_credits" : "credits";
 

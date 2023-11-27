@@ -20,7 +20,7 @@ export default function FamousInfo({
             const title = val.title || val.name;
             return (
               <li key={id}>
-                <Link href={`/contentDetail?type=${media_type}&id=${id}`}>
+                <Link href={`/contentsDetail?type=${media_type}&id=${id}`}>
                   <CustomImage
                     className={famousStyles.famous_image}
                     type="content"
@@ -28,7 +28,7 @@ export default function FamousInfo({
                   />
                 </Link>
                 <div className={famousStyles.famous_title}>
-                  <Link href={`/contentDetail?type=${media_type}&id=${id}`}>
+                  <Link href={`/contentsDetail?type=${media_type}&id=${id}`}>
                     {title}
                   </Link>
                 </div>

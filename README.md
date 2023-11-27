@@ -27,7 +27,7 @@ npm run strat
 - home
 - contents(movie/tv)
 - person
-- contentDetail
+- contentsDetail
 - personDetail
 - searchResults
 

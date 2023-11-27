@@ -29,7 +29,7 @@ export default function CareerInfo({
               </div>
               <div className={careerStyles.casting}>
                 <div>
-                  <Link href={`/contentDetail?type=${media_type}&id=${id}`}>
+                  <Link href={`/contentsDetail?type=${media_type}&id=${id}`}>
                     {title}
                   </Link>
                 </div>

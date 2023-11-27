@@ -32,7 +32,7 @@ export default function ContentsList({
 
           return (
             <li key={id}>
-              <Link href={`/contentDetail?type=${contentType}&id=${id}`}>
+              <Link href={`/contentsDetail?type=${contentType}&id=${id}`}>
                 <CustomImage
                   className={contentsListStyles.image}
                   type="content"
@@ -42,7 +42,7 @@ export default function ContentsList({
               <VoteAverage size={34} top={256} left={8} vote={vote_average} />
               <div className={contentsListStyles.title_release}>
                 <Link
-                  href={`/contentDetail?type=${contentType}&id=${id}`}
+                  href={`/contentsDetail?type=${contentType}&id=${id}`}
                   className={contentsListStyles.title}
                 >
                   {title}
