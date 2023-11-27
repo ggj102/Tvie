@@ -4,17 +4,14 @@ import CustomImage from "@/components/common/customImage";
 
 import topInfoStyles from "@styles/pages/contentsDetail/topInfo.module.scss";
 import VoteAverage from "@/components/common/voteAverage";
-import { useEffect, useState } from "react";
 
 export default function TopInfo({
   isTypeTV,
-  movieInfolData,
-  tvInfolData,
+  data,
   date,
 }: {
   isTypeTV: boolean;
-  movieInfolData: MovieInfoType;
-  tvInfolData: TVShowInfoType;
+  data: any;
   date: {
     year: string;
     month: string;
@@ -22,10 +19,6 @@ export default function TopInfo({
   };
 }) {
   const bgDefaultUrl = "https://image.tmdb.org/t/p/w1920_and_h800_multi_faces/";
-
-  const [contentsData, setContentsData] = useState<
-    MovieInfoType | TVShowInfoType
-  >(movieInfolData || tvInfolData);
 
   const runtimeFormatter = (runtime: number) => {
     if (runtime < 60) return `${runtime}m`;
@@ -37,16 +30,11 @@ export default function TopInfo({
     return `${hour}h ${minute}m`;
   };
 
-  useEffect(() => {
-    if (isTypeTV) setContentsData(tvInfolData);
-    else setContentsData(movieInfolData);
-  }, [movieInfolData, tvInfolData]);
-
   return (
     <div
       className={topInfoStyles.top_info}
       style={{
-        backgroundImage: `url(${bgDefaultUrl}${contentsData.backdrop_path})`,
+        backgroundImage: `url(${bgDefaultUrl}${data.backdrop_path})`,
       }}
     >
       <div>
@@ -55,15 +43,14 @@ export default function TopInfo({
             <CustomImage
               className={topInfoStyles.poster_image}
               type="content"
-              src={`https://image.tmdb.org/t/p/w300_and_h450_bestv2/${contentsData.poster_path}`}
+              src={`https://image.tmdb.org/t/p/w300_and_h450_bestv2/${data.poster_path}`}
             />
             {/* <div className="ottOffer"></div> */}
           </div>
           <div className={topInfoStyles.info}>
             <div className={topInfoStyles.title_wrapper}>
               <div className={topInfoStyles.title}>
-                <span>{tvInfolData.name || movieInfolData.title}</span>{" "}
-                <span>({date.year})</span>
+                <span>{data.title}</span> <span>({date.year})</span>
               </div>
               <div>
                 {/* <span className={topInfoStyles.age}>12</span> */}
@@ -74,8 +61,8 @@ export default function TopInfo({
                   </span>
                 )}
                 <span>
-                  {contentsData.genres &&
-                    contentsData.genres.map(
+                  {data.genres &&
+                    data.genres.map(
                       (
                         val: GenreDataType,
                         idx: number,
@@ -92,7 +79,7 @@ export default function TopInfo({
                 </span>
                 {!isTypeTV && (
                   <span className={topInfoStyles.dot}>
-                    {runtimeFormatter(movieInfolData.runtime)}
+                    {runtimeFormatter(data.runtime)}
                   </span>
                 )}
               </div>
@@ -103,7 +90,7 @@ export default function TopInfo({
                 font={20}
                 top={0}
                 left={0}
-                vote={contentsData.vote_average}
+                vote={data.vote_average}
               />
               <div>
                 회원
@@ -117,27 +104,23 @@ export default function TopInfo({
               </button> */}
             </div>
             <div className={topInfoStyles.summary}>
-              <div className={topInfoStyles.tagline}>
-                {contentsData.tagline}
-              </div>
+              <div className={topInfoStyles.tagline}>{data.tagline}</div>
               <div>개요</div>
-              <div>{contentsData.overview}</div>
+              <div>{data.overview}</div>
             </div>
             <div className={topInfoStyles.producer}>
               <ul>
                 {isTypeTV &&
-                  tvInfolData.created_by.map(
-                    (val: CreatedByType, idx: number) => {
-                      return (
-                        <li key={`${val.name}${idx}`}>
-                          <div>
-                            <Link href="">{val.name}</Link>
-                          </div>
-                          <div>창작자</div>
-                        </li>
-                      );
-                    }
-                  )}
+                  data.created_by.map((val: CreatedByType, idx: number) => {
+                    return (
+                      <li key={`${val.name}${idx}`}>
+                        <div>
+                          <Link href="">{val.name}</Link>
+                        </div>
+                        <div>창작자</div>
+                      </li>
+                    );
+                  })}
               </ul>
             </div>
           </div>

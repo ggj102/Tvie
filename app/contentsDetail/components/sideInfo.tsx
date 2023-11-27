@@ -1,21 +1,14 @@
 import sideInfoStyles from "@styles/pages/contentsDetail/sideInfo.module.scss";
-import { useEffect, useState } from "react";
 
 export default function SideInfo({
   isTypeTV,
-  movieInfolData,
-  tvInfolData,
+  data,
   keywordData,
 }: {
   isTypeTV: boolean;
-  movieInfolData: MovieInfoType;
-  tvInfolData: TVShowInfoType;
+  data: any;
   keywordData: KeywordType[];
 }) {
-  const [contentsData, setContentsData] = useState<
-    MovieInfoType | TVShowInfoType
-  >(movieInfolData || tvInfolData);
-
   const dollarFormatter = (dollar: number) => {
     const strDollar = `${dollar}`;
     const arr = [];
@@ -29,34 +22,29 @@ export default function SideInfo({
     return `$${format}.00`;
   };
 
-  useEffect(() => {
-    if (isTypeTV) setContentsData(tvInfolData);
-    else setContentsData(movieInfolData);
-  }, [movieInfolData, tvInfolData]);
-
   return (
     <div className={sideInfoStyles.side_info}>
       <div>
         <strong>원제</strong>
-        <div>{tvInfolData.original_name || movieInfolData.original_title}</div>
+        <div>{data.original_title}</div>
       </div>
       <div>
         <strong>상태</strong>
-        <div>{contentsData.status}</div>
+        <div>{data.status}</div>
       </div>
       <div>
         <strong>원어</strong>
-        <div>{contentsData.original_language}</div>
+        <div>{data.original_language}</div>
       </div>
       {!isTypeTV && (
         <>
           <div>
             <strong>제작비</strong>
-            <div>{dollarFormatter(movieInfolData.budget)}</div>
+            <div>{dollarFormatter(data.budget)}</div>
           </div>
           <div>
             <strong>수익</strong>
-            <div>{dollarFormatter(movieInfolData.revenue)}</div>
+            <div>{dollarFormatter(data.revenue)}</div>
           </div>
         </>
       )}
