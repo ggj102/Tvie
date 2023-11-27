@@ -1,6 +1,6 @@
 import { homeApi } from "@/api/httpClient";
 
-import HomeSearchBar from "./components/homeSearchBar";
+import HomeBanner from "./components/homeBanner";
 import TrendingList from "./components/trendingList";
 import PopularList from "./components/popularList";
 import FreeWatchList from "./components/freeWatchList";
@@ -14,12 +14,12 @@ async function ServerSideProps() {
 }
 
 export default async function Home() {
-  const homeData = await ServerSideProps();
-  const { trendingData, popularData, freeWatchData } = homeData;
+  const { bannerImg, trendingData, popularData, freeWatchData } =
+    await ServerSideProps();
 
   return (
     <div className={homeStyles.home_container}>
-      <HomeSearchBar />
+      <HomeBanner imagePath={bannerImg} />
       <TrendingList list={trendingData} />
       <PopularList list={popularData} />
       <FreeWatchList list={freeWatchData} />

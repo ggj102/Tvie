@@ -2,7 +2,7 @@ import { KeyboardEvent, useState } from "react";
 
 import { useRouter } from "next/navigation";
 
-export default function useHomeSearchBar() {
+export default function useNavigation() {
   const router = useRouter();
   const [inputValue, setInputValue] = useState<string>("");
 
