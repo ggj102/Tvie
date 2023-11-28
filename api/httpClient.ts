@@ -70,8 +70,8 @@ export const homeApi = () => {
       const data = [[res[0]], [res[1], res[2]], [res[3]]];
       const sortMap = data.map((val) => dataRandomSort(val));
       const [trendingData, popularData, freeWatchData] = sortMap;
-
-      return { trendingData, popularData, freeWatchData };
+      const bannerImg = trendingData[0].backdrop_path;
+      return { bannerImg, trendingData, popularData, freeWatchData };
     })
     .catch((error) => {
       throw error;
