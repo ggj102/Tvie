@@ -2,8 +2,8 @@ import Link from "next/link";
 
 import { dateFormatter } from "@/utils/dateFormatter";
 
-import CustomImage from "@/components/common/customImage";
-import VoteAverage from "@/components/common/voteAverage";
+import CustomImage from "@/components/customImage";
+import VoteAverage from "@/components/voteAverage";
 
 import contentsListStyles from "@styles/pages/contents/contentsList.module.scss";
 

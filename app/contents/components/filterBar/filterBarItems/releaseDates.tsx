@@ -1,7 +1,7 @@
 import { Control, Controller, useWatch } from "react-hook-form";
 import ReleaseDatePicker from "./releaseDatePicker";
 
-import CustomCheckbox from "@/components/common/customCheckbox";
+import CustomCheckbox from "@/components/customCheckbox";
 
 import filterBarCardStyles from "@styles/pages/contents/filterBar/filterBarCard.module.scss";
 import releaseDatesStyles from "@styles/pages/contents/filterBar/filterItems/releaseDates.module.scss";

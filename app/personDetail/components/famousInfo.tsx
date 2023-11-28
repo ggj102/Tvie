@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-import CustomImage from "@/components/common/customImage";
+import CustomImage from "@/components/customImage";
 
 import personDetailStyles from "@styles/pages/personDetail/personDetail.module.scss";
 import famousStyles from "@styles/pages/personDetail/famousInfo.module.scss";

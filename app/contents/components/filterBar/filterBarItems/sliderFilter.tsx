@@ -1,6 +1,6 @@
 import { Control, Controller } from "react-hook-form";
 
-import CustomSlider from "@/components/common/customSlider";
+import CustomSlider from "@/components/customSlider";
 import filterBarCardStyles from "@styles/pages/contents/filterBar/filterBarCard.module.scss";
 
 export default function SliderFilter({

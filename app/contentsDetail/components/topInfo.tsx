@@ -1,9 +1,9 @@
 import Link from "next/link";
 
-import CustomImage from "@/components/common/customImage";
+import CustomImage from "@/components/customImage";
 
 import topInfoStyles from "@styles/pages/contentsDetail/topInfo.module.scss";
-import VoteAverage from "@/components/common/voteAverage";
+import VoteAverage from "@/components/voteAverage";
 
 export default function TopInfo({
   isTypeTV,

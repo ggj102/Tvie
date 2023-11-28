@@ -4,8 +4,8 @@ import Link from "next/link";
 
 import { dateFormatter } from "@/utils/dateFormatter";
 
-import CustomImage from "@/components/common/customImage";
-import VoteAverage from "@/components/common/voteAverage";
+import CustomImage from "@/components/customImage";
+import VoteAverage from "@/components/voteAverage";
 
 import homeListStyles from "@styles/pages/home/homeList.module.scss";
 
@@ -26,7 +26,7 @@ export default function HomeList({
 
         return (
           <li key={id}>
-            <Link href={`/contentDetail?type=${type}&id=${id}`}>
+            <Link href={`/contentsDetail?type=${type}&id=${id}`}>
               <CustomImage
                 className={homeListStyles.image}
                 type="content"
@@ -37,7 +37,7 @@ export default function HomeList({
             <div className={homeListStyles.title_release}>
               <Link
                 className={homeListStyles.title}
-                href={`/contentDetail?type=${type}&id=${id}`}
+                href={`/contentsDetail?type=${type}&id=${id}`}
               >
                 <div>{val.name || val.title}</div>
               </Link>

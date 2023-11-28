@@ -1,4 +1,4 @@
-import CustomImage from "@/components/common/customImage";
+import CustomImage from "@/components/customImage";
 
 import sideInfoStyles from "@styles/pages/personDetail/sideInfo.module.scss";
 

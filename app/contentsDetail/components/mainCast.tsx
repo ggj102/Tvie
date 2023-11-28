@@ -1,4 +1,4 @@
-import CustomImage from "@/components/common/customImage";
+import CustomImage from "@/components/customImage";
 import Link from "next/link";
 
 import mainCastStyles from "@styles/pages/contentsDetail/mainCast.module.scss";
