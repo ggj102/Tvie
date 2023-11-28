@@ -3,6 +3,7 @@
 import { useEffect } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import { searchResultsApi } from "@/api/httpClient";
+import Loading from "../../components/loading";
 
 export default function SearchResultsPage() {
   const params = useSearchParams();
@@ -15,5 +16,5 @@ export default function SearchResultsPage() {
     });
   }, []);
 
-  return <>검색 결과 페이지</>;
+  return <Loading />;
 }
