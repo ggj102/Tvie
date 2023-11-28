@@ -24,10 +24,10 @@ npm run strat
 
 ## 페이지 구성
 
-- main
+- home
 - contents(movie/tv)
 - person
-- contentDetail
+- contentsDetail
 - personDetail
 - searchResults
 

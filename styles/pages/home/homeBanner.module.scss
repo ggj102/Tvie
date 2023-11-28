@@ -1,0 +1,37 @@
+.banner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  min-height: 300px;
+  height: calc(100vh / 2.5);
+
+  max-height: 360px;
+  background-size: cover;
+  background-repeat: no-repeat;
+  color: #fff;
+
+  background-image: linear-gradient(
+    to right,
+    rgba(28, 211, 174, 0.1) 0%,
+    rgba(2, 182, 225, 0.1) 100%
+  );
+  & > div {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+    padding: 30px 40px;
+  }
+}
+
+.intro_text {
+  font-weight: bold;
+
+  div:nth-child(1) {
+    font-size: 3em;
+  }
+  div:nth-child(2) {
+    font-size: 2em;
+  }
+}

@@ -1,46 +1,28 @@
-"use client";
-import { useContext, useEffect, useState } from "react";
+import { homeApi } from "@/api/httpClient";
 
-import { GlobalContext } from "./context";
-import { mainApi } from "@/api/httpClient";
-
-import SearchBar from "../components/pages/home/searchBar";
-import TrendingList from "../components/pages/home/trendingList";
-import FreeWatchList from "../components/pages/home/freeWatchList";
-import PopularList from "../components/pages/home/popularList";
+import HomeBanner from "./components/homeBanner";
+import TrendingList from "./components/trendingList";
+import PopularList from "./components/popularList";
+import FreeWatchList from "./components/freeWatchList";
 
 import homeStyles from "@styles/pages/home/home.module.scss";
 
-export default function Home() {
-  const { isLoading, setIsLoading } = useContext(GlobalContext);
+async function ServerSideProps() {
+  const homeData = await homeApi();
 
-  const [trendingData, setTrendingData] = useState<ContentsDataType[]>([]);
-  const [popularData, setPopularData] = useState<ContentsDataType[]>([]);
-  const [freeWatchData, setFreeWatchData] = useState<ContentsDataType[]>([]);
+  return homeData;
+}
 
-  useEffect(() => {
-    setIsLoading(true);
-    mainApi().then((res) => {
-      const movieData = res[1].data.results;
-      const tvData = res[2].data.results;
-      const popularConcat = movieData.concat(tvData);
-
-      setTrendingData(res[0].data.results);
-      setPopularData(popularConcat);
-      setFreeWatchData(res[2].data.results);
-
-      setIsLoading(false);
-    });
-  }, []);
+export default async function Home() {
+  const { bannerImg, trendingData, popularData, freeWatchData } =
+    await ServerSideProps();
 
   return (
-    !isLoading && (
-      <div className={homeStyles.home}>
-        <SearchBar />
-        <TrendingList list={trendingData} />
-        <PopularList list={popularData} />
-        <FreeWatchList list={freeWatchData} />
-      </div>
-    )
+    <div className={homeStyles.home_container}>
+      <HomeBanner imagePath={bannerImg} />
+      <TrendingList list={trendingData} />
+      <PopularList list={popularData} />
+      <FreeWatchList list={freeWatchData} />
+    </div>
   );
 }

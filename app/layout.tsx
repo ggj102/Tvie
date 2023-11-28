@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import Navigation from "@/components/common/navigation";
-import Layout from "@/components/common/rootLayout";
+
+import Layout from "@/components/rootLayout";
+import Navigation from "@/components/navigation";
 
 export const metadata: Metadata = {
   title: "TVie",

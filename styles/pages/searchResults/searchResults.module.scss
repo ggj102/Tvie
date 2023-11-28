@@ -1,37 +1,3 @@
-.search_bar {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  border-bottom: 1px solid #acacac;
-  margin-bottom: 30px;
-}
-
-.search_input {
-  width: calc(100vw - 80px);
-  max-width: 1300px;
-  display: flex;
-  align-items: center;
-
-  input {
-    margin-left: 10px;
-    flex: 1;
-    height: 44px;
-    border: none;
-    padding: 6px 0;
-    box-sizing: border-box;
-    font-size: 16px;
-    outline: 0;
-
-    font-style: italic;
-    color: #acacac;
-    text-indent: 0;
-
-    &:focus {
-      outline: none;
-    }
-  }
-}
-
 .search_results {
   width: calc(100vw - 80px);
   max-width: 1300px;
@@ -39,6 +5,7 @@
   align-items: flex-start;
   gap: 30px;
   margin: 0 auto;
+  padding-top: 40px;
 }
 
 .category_tab {

@@ -1,57 +1,19 @@
-"use client";
-
-import { ChangeEvent, useEffect, useState } from "react";
-import { useSearchParams } from "next/navigation";
-
 import { apiClient } from "@/api/httpClient";
+import PersonList from "../components/personList";
 
-import PersonList from "../../../components/pages/searchResults/personList";
-import { Pagination } from "@mui/material";
+async function ServerSideProps(searchParams: any) {
+  const { search } = searchParams;
+  const query = `query=${search}&include_adult=false&language=ko&page=`;
 
-import searchResultsStyles from "@styles/pages/searchResults/searchResults.module.scss";
+  const searchPerson = await apiClient.get(`search/person?${query}1`);
+  const list = searchPerson.data.results;
+  const totalPages = searchPerson.data.total_pages;
 
-export default function PersonSearchPage() {
-  const params = useSearchParams();
-  const searchVal = params.get("search");
-  const query = `query=${searchVal}&include_adult=false&language=ko&page=`;
-  const [searchData, setSearchData] = useState<PersonDataType[]>([]);
+  return { list, totalPages };
+}
 
-  const [totalPages, setTotalPages] = useState<number>(1);
-  const [currentPage, setCurrentPage] = useState<number>(1);
+export default async function PersonSearchPage({ searchParams }: any) {
+  const { list, totalPages } = await ServerSideProps(searchParams);
 
-  const onChangePagination = (e: ChangeEvent<unknown>, page: number) => {
-    apiClient.get(`search/person?${query}${page}`).then((res) => {
-      setSearchData(res.data.results);
-      setCurrentPage(page);
-
-      window.scrollTo({ top: 0 });
-    });
-  };
-
-  useEffect(() => {
-    apiClient.get(`search/person?${query}1`).then((res) => {
-      setSearchData(res.data.results);
-      setTotalPages(res.data.total_pages);
-    });
-  }, []);
-
-  return (
-    <>
-      <PersonList list={searchData} />
-      {totalPages !== 1 && (
-        <div className={searchResultsStyles.pagination}>
-          <Pagination
-            count={totalPages}
-            page={currentPage}
-            defaultPage={1}
-            boundaryCount={2}
-            siblingCount={3}
-            hidePrevButton={currentPage === 1}
-            hideNextButton={currentPage === totalPages}
-            onChange={onChangePagination}
-          />
-        </div>
-      )}
-    </>
-  );
+  return <PersonList list={list} totalPages={totalPages} />;
 }

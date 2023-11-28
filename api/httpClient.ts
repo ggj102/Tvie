@@ -1,4 +1,5 @@
 import axios from "axios";
+import { dataRandomSort } from "@/utils/dataRandomSort";
 
 export const apiClient = axios.create({
   baseURL: "https://api.themoviedb.org/3/",
@@ -47,13 +48,15 @@ export const popularListApi = (type: string) => {
   const requests = popularListApiRequests(type);
 
   return Promise.all(requests)
-    .then((res) => res)
+    .then((res) => {
+      return dataRandomSort(res);
+    })
     .catch((error) => {
       throw error;
     });
 };
 
-export const mainApi = () => {
+export const homeApi = () => {
   const requests = [
     apiClient.get("trending/all/day?language=ko"),
     ...popularListApiRequests("stream"),
@@ -63,13 +66,45 @@ export const mainApi = () => {
   ];
 
   return Promise.all(requests)
-    .then((res) => res)
+    .then((res) => {
+      const data = [[res[0]], [res[1], res[2]], [res[3]]];
+      const sortMap = data.map((val) => dataRandomSort(val));
+      const [trendingData, popularData, freeWatchData] = sortMap;
+      const bannerImg = trendingData[0].backdrop_path;
+      return { bannerImg, trendingData, popularData, freeWatchData };
+    })
     .catch((error) => {
       throw error;
     });
 };
 
-export const contentDetailApi = (id: string | null, type: string | null) => {
+export const genreApi = (contentType: string) => {
+  return apiClient
+    .get(`https://api.themoviedb.org/3/genre/${contentType}/list?language=ko`)
+    .then((res) => {
+      const alphabeticalSort = (a: GenreDataType, b: GenreDataType) => {
+        const aIsAlphabet = /^[a-zA-Z]/.test(a.name);
+        const bIsAlphabet = /^[a-zA-Z]/.test(b.name);
+
+        if (aIsAlphabet && !bIsAlphabet) {
+          return -1; // a는 알파벳이고 b는 한글이므로 a를 먼저 놓음
+        } else if (!aIsAlphabet && bIsAlphabet) {
+          return 1; // a는 한글이고 b는 알파벳이므로 b를 먼저 놓음
+        } else {
+          // 둘 다 알파벳이나 둘 다 한글인 경우 또는 둘 다 다른 문자일 경우
+          return a.name.localeCompare(b.name);
+        }
+      };
+      const copy = [...res.data.genres];
+
+      const sortedStrings = copy.sort(alphabeticalSort);
+      return sortedStrings.map((val: GenreDataType) => {
+        return { ...val, checked: false };
+      });
+    });
+};
+
+export const contentsDetailApi = (id: string | null, type: string | null) => {
   const typeId = `${type}/${id}`;
   const credites = type === "tv" ? "aggregate_credits" : "credits";
 
