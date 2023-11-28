@@ -40,7 +40,7 @@ export default function useSearchResultsTab() {
       setTabData(res);
       setIsLoading(false);
     });
-  }, []);
+  }, [searchParams.get("search")]);
 
   return {
     isLoading,
