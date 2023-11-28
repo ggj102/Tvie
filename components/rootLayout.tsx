@@ -2,8 +2,6 @@
 import { useState } from "react";
 import { GlobalContext } from "@/app/context";
 
-import Loading from "./loading";
-
 import rootLayoutStyles from "@styles/common/rootLayout.module.scss";
 
 export default function RootLayout({
@@ -21,7 +19,6 @@ export default function RootLayout({
   return (
     <GlobalContext.Provider value={value}>
       <div className={rootLayoutStyles.root_layout}>
-        <Loading />
         {children}
         <footer></footer>
       </div>

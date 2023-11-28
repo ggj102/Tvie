@@ -1,3 +1,5 @@
+"use client";
+
 import voteAverageStyles from "@styles/common/voteAverage.module.scss";
 import React, { useEffect, useState } from "react";
 
