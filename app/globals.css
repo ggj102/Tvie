@@ -1,4 +1,5 @@
 :root {
+  --main_blue: rgb(1, 180, 228);
 }
 
 @font-face {
@@ -63,7 +64,7 @@ img {
 
 .MuiSlider-track {
   height: 2px !important;
-  color: rgb(1, 180, 228);
+  color: var(--main_blue);
 }
 
 .MuiSlider-rail {
@@ -72,7 +73,7 @@ img {
 }
 
 .MuiSlider-thumb {
-  color: rgb(1, 180, 228);
+  color: var(--main_blue);
   width: 16px !important;
   height: 16px !important;
 }

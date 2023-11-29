@@ -1,11 +1,17 @@
 .history {
   position: relative;
+
+  button {
+    margin-top: 10px;
+    font-weight: bold;
+
+    &:hover {
+      color: var(--main_blue);
+    }
+  }
 }
 
 .history_text {
-  display: flex;
-  flex-direction: column;
-  gap: 22px;
   max-height: 222px;
   line-height: 1.4em;
   overflow: hidden;
@@ -24,4 +30,13 @@
     );
     pointer-events: none;
   }
+}
+
+.innerText {
+  width: 100%;
+  height: 100%;
+
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
 }

@@ -33,7 +33,7 @@
   position: absolute;
   border-radius: 100%;
   width: var(--size);
-  background-color: rgb(1, 180, 228);
+  background-color: var(--main_blue);
   opacity: 0;
   top: calc(var(--size) / 2);
   left: calc(var(--size) / 2);
