@@ -26,9 +26,11 @@ export default function useSearchResultsTab() {
 
   useEffect(() => {
     const split = pathname.split("/");
-    const replace = split[2].replace("Search", "");
+    if (split.length > 2) {
+      const replace = split[2].replace("Search", "");
 
-    setCurrentTab(replace);
+      setCurrentTab(replace);
+    }
   }, [pathname]);
 
   useEffect(() => {
@@ -38,7 +40,7 @@ export default function useSearchResultsTab() {
       setTabData(res);
       setIsLoading(false);
     });
-  }, []);
+  }, [searchParams.get("search")]);
 
   return {
     isLoading,

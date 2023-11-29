@@ -28,7 +28,7 @@ export default function Contents({
   return (
     <div className={contentsStyles.contents}>
       <div className={contentsStyles.contents_title}>
-        {contentType === "movie" ? "영화" : "TV 프로그램"}
+        {contentType === "movie" ? "인기 영화" : "인기 TV 프로그램"}
       </div>
       <div className={contentsStyles.content_area}>
         <FilterBar
