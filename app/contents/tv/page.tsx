@@ -16,7 +16,7 @@ export default async function TVPage() {
 
   return (
     <Contents
-      contentType="movie"
+      contentType="tv"
       list={listData}
       genreData={genreData}
       total_Pages={total_Pages}
