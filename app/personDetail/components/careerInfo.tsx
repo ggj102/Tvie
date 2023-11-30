@@ -10,7 +10,7 @@ export default function CareerInfo({
 }) {
   return (
     <div>
-      <div className={personDetailStyles.info_title}>연기</div>
+      <div className={personDetailStyles.info_title}>작품</div>
       <ul className={careerStyles.career}>
         {acting.map((val: PersonDetailDataType, idx: number) => {
           const { id, media_type } = val;
