@@ -1,8 +1,9 @@
 "use client";
-
+import { useEffect, useState } from "react";
 import { apiClient } from "@/api/httpClient";
 import { discoverQuery } from "@/datahandling/discoverQuery";
-import { useEffect, useState } from "react";
+
+import { addFavoritesList } from "../addFavoritesLIst";
 
 export default function useContents(
   contentType: string,
@@ -23,6 +24,7 @@ export default function useContents(
   );
 
   const [isScrollEvent, setIsScrollEvent] = useState<boolean>(false);
+  const [isAddListLoading, setIsAddListLoading] = useState<boolean>(false);
 
   const release: ReleaseDateType | AirDateType =
     contentType === "movie"
@@ -81,26 +83,34 @@ export default function useContents(
       const query = `discover/${contentType}?include_adult=false&${includeQuery}&language=ko&watch_region=KR${discoverquery}&page=`;
 
       apiClient.get(`${query}`).then((res) => {
-        setCurrentQuery(query);
-        setPageCount(1);
+        const data = res.data.results;
 
-        setListData([...res.data.results]);
-        setTotalPages(res.data.total_pages);
-        setDefaultDiscoverData({ ...data });
+        addFavoritesList(data).then((addData) => {
+          setCurrentQuery(query);
+          setPageCount(1);
 
-        window.scrollTo({ top: 0 });
+          setListData([...addData]);
+          setTotalPages(res.data.total_pages);
+          setDefaultDiscoverData({ ...data });
+
+          window.scrollTo({ top: 0 });
+        });
       });
     }
   };
 
   const onClickAddList = () => {
+    setIsAddListLoading(true);
+
     apiClient.get(`${currentQuery}${pageCount + 1}`).then((res) => {
       const copy = [...listData];
       const concat = copy.concat(res.data.results);
-
-      setPageCount(res.data.page);
-      setListData(concat);
-      setIsScrollEvent(true);
+      addFavoritesList(concat).then((addData) => {
+        setPageCount(res.data.page);
+        setListData(addData);
+        setIsScrollEvent(true);
+        setIsAddListLoading(false);
+      });
     });
   };
 
@@ -108,6 +118,7 @@ export default function useContents(
     window.scrollTo({ top: 0 });
   }, []);
 
+  // 스크롤 이벤트 추가/삭제
   useEffect(() => {
     const onScrollAddList = (e: Event) => {
       const target = e.target as Document;
@@ -130,15 +141,20 @@ export default function useContents(
     };
   }, [isScrollEvent, isReload]);
 
+  // 스크롤 이벤트 동작
   useEffect(() => {
     if (isReload) {
+      setIsAddListLoading(true);
       apiClient.get(`${currentQuery}${pageCount + 1}`).then((res) => {
         const copy = [...listData];
         const concat = copy.concat(res.data.results);
 
-        setPageCount(res.data.page);
-        setListData(concat);
-        setIsReload(false);
+        addFavoritesList(concat).then((addData) => {
+          setPageCount(res.data.page);
+          setListData(addData);
+          setIsReload(false);
+          setIsAddListLoading(false);
+        });
       });
     }
   }, [isReload]);
@@ -147,6 +163,7 @@ export default function useContents(
     defaultDiscoverData,
     listData,
     totalPages,
+    isAddListLoading,
     onSubmitDiscover,
     onClickAddList,
   };
