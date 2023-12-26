@@ -22,6 +22,23 @@
   }
 }
 
+.favorites_mark {
+  display: flex;
+  align-items: center;
+}
+
+.favorites_Star {
+  svg {
+    color: rgb(194, 194, 52);
+  }
+}
+
+.favorites_Star_border {
+  svg {
+    color: gray;
+  }
+}
+
 .image {
   border-radius: 8px;
   position: relative;
@@ -42,6 +59,9 @@
   }
 
   .release {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     margin-top: 4px;
     font-size: 14px;
     color: rgba(0, 0, 0, 0.6);
