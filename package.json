@@ -9,17 +9,23 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@auth0/nextjs-auth0": "^3.5.0",
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
     "@mui/icons-material": "^5.14.16",
     "@mui/material": "^5.14.16",
+    "@reduxjs/toolkit": "^2.0.1",
+    "@types/p-queue": "^3.2.1",
+    "auth0": "^4.2.0",
     "axios": "^1.6.0",
     "date-fns": "^2.30.0",
     "next": "^14.0.3",
+    "p-queue": "^8.0.1",
     "react": "^18",
     "react-datepicker": "^4.21.0",
     "react-dom": "^18",
     "react-hook-form": "^7.48.2",
+    "react-redux": "^9.0.4",
     "sass": "^1.69.5"
   },
   "devDependencies": {
