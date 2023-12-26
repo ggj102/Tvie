@@ -7,9 +7,10 @@ import HomeList from "../homeList";
 
 import homeStyles from "@styles/pages/home/home.module.scss";
 
-export default function PopularList({ list }: { list: ContentsDataType[] }) {
-  const { listData, listRef, tabData, currentTab, onClickTab } =
-    usePopularList(list);
+export default function PopularList({ data }: { data: any }) {
+  const { listData, listRef, tabData, currentTab, onClickTab } = usePopularList(
+    data.popularData
+  );
 
   return (
     <div className={homeStyles.list_container}>
@@ -19,7 +20,11 @@ export default function PopularList({ list }: { list: ContentsDataType[] }) {
         currentTab={currentTab}
         onClick={onClickTab}
       />
-      <HomeList listData={listData} listRef={listRef} />
+      <HomeList
+        isSession={data.isSession}
+        listData={listData}
+        listRef={listRef}
+      />
     </div>
   );
 }
