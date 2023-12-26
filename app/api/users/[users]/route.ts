@@ -12,11 +12,9 @@ const management = new ManagementClient({
 });
 
 export async function GET() {
-  const session = await getSession();
+  const userData = await getManagementUser();
 
-  console.log(session, "유저");
-
-  // return NextResponse.json({ foo: 'bar' }, res);
+  return NextResponse.json(userData);
 }
 
 export async function PATCH(request: Request) {
