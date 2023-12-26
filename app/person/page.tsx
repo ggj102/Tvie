@@ -1,16 +1,24 @@
 import { apiClient } from "@/api/httpClient";
+import { getSession } from "@auth0/nextjs-auth0";
+
 import Person from "./components/person";
+import { initFavoritesList } from "@/api/authZero";
 
 async function ServerSideProps() {
+  const session = await getSession();
+  const isSession = !!session;
+
   const personData = await apiClient.get("person/popular?language=ko&page=1");
-  const personList = personData.data.results;
+  const personList = await initFavoritesList(personData.data.results);
   const totalPages = personData.data.total_pages;
 
-  return { personList, totalPages };
+  return { isSession, personList, totalPages };
 }
 
 export default async function PersonPage() {
-  const { personList, totalPages } = await ServerSideProps();
+  const { isSession, personList, totalPages } = await ServerSideProps();
 
-  return <Person list={personList} totalPages={totalPages} />;
+  return (
+    <Person isSession={isSession} list={personList} totalPages={totalPages} />
+  );
 }

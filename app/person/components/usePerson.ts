@@ -1,3 +1,4 @@
+import { addFavoritesList } from "@/api/authZero";
 import { apiClient } from "@/api/httpClient";
 import { ChangeEvent, useState } from "react";
 
@@ -7,10 +8,12 @@ export default function usePerson(list: PersonDataType[]) {
 
   const onChangePagination = (e: ChangeEvent<unknown>, page: number) => {
     apiClient.get(`person/popular?language=ko&page=${page}`).then((res) => {
-      setPersonData(res.data.results);
-      setCurrentPage(page);
+      addFavoritesList(res.data.results).then((addData) => {
+        setPersonData(addData);
+        setCurrentPage(page);
 
-      window.scrollTo({ top: 0 });
+        window.scrollTo({ top: 0 });
+      });
     });
   };
 

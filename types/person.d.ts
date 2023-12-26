@@ -8,4 +8,5 @@ interface PersonDataType {
   original_name?: string;
   popularity?: number;
   profile_path?: string;
+  isFavorites?: boolean;
 }
