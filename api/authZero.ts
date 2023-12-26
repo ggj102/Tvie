@@ -51,21 +51,36 @@ export const initUser = async (data: any) => {
 };
 
 export const favoritesCheck = (data: any, favorites: any) => {
-  const type = data.release_date ? "movie" : "tv";
+  let type = "person";
+
+  if (data.release_date) type = "movie";
+  else if (data.first_air_date) type = "tv";
 
   const includes = favorites[type].includes(`${data.id}`);
 
   return { ...data, isFavorites: includes };
 };
 
-export const initFavoritesList = async (listData: any) => {
-  const userData = await getManagementUser();
-
+const favoitesList = (userData: any, listData: any) => {
   return listData.map((val: any) => {
     if (userData?.user_metadata.favorites) {
       const { favorites } = userData?.user_metadata;
       return favoritesCheck(val, favorites);
     } else return { ...val, isFavorites: null };
+  });
+};
+
+export const initFavoritesList = async (listData: any) => {
+  const userData = await getManagementUser();
+
+  return favoitesList(userData, listData);
+};
+
+export const addFavoritesList = (listData: any) => {
+  return axios.get("/api/users/favorites").then((res) => {
+    const userData = res.data;
+
+    return favoitesList(userData, listData);
   });
 };
 

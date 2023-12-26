@@ -2,8 +2,7 @@
 import { useEffect, useState } from "react";
 import { apiClient } from "@/api/httpClient";
 import { discoverQuery } from "@/datahandling/discoverQuery";
-
-import { addFavoritesList } from "../addFavoritesLIst";
+import { addFavoritesList } from "@/api/authZero";
 
 export default function useContents(
   contentType: string,
