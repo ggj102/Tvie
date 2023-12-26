@@ -58,6 +58,17 @@ export const favoritesCheck = (data: any, favorites: any) => {
   return { ...data, isFavorites: includes };
 };
 
+export const initFavoritesList = async (listData: any) => {
+  const userData = await getManagementUser();
+
+  return listData.map((val: any) => {
+    if (userData?.user_metadata.favorites) {
+      const { favorites } = userData?.user_metadata;
+      return favoritesCheck(val, favorites);
+    } else return { ...val, isFavorites: null };
+  });
+};
+
 export const favoritesPatch = (id: any, type: string) => {
   const path = `/api/users/favorites?contents_id=${id}&contents_type=${type}`;
   return queue
