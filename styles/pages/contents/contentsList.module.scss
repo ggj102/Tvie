@@ -26,43 +26,59 @@
     height: 273px;
     overflow: hidden;
   }
+}
 
-  .title_release {
-    padding: 26px 10px 12px;
+.favorites_area {
+  display: flex;
+  justify-content: end;
+  align-items: center;
 
-    .title {
-      font-weight: bold;
+  padding: 5px 10px;
+  box-sizing: border-box;
+  width: 100%;
+}
 
-      &:hover {
-        color: var(--main_blue);
-      }
-    }
-    .release {
-      margin-top: 4px;
-      font-size: 14px;
-      color: rgba(0, 0, 0, 0.6);
-    }
-  }
+.title_release {
+  padding: 0 10px 12px;
 
-  .add_list_btn {
-    display: flex;
-    align-items: center;
-    width: 100%;
-    background-color: var(--main_blue);
-    height: 50px;
-    justify-content: center;
-    border-radius: 8px;
-    padding: 0;
-    border: none;
-
-    cursor: pointer;
-
-    color: #fff;
-    font-size: 1.5em;
+  .title {
     font-weight: bold;
 
     &:hover {
-      color: #000;
+      color: var(--main_blue);
     }
   }
+  .release {
+    margin-top: 4px;
+    font-size: 14px;
+    color: rgba(0, 0, 0, 0.6);
+  }
+}
+
+.add_list_btn {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  background-color: var(--main_blue);
+  height: 50px;
+  justify-content: center;
+  border-radius: 8px;
+  padding: 0;
+  border: none;
+
+  cursor: pointer;
+
+  color: #fff;
+  font-size: 1.5em;
+  font-weight: bold;
+
+  &:hover {
+    color: #000;
+  }
+}
+
+.addList_loading {
+  display: flex;
+  justify-content: center;
+  width: 100%;
 }
