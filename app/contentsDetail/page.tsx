@@ -5,9 +5,19 @@ import MainCast from "@/app/contentsDetail/components/mainCast";
 import SideInfo from "@/app/contentsDetail/components/sideInfo";
 
 import contentsDetailStyles from "@styles/pages/contentsDetail/contentsDetail.module.scss";
+import { getManagementUser } from "@/api/authZero";
 
 async function ServerSideProps(searchParams: any) {
   const { id, type } = searchParams;
+
+  const userData = await getManagementUser();
+  const isSession = !!userData;
+  let isFavorites = false;
+
+  if (userData?.user_metadata.favorites) {
+    const { favorites } = userData?.user_metadata;
+    isFavorites = favorites[type].includes(`${id}`);
+  }
 
   const isTypeTV = type === "tv";
 
@@ -32,16 +42,38 @@ async function ServerSideProps(searchParams: any) {
     day: dateSplit[2],
   };
 
-  return { isTypeTV, detailData, castData, keywordData, date };
+  return {
+    isSession,
+    isFavorites,
+    isTypeTV,
+    detailData,
+    castData,
+    keywordData,
+    date,
+  };
 }
 
 export default async function ContentsDetailPage({ searchParams }: any) {
-  const { isTypeTV, detailData, castData, keywordData, date } =
-    await ServerSideProps(searchParams);
+  const {
+    isSession,
+    isFavorites,
+    isTypeTV,
+    detailData,
+    castData,
+    keywordData,
+    date,
+  } = await ServerSideProps(searchParams);
 
   return (
     <>
-      <TopInfo isTypeTV={isTypeTV} data={detailData} date={date} />
+      <TopInfo
+        isSession={isSession}
+        isFavorites={isFavorites}
+        isTypeTV={isTypeTV}
+        id={searchParams.id}
+        data={detailData}
+        date={date}
+      />
       <div className={contentsDetailStyles.detail_info}>
         <MainCast isTypeTV={isTypeTV} castData={castData} />
         <SideInfo
