@@ -37,6 +37,7 @@ export default function FavoritesButton({
     </div>
   ) : (
     <button
+      title="즐겨찾기"
       className={favoritesButtonStyles.favorites_mark}
       onClick={onClickFavorites}
     >
