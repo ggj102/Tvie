@@ -5,11 +5,10 @@ import PQueue from "p-queue";
 
 const queue = new PQueue({ concurrency: 1 });
 
-const management = new ManagementClient({
+export const authManagement = new ManagementClient({
   domain: "dev-baluusoj6la1t0m1.us.auth0.com",
-  clientId: "iJamHHlvNX3sG0p3JRnwF4EcPJLZi1W8",
-  clientSecret:
-    "8paW39nHreGh9V2PBkZdKVaBTVHbNi1VV7ku0sCcZhMxNjrbYcaY6dRHq6MX65jK",
+  clientId: process.env.AUTH0_CLIENT_ID,
+  clientSecret: process.env.AUTH0_CLIENT_SECRET,
 });
 
 export const getUserData = async () => {
@@ -21,7 +20,7 @@ export const getUserData = async () => {
 export const getManagementUser = async () => {
   const session = await getUserData();
   if (session) {
-    const data = await management.users.get({ id: `${session.sub}` });
+    const data = await authManagement.users.get({ id: `${session.sub}` });
 
     return data.data;
   }
@@ -42,7 +41,7 @@ export const initUser = async (data: any) => {
     },
   };
 
-  return management.users
+  return authManagement.users
     .update(params, metadata)
     .then((res) => res.data)
     .catch((error) => {

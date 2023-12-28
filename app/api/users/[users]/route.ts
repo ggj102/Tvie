@@ -1,15 +1,5 @@
 import { NextResponse } from "next/server";
-import { getSession } from "@auth0/nextjs-auth0";
-
-import { ManagementClient } from "auth0";
-import { getManagementUser } from "@/api/authZero";
-
-const management = new ManagementClient({
-  domain: "dev-baluusoj6la1t0m1.us.auth0.com",
-  clientId: "iJamHHlvNX3sG0p3JRnwF4EcPJLZi1W8",
-  clientSecret:
-    "8paW39nHreGh9V2PBkZdKVaBTVHbNi1VV7ku0sCcZhMxNjrbYcaY6dRHq6MX65jK",
-});
+import { authManagement, getManagementUser } from "@/api/authZero";
 
 export async function GET() {
   const userData = await getManagementUser();
@@ -68,7 +58,7 @@ export async function PATCH(request: Request) {
     },
   };
 
-  const results = await management.users
+  const results = await authManagement.users
     .update(params, metadata)
     .then((res) => res.data)
     .catch((error) => {
