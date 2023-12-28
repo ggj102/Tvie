@@ -30,7 +30,7 @@ export default function Navigation({
           <Link href="/contents/tv">TV</Link>
           <Link href="/person">Person</Link>
 
-          {sessionState && <Link href="/person">즐겨찾기</Link>}
+          {sessionState && <Link href="/favorites">즐겨찾기</Link>}
         </div>
         <div className={navigationStyles.flex}>
           <div className={navigationStyles.search_input}>
