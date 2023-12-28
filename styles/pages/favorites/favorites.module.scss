@@ -1,0 +1,104 @@
+.favorites_container {
+  width: 1300px;
+  height: auto;
+
+  margin: 0 auto;
+}
+
+.favorites_title {
+  margin-top: 30px;
+  margin-bottom: 20px;
+
+  font-size: 1.6em;
+  font-weight: bold;
+}
+
+.favorites_list {
+  & > div:first-of-type {
+    font-size: 1.2em;
+    font-weight: bold;
+    margin-bottom: 20px;
+  }
+
+  margin-bottom: 60px;
+
+  ul {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 30px;
+    box-sizing: border-box;
+    padding: 20px;
+
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(227, 227, 227, 1);
+    border-radius: 8px;
+  }
+
+  li {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
+    border-radius: 8px;
+
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(227, 227, 227, 1);
+    box-sizing: border-box;
+  }
+
+  .image {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    height: 273px;
+    max-height: calc((1300px - 140px) / 4);
+    margin: 0;
+  }
+}
+
+.title_release {
+  padding: 26px 10px 0;
+
+  .title {
+    font-weight: bold;
+
+    &:hover {
+      color: var(--main_blue);
+    }
+  }
+  .release {
+    margin-top: 4px;
+    font-size: 14px;
+    color: rgba(0, 0, 0, 0.6);
+  }
+}
+
+.person_info {
+  padding: 18px 10px 0;
+  width: 100%;
+  box-sizing: border-box;
+
+  .person_name {
+    width: 100%;
+    line-height: 1.2em;
+    font-weight: bold;
+  }
+}
+
+.delete_btn {
+  flex: 1;
+  width: 100%;
+  display: flex;
+  align-items: end;
+
+  box-sizing: border-box;
+  padding: 10px;
+  padding-top: 0;
+  display: flex;
+  justify-content: end;
+
+  button {
+    width: 30px;
+    height: 30px;
+  }
+}
