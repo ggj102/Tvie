@@ -22,23 +22,6 @@
   }
 }
 
-.favorites_mark {
-  display: flex;
-  align-items: center;
-}
-
-.favorites_Star {
-  svg {
-    color: rgb(194, 194, 52);
-  }
-}
-
-.favorites_Star_border {
-  svg {
-    color: gray;
-  }
-}
-
 .image {
   border-radius: 8px;
   position: relative;
@@ -47,8 +30,17 @@
   overflow: hidden;
 }
 
+.favorites_area {
+  width: 100%;
+  display: flex;
+  justify-content: end;
+
+  padding: 5px 10px;
+  box-sizing: border-box;
+}
+
 .title_release {
-  padding: 26px 10px 0;
+  padding: 0 10px;
 
   .title {
     font-weight: bold;

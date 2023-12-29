@@ -36,6 +36,16 @@ export default function HomeList({
               />
             </Link>
             <VoteAverage size={34} top={208} left={8} vote={vote_average} />
+            {isSession && (
+              <div className={homeListStyles.favorites_area}>
+                <FavoritesButton
+                  isFavorites={isFavorites}
+                  id={id}
+                  type={type}
+                  size={24}
+                />
+              </div>
+            )}
             <div className={homeListStyles.title_release}>
               <Link
                 className={homeListStyles.title}
@@ -45,14 +55,6 @@ export default function HomeList({
               </Link>
               <div className={homeListStyles.release}>
                 {dateFormatter(date)}
-                {isSession && (
-                  <FavoritesButton
-                    isFavorites={isFavorites}
-                    id={id}
-                    type={type}
-                    size={24}
-                  />
-                )}
               </div>
             </div>
           </li>
