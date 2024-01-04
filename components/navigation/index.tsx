@@ -7,14 +7,16 @@ import useNavigation from "./useNavigation";
 
 import navigationStyles from "@styles/common/navigation.module.scss";
 import SearchIcon from "@mui/icons-material/Search";
+import NavItem from "./navItem";
 
-export default function Navigation({
-  sessionState,
-}: {
-  sessionState: boolean;
-}) {
-  const { inputValue, setInputValue, onKeyDownSearch, onClickSearch } =
-    useNavigation();
+export default function Navigation({ isSession }: { isSession: boolean }) {
+  const {
+    returnToPath,
+    inputValue,
+    setInputValue,
+    onKeyDownSearch,
+    onClickSearch,
+  } = useNavigation();
 
   return (
     <div className={navigationStyles.navigation}>
@@ -25,12 +27,10 @@ export default function Navigation({
               <Image src="/images/tvieLogo.png" fill sizes="1x" alt="logo" />
             </div>
           </Link>
-
-          <Link href="/contents/movie">Movie</Link>
-          <Link href="/contents/tv">TV</Link>
-          <Link href="/person">Person</Link>
-
-          {sessionState && <Link href="/favorites">즐겨찾기</Link>}
+          <NavItem href="/contents/movie" title="Movie" />
+          <NavItem href="/contents/tv" title="TV" />
+          <NavItem href="/person" title="Person" />
+          {isSession && <NavItem href="/favorites" title="즐겨찾기" />}
         </div>
         <div className={navigationStyles.flex}>
           <div className={navigationStyles.search_input}>
@@ -46,10 +46,17 @@ export default function Navigation({
           </div>
 
           <div>
-            {!sessionState ? (
-              <Link href="/api/auth/login">로그인</Link>
+            {!isSession ? (
+              <Link
+                href={`/api/auth/login?returnTo=${returnToPath}`}
+                prefetch={false}
+              >
+                로그인
+              </Link>
             ) : (
-              <Link href="/api/auth/logout">로그아웃</Link>
+              <Link href="/api/auth/logout" prefetch={false}>
+                로그아웃
+              </Link>
             )}
           </div>
         </div>
