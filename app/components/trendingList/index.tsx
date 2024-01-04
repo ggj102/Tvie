@@ -7,9 +7,9 @@ import HomeList from "../homeList";
 
 import homeStyles from "@styles/pages/home/home.module.scss";
 
-export default function TrendingList({ list }: { list: ContentsDataType[] }) {
+export default function TrendingList({ data }: { data: any }) {
   const { listData, listRef, tabData, currentTab, onClickTab } =
-    useTrendingList(list);
+    useTrendingList(data.trendingData);
 
   return (
     <div className={homeStyles.list_container}>
@@ -19,7 +19,11 @@ export default function TrendingList({ list }: { list: ContentsDataType[] }) {
         currentTab={currentTab}
         onClick={onClickTab}
       />
-      <HomeList listData={listData} listRef={listRef} />
+      <HomeList
+        isSession={data.isSession}
+        listData={listData}
+        listRef={listRef}
+      />
     </div>
   );
 }

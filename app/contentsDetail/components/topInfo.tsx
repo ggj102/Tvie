@@ -4,13 +4,20 @@ import CustomImage from "@/components/customImage";
 
 import topInfoStyles from "@styles/pages/contentsDetail/topInfo.module.scss";
 import VoteAverage from "@/components/voteAverage";
+import FavoritesButton from "@/components/favoritesButton";
 
 export default function TopInfo({
+  isSession,
+  isFavorites,
   isTypeTV,
+  id,
   data,
   date,
 }: {
+  isSession: boolean;
+  isFavorites: boolean;
   isTypeTV: boolean;
+  id: any;
   data: any;
   date: {
     year: string;
@@ -84,21 +91,35 @@ export default function TopInfo({
                 )}
               </div>
             </div>
-            <div className={topInfoStyles.vote_average}>
-              <VoteAverage
-                size={60}
-                font={20}
-                top={0}
-                left={0}
-                vote={data.vote_average}
-              />
-              <div>
-                회원
-                <br />
-                점수
+            <div className={topInfoStyles.user_action}>
+              <div className={topInfoStyles.vote_average}>
+                <VoteAverage
+                  size={60}
+                  font={20}
+                  top={0}
+                  left={0}
+                  vote={data.vote_average}
+                />
+                <div>
+                  회원
+                  <br />
+                  점수
+                </div>
               </div>
-              {/* <div>로그인 컨텐츠</div>
-              <button className={topInfoStyles.trail_btn}>
+              {isSession && (
+                <>
+                  <div className={topInfoStyles.favorites_area}>
+                    <FavoritesButton
+                      isFavorites={isFavorites}
+                      id={id}
+                      type={isTypeTV ? "tv" : "movie"}
+                      size={24}
+                    />
+                  </div>
+                </>
+              )}
+
+              {/* <button className={topInfoStyles.trail_btn}>
                 <div className={topInfoStyles.arrow}></div>
                 <div>트레일러 재생</div>
               </button> */}

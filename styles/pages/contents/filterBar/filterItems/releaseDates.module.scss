@@ -24,6 +24,7 @@
     }
 
     & > div:last-of-type {
+      z-index: 200;
       position: absolute !important;
       right: 0;
     }

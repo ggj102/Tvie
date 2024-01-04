@@ -9,11 +9,14 @@ import CustomImage from "@/components/customImage";
 
 import searchResultsStyles from "@styles/pages/searchResults/searchResults.module.scss";
 import personListStyles from "@styles/pages/searchResults/personList.module.scss";
+import FavoritesButton from "@/components/favoritesButton";
 
 export default function PersonList({
+  isSession,
   list,
   totalPages,
 }: {
+  isSession: boolean;
   list: any;
   totalPages: number;
 }) {
@@ -26,8 +29,14 @@ export default function PersonList({
     <>
       <ul className={personListStyles.person_list}>
         {searchData.map((val: PersonDataType) => {
-          const { id, name, profile_path, known_for_department, known_for } =
-            val;
+          const {
+            id,
+            name,
+            profile_path,
+            known_for_department,
+            known_for,
+            isFavorites,
+          } = val;
 
           return (
             <li key={id}>
@@ -42,6 +51,14 @@ export default function PersonList({
                 <div>
                   <div className={personListStyles.item_name}>
                     <Link href={`/personDetail?id=${id}`}>{name}</Link>
+                    {isSession && (
+                      <FavoritesButton
+                        isFavorites={isFavorites}
+                        id={id}
+                        type="person"
+                        size={24}
+                      />
+                    )}
                   </div>
                   <div>
                     <span className={personListStyles.department}>

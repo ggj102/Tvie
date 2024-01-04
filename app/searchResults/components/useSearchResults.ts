@@ -1,8 +1,10 @@
 "use client";
 
-import { apiClient } from "@/api/httpClient";
-import { useSearchParams } from "next/navigation";
 import { ChangeEvent, useState } from "react";
+import { useSearchParams } from "next/navigation";
+
+import { apiClient } from "@/api/httpClient";
+import { addFavoritesList } from "@/api/authZero";
 
 export default function useSearchResults(type: string, list: any) {
   const params = useSearchParams();
@@ -14,10 +16,12 @@ export default function useSearchResults(type: string, list: any) {
 
   const onChangePagination = (e: ChangeEvent<unknown>, page: number) => {
     apiClient.get(`search/${type}?${query}${page}`).then((res) => {
-      setSearchData(res.data.results);
-      setCurrentPage(page);
+      addFavoritesList(res.data.results).then((addData) => {
+        setSearchData(addData);
+        setCurrentPage(page);
 
-      window.scrollTo({ top: 0 });
+        window.scrollTo({ top: 0 });
+      });
     });
   };
 

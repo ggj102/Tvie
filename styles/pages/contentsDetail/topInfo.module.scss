@@ -115,15 +115,33 @@
   align-items: center;
 }
 
+.user_action {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+  gap: 20px;
+}
+
 .vote_average {
   height: 60px;
   padding-left: 66px;
-  margin-bottom: 20px;
+
   display: flex;
   align-items: center;
   font-weight: bold;
   z-index: 100;
   position: relative;
+}
+
+.favorites_area {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background-color: rgb(3, 37, 65);
+  width: 46px;
+  height: 46px;
+  border-radius: 100%;
 }
 
 .trail_btn {

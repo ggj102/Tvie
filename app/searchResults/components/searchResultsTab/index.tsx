@@ -4,16 +4,12 @@ import Link from "next/link";
 
 import useSearchResultsTab from "./useSearchResultsTab";
 
-import Loading from "@/components/loading";
 import searchResultsStyles from "@styles/pages/searchResults/searchResults.module.scss";
 
 export default function SearchResultsTab() {
-  const { isLoading, tabData, currentTab, typeConnect, searchVal } =
-    useSearchResultsTab();
+  const { tabData, currentTab, typeConnect, searchVal } = useSearchResultsTab();
 
-  return isLoading ? (
-    <Loading />
-  ) : (
+  return (
     <div className={searchResultsStyles.category_tab}>
       <div>Search Results</div>
       <ul>

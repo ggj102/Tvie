@@ -11,13 +11,16 @@ import searchResultsStyles from "@styles/pages/searchResults/searchResults.modul
 import searchResultsListStyles from "@styles/pages/searchResults/searchResultsList.module.scss";
 
 import useSearchResults from "./useSearchResults";
+import FavoritesButton from "@/components/favoritesButton";
 
 export default function SearchResultsList({
   type,
+  isSession,
   list,
   totalPages,
 }: {
   type: string;
+  isSession: boolean;
   list: ContentsDataType[];
   totalPages: number;
 }) {
@@ -30,7 +33,7 @@ export default function SearchResultsList({
     <>
       <ul className={searchResultsListStyles.search_results_list}>
         {searchData.map((val: ContentsDataType) => {
-          const { id, poster_path, overview } = val;
+          const { id, poster_path, overview, isFavorites } = val;
 
           const title = val.title || val.name;
           const date = val.release_date || val.first_air_date;
@@ -45,18 +48,26 @@ export default function SearchResultsList({
                 />
               </Link>
               <div className={searchResultsListStyles.item_info}>
-                <div>
+                <div className={searchResultsListStyles.title_bar}>
                   <Link href={`/contentsDetail?type=${type}&id=${id}`}>
                     {title}
                   </Link>
-                  {type !== "collection" && (
-                    <div className={searchResultsListStyles.item_data}>
-                      {dateFormatter(date)}
-                    </div>
+                  {isSession && (
+                    <FavoritesButton
+                      isFavorites={isFavorites}
+                      id={id}
+                      type={type}
+                      size={24}
+                    />
                   )}
-                  <div className={searchResultsListStyles.item_overview}>
-                    {overview}
+                </div>
+                {type !== "collection" && (
+                  <div className={searchResultsListStyles.item_data}>
+                    {dateFormatter(date)}
                   </div>
+                )}
+                <div className={searchResultsListStyles.item_overview}>
+                  {overview}
                 </div>
               </div>
             </li>

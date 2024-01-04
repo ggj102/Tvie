@@ -14,15 +14,14 @@ async function ServerSideProps() {
 }
 
 export default async function Home() {
-  const { bannerImg, trendingData, popularData, freeWatchData } =
-    await ServerSideProps();
+  const { bannerImg, homeData } = await ServerSideProps();
 
   return (
     <div className={homeStyles.home_container}>
       <HomeBanner imagePath={bannerImg} />
-      <TrendingList list={trendingData} />
-      <PopularList list={popularData} />
-      <FreeWatchList list={freeWatchData} />
+      <TrendingList data={homeData} />
+      <PopularList data={homeData} />
+      <FreeWatchList data={homeData} />
     </div>
   );
 }

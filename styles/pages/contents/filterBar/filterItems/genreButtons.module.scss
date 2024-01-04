@@ -16,15 +16,15 @@
     }
 
     &:hover {
-      background-color: rgb(1, 180, 228);
+      background-color: var(--main_blue);
       color: #fff;
-      border-color: rgb(1, 180, 228);
+      border-color: var(--main_blue);
     }
   }
 }
 
 .select {
-  background-color: rgb(1, 180, 228);
+  background-color: var(--main_blue);
   color: #fff;
-  border-color: rgb(1, 180, 228);
+  border-color: var(--main_blue);
 }

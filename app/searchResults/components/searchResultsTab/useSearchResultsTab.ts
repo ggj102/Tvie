@@ -1,13 +1,11 @@
 "use client";
 
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { usePathname, useSearchParams } from "next/navigation";
 
 import { searchResultsApi } from "@/api/httpClient";
-import { GlobalContext } from "@/app/context";
 
 export default function useSearchResultsTab() {
-  const { isLoading, setIsLoading } = useContext(GlobalContext);
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const searchVal = searchParams.get("search");
@@ -34,16 +32,13 @@ export default function useSearchResultsTab() {
   }, [pathname]);
 
   useEffect(() => {
-    setIsLoading(true);
     const search = searchParams.get("search");
     searchResultsApi(search).then((res) => {
       setTabData(res);
-      setIsLoading(false);
     });
   }, [searchParams.get("search")]);
 
   return {
-    isLoading,
     tabData,
     currentTab,
     typeConnect,

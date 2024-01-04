@@ -17,8 +17,13 @@
   gap: 30px;
 }
 
-.person_name {
+.person_name_bar {
   width: 100%;
+  display: flex;
+  gap: 20px;
+}
+
+.person_name {
   font-size: 2.2rem;
   font-weight: 600;
 }

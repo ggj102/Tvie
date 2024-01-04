@@ -1,5 +1,6 @@
 import axios from "axios";
 import { dataRandomSort } from "@/utils/dataRandomSort";
+import { favoritesCheck, getManagementUser } from "./authZero";
 
 export const apiClient = axios.create({
   baseURL: "https://api.themoviedb.org/3/",
@@ -11,6 +12,16 @@ export const apiClient = axios.create({
 });
 
 export const popularListApiRequests = (type: string) => {
+  const currentDate = new Date();
+  const pre = new Date(currentDate);
+  pre.setDate(1);
+
+  const next = new Date(currentDate);
+  next.setMonth(currentDate.getMonth() + 2, 0);
+
+  const preDate = `${pre.getFullYear()}-${pre.getMonth()}=${pre.getDate()}`;
+  const nextDate = `${next.getFullYear()}-${next.getMonth()}=${next.getDate()}`;
+
   const commonQuery =
     "language=ko&watch_region=KR&sort_by=popularity.desc&vote_average.gte=0&vote_average.lte=10&vote_count.gte=0&with_runtime.gte=0&with_runtime.lte=400&page=1";
   const movieCommonQuery = `discover/movie?include_adult=false&include_video=false&${commonQuery}`;
@@ -18,10 +29,8 @@ export const popularListApiRequests = (type: string) => {
   const movieStreamQuery = `${movieCommonQuery}&with_watch_monetization_types=flatrate`;
   const tvStreamQuery = `discover/tv?include_adult=false&include_null_first_air_dates=false&with_watch_monetization_types=flatrate&${commonQuery}`;
 
-  ("tv/popular?language=ko&page=1");
-
   const movieRentQuery = `${movieCommonQuery}&with_watch_monetization_types=rent`;
-  const movieTheaterQuery = `${movieCommonQuery}&with_release_type=3&primary_release_date.gte=2023-10-01&primary_release_date.lte=2023-11-30`;
+  const movieTheaterQuery = `${movieCommonQuery}&with_release_type=3&primary_release_date.gte=${preDate}&primary_release_date.lte=${nextDate}`;
 
   let requests = [];
 
@@ -56,7 +65,10 @@ export const popularListApi = (type: string) => {
     });
 };
 
-export const homeApi = () => {
+export const homeApi = async () => {
+  const userData = await getManagementUser();
+  const isSession = !!userData;
+
   const requests = [
     apiClient.get("trending/all/day?language=ko"),
     ...popularListApiRequests("stream"),
@@ -69,9 +81,32 @@ export const homeApi = () => {
     .then((res) => {
       const data = [[res[0]], [res[1], res[2]], [res[3]]];
       const sortMap = data.map((val) => dataRandomSort(val));
-      const [trendingData, popularData, freeWatchData] = sortMap;
+
+      let listData = sortMap.map((val: any) => {
+        if (userData?.user_metadata.favorites) {
+          const { favorites } = userData?.user_metadata;
+
+          return val.map((val: any) => {
+            return favoritesCheck(val, favorites);
+          });
+        } else
+          return val.map((val: any) => {
+            return { ...val, isFavorites: null };
+          });
+      });
+
+      const [trendingData, popularData, freeWatchData] = listData;
+
       const bannerImg = trendingData[0].backdrop_path;
-      return { bannerImg, trendingData, popularData, freeWatchData };
+
+      const homeData = {
+        isSession,
+        trendingData,
+        popularData,
+        freeWatchData,
+      };
+
+      return { bannerImg, homeData };
     })
     .catch((error) => {
       throw error;
@@ -112,10 +147,14 @@ export const contentsDetailApi = (id: string | null, type: string | null) => {
     apiClient.get(`${typeId}?language=ko`),
     apiClient.get(`${typeId}/${credites}?language=ko`),
     apiClient.get(`${typeId}/keywords`),
+    apiClient.get(`${typeId}/videos?language=en-US`),
   ];
 
   return Promise.all(requests)
-    .then((res) => res)
+    .then((res) => {
+      // console.log(res[3].data.results, "데이터");
+      return res;
+    })
     .catch((error) => {
       throw error;
     });

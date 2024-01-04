@@ -1,11 +1,6 @@
-// import { useContext } from "react";
-// import { GlobalContext } from "@/app/context";
-
 import loadingStyles from "@styles/common/loading.module.scss";
 
 export default function Loading() {
-  // const { isLoading } = useContext(GlobalContext);
-
   return (
     <div className={loadingStyles.loading}>
       <div className={loadingStyles.dot_spinner}>

@@ -9,6 +9,7 @@
   font-size: 16px;
 
   position: fixed;
+  top: 0;
 
   color: #fff;
 
@@ -28,6 +29,10 @@
   position: relative;
   width: 100px;
   height: 40px;
+}
+
+.current_page {
+  color: var(--main_blue);
 }
 
 .flex {

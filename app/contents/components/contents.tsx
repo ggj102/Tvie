@@ -8,10 +8,12 @@ import useContents from "./useContents";
 
 export default function Contents({
   contentType,
+  isSession,
   list,
   genreData,
   total_Pages,
 }: {
+  isSession: boolean;
   contentType: string;
   list: ContentsDataType[];
   genreData: GenreDataType[];
@@ -21,6 +23,7 @@ export default function Contents({
     defaultDiscoverData,
     listData,
     totalPages,
+    isAddListLoading,
     onSubmitDiscover,
     onClickAddList,
   } = useContents(contentType, list, total_Pages);
@@ -38,6 +41,8 @@ export default function Contents({
           onSubmit={onSubmitDiscover}
         />
         <ContentsList
+          isSession={isSession}
+          isAddListLoading={isAddListLoading}
           listData={listData}
           contentType={contentType}
           totalPage={totalPages}

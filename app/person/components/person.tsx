@@ -8,9 +8,11 @@ import PersonList from "./personList";
 import personStyles from "@styles/pages/person/person.module.scss";
 
 export default function Person({
+  isSession,
   list,
   totalPages,
 }: {
+  isSession: boolean;
   list: PersonDataType[];
   totalPages: number;
 }) {
@@ -19,7 +21,7 @@ export default function Person({
   return (
     <div className={personStyles.person}>
       <div className={personStyles.person_title}>인기 인물</div>
-      <PersonList personData={personData} />
+      <PersonList isSession={isSession} personData={personData} />
       <div className={personStyles.person_pagination}>
         <Pagination
           count={totalPages}
