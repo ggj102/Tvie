@@ -2,7 +2,7 @@
 
 import { useEffect } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
-import { searchResultsApi } from "@/api/httpClient";
+import { searchResultsApi } from "@/lib/api/httpClient";
 import Loading from "../../components/loading";
 
 export default function SearchResultsPage() {

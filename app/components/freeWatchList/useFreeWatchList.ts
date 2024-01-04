@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef, useState } from "react";
-import { apiClient } from "@/api/httpClient";
+import { apiClient } from "@/lib/api/httpClient";
 import { dataRandomSort } from "@/utils/dataRandomSort";
 
 export default function useFreeWatchList(list: ContentsDataType[]) {

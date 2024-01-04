@@ -1,4 +1,4 @@
-import { homeApi } from "@/api/httpClient";
+import { homeApi } from "@/lib/api/httpClient";
 
 import HomeBanner from "./components/homeBanner";
 import TrendingList from "./components/trendingList";

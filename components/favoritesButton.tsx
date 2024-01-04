@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 
-import { favoritesPatch } from "@/api/authZero";
+import { favoritesPatch } from "@/lib/api/authZero";
 
 import StarIcon from "@mui/icons-material/Star";
 import StarBorderIcon from "@mui/icons-material/StarBorder";

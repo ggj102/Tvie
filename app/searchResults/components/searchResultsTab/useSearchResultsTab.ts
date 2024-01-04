@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { usePathname, useSearchParams } from "next/navigation";
 
-import { searchResultsApi } from "@/api/httpClient";
+import { searchResultsApi } from "@/lib/api/httpClient";
 
 export default function useSearchResultsTab() {
   const pathname = usePathname();

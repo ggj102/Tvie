@@ -1,5 +1,5 @@
-import { getManagementUser } from "@/api/authZero";
-import { apiClient } from "@/api/httpClient";
+import { getManagementUser } from "@/lib/api/authZero";
+import { apiClient } from "@/lib/api/httpClient";
 
 import RedirectFavorites from "./components/RedirectFavorites";
 import FavoritesList from "./components/favoritesList";

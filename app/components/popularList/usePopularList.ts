@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef, useState } from "react";
-import { popularListApi } from "@/api/httpClient";
+import { popularListApi } from "@/lib/api/httpClient";
 
 export default function usePopularList(list: ContentsDataType[]) {
   const listRef = useRef<HTMLUListElement>(null);

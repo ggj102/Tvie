@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { UserProvider } from "@auth0/nextjs-auth0/client";
-import { getManagementUser, initUser } from "../api/authZero";
+import { getManagementUser, initUser } from "../lib/api/authZero";
 
 import "./globals.css";
 

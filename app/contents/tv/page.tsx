@@ -1,6 +1,6 @@
 import { getSession } from "@auth0/nextjs-auth0";
-import { initFavoritesList } from "@/api/authZero";
-import { apiClient, genreApi } from "@/api/httpClient";
+import { initFavoritesList } from "@/lib/api/authZero";
+import { apiClient, genreApi } from "@/lib/api/httpClient";
 
 import Contents from "../components/contents";
 

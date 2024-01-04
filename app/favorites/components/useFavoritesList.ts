@@ -1,6 +1,6 @@
 "use client";
 
-import { favoritesPatch } from "@/api/authZero";
+import { favoritesPatch } from "@/lib/api/authZero";
 import { useState } from "react";
 
 export default function useFavoritesList(listData: any) {

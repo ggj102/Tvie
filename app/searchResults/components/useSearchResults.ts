@@ -3,8 +3,8 @@
 import { ChangeEvent, useState } from "react";
 import { useSearchParams } from "next/navigation";
 
-import { apiClient } from "@/api/httpClient";
-import { addFavoritesList } from "@/api/authZero";
+import { apiClient } from "@/lib/api/httpClient";
+import { addFavoritesList } from "@/lib/api/authZero";
 
 export default function useSearchResults(type: string, list: any) {
   const params = useSearchParams();

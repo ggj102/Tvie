@@ -1,6 +1,6 @@
 "use client";
 
-import { apiClient } from "@/api/httpClient";
+import { apiClient } from "@/lib/api/httpClient";
 import { dataRandomSort } from "@/utils/dataRandomSort";
 import { useRef, useState } from "react";
 

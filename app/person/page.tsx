@@ -1,8 +1,8 @@
-import { apiClient } from "@/api/httpClient";
+import { apiClient } from "@/lib/api/httpClient";
 import { getSession } from "@auth0/nextjs-auth0";
 
 import Person from "./components/person";
-import { initFavoritesList } from "@/api/authZero";
+import { initFavoritesList } from "@/lib/api/authZero";
 
 async function ServerSideProps() {
   const session = await getSession();

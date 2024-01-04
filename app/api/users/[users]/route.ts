@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { authManagement, getManagementUser } from "@/api/authZero";
+import { authManagement, getManagementUser } from "@/lib/api/authZero";
 
 export async function GET() {
   const userData = await getManagementUser();

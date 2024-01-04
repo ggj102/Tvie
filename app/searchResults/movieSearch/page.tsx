@@ -1,5 +1,5 @@
-import { initFavoritesList } from "@/api/authZero";
-import { apiClient } from "@/api/httpClient";
+import { initFavoritesList } from "@/lib/api/authZero";
+import { apiClient } from "@/lib/api/httpClient";
 import SearchResultsList from "@/app/searchResults/components/searchResultsList";
 import { getSession } from "@auth0/nextjs-auth0";
 

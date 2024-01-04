@@ -1,11 +1,11 @@
-import { contentsDetailApi } from "@/api/httpClient";
+import { contentsDetailApi } from "@/lib/api/httpClient";
 
 import TopInfo from "@/app/contentsDetail/components/topInfo";
 import MainCast from "@/app/contentsDetail/components/mainCast";
 import SideInfo from "@/app/contentsDetail/components/sideInfo";
 
 import contentsDetailStyles from "@styles/pages/contentsDetail/contentsDetail.module.scss";
-import { getManagementUser } from "@/api/authZero";
+import { getManagementUser } from "@/lib/api/authZero";
 
 async function ServerSideProps(searchParams: any) {
   const { id, type } = searchParams;

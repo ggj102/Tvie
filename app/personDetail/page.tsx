@@ -1,5 +1,5 @@
-import { personDetailApi } from "@/api/httpClient";
-import { getManagementUser } from "@/api/authZero";
+import { personDetailApi } from "@/lib/api/httpClient";
+import { getManagementUser } from "@/lib/api/authZero";
 
 import SideInfo from "./components/sideInfo";
 import HistoryInfo from "./components/historyInfo";

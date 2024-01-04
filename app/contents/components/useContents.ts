@@ -1,8 +1,8 @@
 "use client";
 import { useEffect, useState } from "react";
-import { apiClient } from "@/api/httpClient";
+import { apiClient } from "@/lib/api/httpClient";
 import { discoverQuery } from "@/datahandling/discoverQuery";
-import { addFavoritesList } from "@/api/authZero";
+import { addFavoritesList } from "@/lib/api/authZero";
 
 export default function useContents(
   contentType: string,

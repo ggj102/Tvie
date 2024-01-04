@@ -1,6 +1,6 @@
-import { apiClient } from "@/api/httpClient";
+import { apiClient } from "@/lib/api/httpClient";
 import PersonList from "../components/personList";
-import { initFavoritesList } from "@/api/authZero";
+import { initFavoritesList } from "@/lib/api/authZero";
 import { getSession } from "@auth0/nextjs-auth0";
 
 async function ServerSideProps(searchParams: any) {
