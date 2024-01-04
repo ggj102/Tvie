@@ -36,7 +36,7 @@ export default function HomeList({
               />
             </Link>
             <VoteAverage size={34} top={208} left={8} vote={vote_average} />
-            {isSession && (
+            {isSession ? (
               <div className={homeListStyles.favorites_area}>
                 <FavoritesButton
                   isFavorites={isFavorites}
@@ -45,6 +45,8 @@ export default function HomeList({
                   size={24}
                 />
               </div>
+            ) : (
+              <div className={homeListStyles.empty_box}></div>
             )}
             <div className={homeListStyles.title_release}>
               <Link

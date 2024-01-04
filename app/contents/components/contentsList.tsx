@@ -45,7 +45,7 @@ export default function ContentsList({
                   src={`https://image.tmdb.org/t/p/w220_and_h330_face/${poster_path}`}
                 />
               </Link>
-              {isSession && (
+              {isSession ? (
                 <div className={contentsListStyles.favorites_area}>
                   <FavoritesButton
                     isFavorites={isFavorites}
@@ -54,6 +54,8 @@ export default function ContentsList({
                     size={24}
                   />
                 </div>
+              ) : (
+                <div className={contentsListStyles.empty_box}></div>
               )}
               <VoteAverage size={34} top={256} left={8} vote={vote_average} />
               <div className={contentsListStyles.title_release}>
