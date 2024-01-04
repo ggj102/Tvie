@@ -16,15 +16,13 @@ export const metadata: Metadata = {
 
 async function ServerSideProps() {
   const userData = await getManagementUser();
-  let initData = userData;
+  let isSession = !!userData;
 
   if (!userData?.user_metadata.favorites && userData) {
-    initData = await initUser(userData);
+    await initUser(userData);
   }
 
-  let sessionState = !!userData;
-
-  return { initData, sessionState };
+  return { isSession };
 }
 
 export default async function RootLayout({
@@ -32,7 +30,7 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const { initData, sessionState } = await ServerSideProps();
+  const { isSession } = await ServerSideProps();
 
   return (
     <html lang="en">
@@ -40,7 +38,7 @@ export default async function RootLayout({
         <body>
           <StoreProvider>
             <MainLayout>
-              <Navigation sessionState={sessionState} />
+              <Navigation isSession={isSession} />
               {children}
             </MainLayout>
           </StoreProvider>
