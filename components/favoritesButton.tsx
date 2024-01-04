@@ -1,12 +1,13 @@
 "use client";
 import { useState } from "react";
 
+import { favoritesPatch } from "@/api/authZero";
+
 import StarIcon from "@mui/icons-material/Star";
 import StarBorderIcon from "@mui/icons-material/StarBorder";
 import CircularProgress from "@mui/material/CircularProgress";
 
 import favoritesButtonStyles from "@styles/common/favoritesButton.module.scss";
-import { favoritesPatch } from "../api/authZero";
 
 export default function FavoritesButton({
   isFavorites,

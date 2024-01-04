@@ -1,9 +1,10 @@
 "use client";
 
-import { addFavoritesList } from "@/api/authZero";
-import { apiClient } from "@/api/httpClient";
-import { useSearchParams } from "next/navigation";
 import { ChangeEvent, useState } from "react";
+import { useSearchParams } from "next/navigation";
+
+import { apiClient } from "@/api/httpClient";
+import { addFavoritesList } from "@/api/authZero";
 
 export default function useSearchResults(type: string, list: any) {
   const params = useSearchParams();

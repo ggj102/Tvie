@@ -34,7 +34,6 @@ export default function useSearchResultsTab() {
   useEffect(() => {
     const search = searchParams.get("search");
     searchResultsApi(search).then((res) => {
-      console.log(res, "응답");
       setTabData(res);
     });
   }, [searchParams.get("search")]);

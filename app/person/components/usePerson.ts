@@ -1,6 +1,6 @@
-import { addFavoritesList } from "@/api/authZero";
-import { apiClient } from "@/api/httpClient";
 import { ChangeEvent, useState } from "react";
+import { apiClient } from "@/api/httpClient";
+import { addFavoritesList } from "@/api/authZero";
 
 export default function usePerson(list: PersonDataType[]) {
   const [personData, setPersonData] = useState<PersonDataType[]>(list);
