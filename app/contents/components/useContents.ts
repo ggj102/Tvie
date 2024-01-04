@@ -81,19 +81,19 @@ export default function useContents(
       const discoverquery = discoverQuery(contentType, data);
       const query = `discover/${contentType}?include_adult=false&${includeQuery}&language=ko&watch_region=KR${discoverquery}&page=`;
 
-      apiClient.get(`${query}`).then((res) => {
+      apiClient.get(`${query}`).then(async (res) => {
         const data = res.data.results;
 
-        addFavoritesList(data).then((addData) => {
-          setCurrentQuery(query);
-          setPageCount(1);
+        const addData = await addFavoritesList(data);
 
-          setListData([...addData]);
-          setTotalPages(res.data.total_pages);
-          setDefaultDiscoverData({ ...data });
+        setCurrentQuery(query);
+        setPageCount(1);
 
-          window.scrollTo({ top: 0 });
-        });
+        setListData([...addData]);
+        setTotalPages(res.data.total_pages);
+        setDefaultDiscoverData({ ...data });
+
+        window.scrollTo({ top: 0 });
       });
     }
   };
@@ -101,15 +101,16 @@ export default function useContents(
   const onClickAddList = () => {
     setIsAddListLoading(true);
 
-    apiClient.get(`${currentQuery}${pageCount + 1}`).then((res) => {
+    apiClient.get(`${currentQuery}${pageCount + 1}`).then(async (res) => {
       const copy = [...listData];
       const concat = copy.concat(res.data.results);
-      addFavoritesList(concat).then((addData) => {
-        setPageCount(res.data.page);
-        setListData(addData);
-        setIsScrollEvent(true);
-        setIsAddListLoading(false);
-      });
+
+      const addData = await addFavoritesList(concat);
+
+      setPageCount(res.data.page);
+      setListData(addData);
+      setIsScrollEvent(true);
+      setIsAddListLoading(false);
     });
   };
 
@@ -144,16 +145,16 @@ export default function useContents(
   useEffect(() => {
     if (isReload) {
       setIsAddListLoading(true);
-      apiClient.get(`${currentQuery}${pageCount + 1}`).then((res) => {
+      apiClient.get(`${currentQuery}${pageCount + 1}`).then(async (res) => {
         const copy = [...listData];
         const concat = copy.concat(res.data.results);
 
-        addFavoritesList(concat).then((addData) => {
-          setPageCount(res.data.page);
-          setListData(addData);
-          setIsReload(false);
-          setIsAddListLoading(false);
-        });
+        const addData = await addFavoritesList(concat);
+
+        setPageCount(res.data.page);
+        setListData(addData);
+        setIsReload(false);
+        setIsAddListLoading(false);
       });
     }
   }, [isReload]);

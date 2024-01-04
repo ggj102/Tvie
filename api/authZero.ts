@@ -60,7 +60,7 @@ export const favoritesCheck = (data: any, favorites: any) => {
   return { ...data, isFavorites: includes };
 };
 
-const favoitesList = (userData: any, listData: any) => {
+export const favoitesList = (userData: any, listData: any) => {
   return listData.map((val: any) => {
     if (userData?.user_metadata.favorites) {
       const { favorites } = userData?.user_metadata;
@@ -75,19 +75,31 @@ export const initFavoritesList = async (listData: any) => {
   return favoitesList(userData, listData);
 };
 
-export const addFavoritesList = (listData: any) => {
+export const addFavoritesList = async (listData: any) => {
   return axios.get("/api/users/favorites").then((res) => {
     const userData = res.data;
 
-    return favoitesList(userData, listData);
+    if (userData === "Unauthorized") {
+      alert("세션이 만료되었습니다.");
+      window.location.reload();
+      window.scrollTo({ top: 0 });
+      throw res;
+    } else return favoitesList(userData, listData);
   });
 };
 
-export const favoritesPatch = (id: any, type: string) => {
+export const favoritesPatch = async (id: any, type: string) => {
   const path = `/api/users/favorites?contents_id=${id}&contents_type=${type}`;
   return queue
     .add(() => axios.patch(path))
-    .then((res) => res)
+    .then((res: any) => {
+      if (res.data === "Unauthorized") {
+        alert("세션이 만료되었습니다.");
+        window.location.reload();
+        window.scrollTo({ top: 0 });
+        throw res;
+      } else return res;
+    })
     .catch((error) => {
       throw error;
     });

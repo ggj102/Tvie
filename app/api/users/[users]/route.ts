@@ -4,11 +4,16 @@ import { authManagement, getManagementUser } from "@/api/authZero";
 export async function GET() {
   const userData = await getManagementUser();
 
+  if (!userData) return NextResponse.json("Unauthorized");
+
   return NextResponse.json(userData);
 }
 
 export async function PATCH(request: Request) {
   const userData: any = await getManagementUser();
+
+  if (!userData) return NextResponse.json("Unauthorized");
+
   const { searchParams } = new URL(request.url);
 
   const contentsId: any = searchParams.get("contents_id");
