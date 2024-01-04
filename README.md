@@ -5,6 +5,7 @@
 - [TMDB](https://www.themoviedb.org/) 사이트와 유사하게 구현
 - TMDB에서 제공하는 [Open API](https://developer.themoviedb.org/reference/intro/getting-started) 기반으로 데이터 구성
 - 영화, TV, 인물 관련 정보를 얻는 페이지
+- 로그인 test 계정 - id: tvieTest@gmail.com / pw: test!@34
 
 ## 실행 가이드
 
@@ -30,6 +31,7 @@ npm run strat
 - contentsDetail
 - personDetail
 - searchResults
+- favorites
 
 ## 프레임 워크 및 주요 라이브러리
 
@@ -37,6 +39,7 @@ npm run strat
 - Typescript
 - SASS, MUI
 - react-hook-form
+- auth0
 
 ## 배포
 
