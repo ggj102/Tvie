@@ -18,7 +18,7 @@ async function ServerSideProps() {
   const userData = await getManagementUser();
   let isSession = !!userData;
 
-  if (!userData?.user_metadata?.favorites && isSession) {
+  if (!userData?.user_metadata?.hasOwnProperty("favorites") && isSession) {
     await initUser(userData);
   }
 
