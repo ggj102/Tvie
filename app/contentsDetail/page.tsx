@@ -1,11 +1,12 @@
 import { contentsDetailApi } from "@/lib/api/httpClient";
+import { getManagementUser } from "@/lib/api/authZero";
 
+import ContentsDetail from "./components/contentsDetail";
 import TopInfo from "@/app/contentsDetail/components/topInfo";
 import MainCast from "@/app/contentsDetail/components/mainCast";
 import SideInfo from "@/app/contentsDetail/components/sideInfo";
 
 import contentsDetailStyles from "@styles/pages/contentsDetail/contentsDetail.module.scss";
-import { getManagementUser } from "@/lib/api/authZero";
 
 async function ServerSideProps(searchParams: any) {
   const { id, type } = searchParams;
@@ -65,7 +66,7 @@ export default async function ContentsDetailPage({ searchParams }: any) {
   } = await ServerSideProps(searchParams);
 
   return (
-    <>
+    <ContentsDetail>
       <TopInfo
         isSession={isSession}
         isFavorites={isFavorites}
@@ -82,6 +83,6 @@ export default async function ContentsDetailPage({ searchParams }: any) {
           keywordData={keywordData}
         />
       </div>
-    </>
+    </ContentsDetail>
   );
 }
