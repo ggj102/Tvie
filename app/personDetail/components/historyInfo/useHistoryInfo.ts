@@ -1,7 +1,11 @@
 import { useEffect, useRef, useState } from "react";
+import { useSearchParams } from "next/navigation";
+
+import addHistory from "@/utils/addHistory";
 
 export default function useHistoryInfo() {
   const textRef = useRef<any>(null);
+  const searchParams = useSearchParams();
 
   const [isOpenHistory, setIsOpenHistory] = useState<boolean>(false);
   const [isOpenBtn, setIsOpenBtn] = useState<boolean>(false);
@@ -14,6 +18,10 @@ export default function useHistoryInfo() {
   };
 
   useEffect(() => {
+    const paramsId = searchParams.get("id");
+
+    addHistory("person", paramsId);
+
     if (textRef) {
       if (textRef.current.offsetHeight > 222) setIsOpenBtn(true);
     }
