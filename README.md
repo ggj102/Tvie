@@ -31,6 +31,7 @@ npm run strat
 - contentsDetail
 - personDetail
 - searchResults
+- history
 - favorites
 
 ## 프레임 워크 및 주요 라이브러리
