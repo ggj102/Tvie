@@ -30,6 +30,7 @@ export default function Navigation({ isSession }: { isSession: boolean }) {
           <NavItem href="/contents/movie" title="Movie" />
           <NavItem href="/contents/tv" title="TV" />
           <NavItem href="/person" title="Person" />
+          <NavItem href="/history" title="히스토리" />
           {isSession && <NavItem href="/favorites" title="즐겨찾기" />}
         </div>
         <div className={navigationStyles.flex}>
