@@ -7,11 +7,12 @@ export default function NavItem({ href, title }: any) {
   const pathname = usePathname();
 
   return (
-    <a
+    <Link
       className={pathname === href ? navigationStyles.current_page : ""}
       href={href}
+      prefetch={false}
     >
       {title}
-    </a>
+    </Link>
   );
 }
