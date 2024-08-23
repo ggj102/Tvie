@@ -64,6 +64,7 @@ export const favoitesList = (userData: any, listData: any) => {
   return listData.map((val: any) => {
     if (userData?.user_metadata.favorites) {
       const { favorites } = userData?.user_metadata;
+
       return favoritesCheck(val, favorites);
     } else return { ...val, isFavorites: null };
   });
@@ -71,20 +72,13 @@ export const favoitesList = (userData: any, listData: any) => {
 
 export const initFavoritesList = async (listData: any) => {
   const userData = await getManagementUser();
-
   return favoitesList(userData, listData);
 };
 
 export const addFavoritesList = async (listData: any) => {
   return axios.get("/api/users/favorites").then((res) => {
-    const userData = res.data;
-
-    if (userData === "Unauthorized") {
-      alert("세션이 만료되었습니다.");
-      window.location.reload();
-      window.scrollTo({ top: 0 });
-      throw res;
-    } else return favoitesList(userData, listData);
+    const userData = res.data === "Unauthorized" ? null : res.data;
+    return favoitesList(userData, listData);
   });
 };
 
